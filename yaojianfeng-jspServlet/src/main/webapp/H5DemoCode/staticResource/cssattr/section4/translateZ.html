@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .stage {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        perspective: 1600px;
+        perspective-origin: 50% 50%;
+        background: gray;
+      }
+      .front {
+        height: 80px;
+        width: 100px;
+        background: #e0e0e0;
+        /**旋转轴的 Z 坐标 50个像素。**/
+        transform: translateZ(40px);
+        box-shadow: 0px 5px 12px 0px #34c163;
+      }
+      .back {
+        height: 80px;
+        width: 100px;
+        box-shadow: 0px 5px 12px 0px #34c163;
+        background-color: #1b1010;
+        /* 旋转轴的 Z 坐标 -40个像素。与 Y 坐标180度。 */
+        transform: translateZ(-40px);
+      }
+
+      .positioning {
+        position: absolute;
+        width: 90px;
+        top: 30px;
+        left: 50%;
+        margin-left: -45px;
+        transform-style: preserve-3d;
+        animation: back-and-forth 5s linear infinite;
+      }
+
+      .monitor {
+        width: 240px;
+        height: 200px;
+        margin: 0 auto;
+        transform-style: preserve-3d;
+      }
+      figure,
+      span {
+        display: block;
+        position: absolute;
+        opacity: 1;
+      }
+      figure {
+        text-align: center;
+        font-size: 30px;
+        color: red;
+        line-height: 80px;
+      }
+      @keyframes back-and-forth {
+        0% {
+          transform: rotateY(90deg);
+        }
+
+        50% {
+          transform: rotateY(-90deg);
+        }
+
+        100% {
+          transform: rotateY(90deg);
+        }
+      }
+    </style>
+  </head>
+  <body style="width: 1500px; height: 800px">
+    <div class="stage">
+      <div class="positioning">
+        <div class="monitor">
+          <figure class="back"><span>back</span></figure>
+          <figure class="front"><span>front</span></figure>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

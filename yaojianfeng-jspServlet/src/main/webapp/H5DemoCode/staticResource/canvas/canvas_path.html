@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建路径演示文档</title>
+    <script src="../common/jsUtils/myCanvasUtil.js"></script>
+    <script src="../common/jsUtils/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="1366px" height="500px" style="border:1px solid #000000;background: #999999">
+    您的浏览器不支持 HTML5 canvas 标签。
+</canvas>
+<table>
+    <tr>
+        <td><label>x1坐标:<input id="x1" type="number" value=0></label></td>
+        <td><label>y1坐标:<input id="y1" type="number" value=0></label></td>
+        <td><label>x2坐标:<input id="x2" type="number" value=0></label></td>
+        <td><label>y2坐标:<input id="y2" type="number" value=0></label></td>
+        <td><label>线条粗细: <input type="number" id="lineWidth" value="1"></label></td>
+        <td><label>半径长度(PI):<input type="number" id="r" value=10></label></td>
+        <td><span id="warning" style="visibility:visible"></span></td>
+    </tr>
+    <tr>
+        <td><label>起点x坐标:<input id="sx" type="number" value=0></label></td>
+        <td><label>起点y坐标:<input id="sy" type="number" value=0></label></td>
+        <td><label>终点x坐标:<input id="ex" type="number" value=0></label></td>
+        <td><label>终点y坐标:<input id="ey" type="number" value=0></label></td>
+    </tr>
+    <tr>
+        <td><label>填充色:<input id="fillColor" type="color" onchange="myFillStyle();"></label></td>
+        <td><label>边框色:<input id="strokeColor" type="color" onchange="myStrokeStyle();"></label></td>
+        <td><label>背景色:<input id="bgColor" type="color" onchange="changeBgColor(this);"></label></td>
+    </tr>
+</table>
+
+<div>
+    <button onclick="useFill();">填充</button>
+    <button onclick="useClip();">剪切</button>
+    <button onclick="drawStraightLine();">画直线</button>
+    <button onclick="drawCircle();">画圆形</button>
+    <button onclick="drawCamber();">画弧形</button>
+    <button onclick="drawFillText()">实体文字</button>
+    <button onclick="drawStrokeText()">镂空文字</button>
+    <button onclick="drawBezierLine();">画贝塞尔曲线</button>
+<!--    <button onclick="useBruse();">使用画笔</button>-->
+
+    <button onclick="clearCanvas('myCanvas')">清除画布</button>
+</div>
+<script>
+    //声明参数 准备复用
+    let x1, y1, x2, y2, sx, sy, ex, ey, r, lineWidth, fillColor, strokeColor;
+
+    /**
+     * 获取参数值
+     * @returns {{flag: boolean}}
+     */
+    function getParamVal() {
+        x1 = $('#x1').val();
+        y1 = $('#y1').val();
+        x2 = $('#x2').val();
+        y2 = $('#y2').val();
+        sx = $('#sx').val();
+        sy = $('#sy').val();
+        ex = $('#ex').val();
+        ey = $('#ey').val();
+        r = $('#r').val();
+        lineWidth = $('#lineWidth').val();
+        return validRulerOfRequire(x1, y1, x2, y2);
+    }
+
+    //获取画布上下文对象
+    function initCanvasObj() {
+        //校验参数合法性 es6 析构语法
+        const {flag, elementIndex} = getParamVal();
+        if (flag) {
+            const canvasObj = document.getElementById('myCanvas');
+            document.getElementById("warning").style.visibility = 'hidden';
+            return getContextObj(canvasObj, '2d');
+        } else {
+            $('#warning').css({'visibility': 'visible', 'color': 'red'}).html('<b>未输入参数或参数不正确!</b>');
+            document.getElementsByTagName('input')[elementIndex].focus();
+            return null;
+        }
+    }
+
+    function changeBgColor(obj) {
+        $('#myCanvas').css('background-color', obj.value);
+    }
+
+    function useFill() {
+        fillColor = $('#fillColor').val();
+        var canvasObj = initCanvasObj();
+        canvasObj.fillStyle = fillColor;
+        // canvasObj.rect(x1,y1,x2,y2);
+        canvasObj.fill();
+    }
+
+    function useClip() {
+        var canvasObj = initCanvasObj();
+        canvasObj.clip();
+    }
+
+    function myFillStyle() {
+        fillColor = $('#fillColor').val();
+    }
+
+    function myStrokeStyle() {
+        strokeColor = $('#strokeColor').val();
+    }
+
+    //画直线
+    function drawStraightLine() {
+        var canvasObj = initCanvasObj();
+        canvasObj.beginPath();
+        var flag = validParamRequired(sx, sy, ex, ey);
+        if (flag) {
+            canvasObj.beginPath();
+            canvasObj.moveTo(sx, sy);
+            canvasObj.lineTo(ex, ey);
+            canvasObj.lineWidth = lineWidth;
+            canvasObj.strokeStyle = strokeColor;
+            canvasObj.stroke();
+            canvasObj.closePath();
+        } else {
+            alert("请正确填写起始点坐标!")
+        }
+    }
+
+    //画圆
+    function drawCircle() {
+        var canvasObj = initCanvasObj();
+        r = $('#r').val();
+        if (r > 0) {
+            //空心圆
+            canvasObj.beginPath();
+            canvasObj.arc(x1, y1, r, 0, Math.PI * 2);
+            canvasObj.closePath();
+            canvasObj.strokeStyle = strokeColor;
+            canvasObj.lineWidth = lineWidth;
+            canvasObj.stroke();
+            //实心圆
+            canvasObj.beginPath();
+            canvasObj.arc(x2, y2, r, 0, Math.PI * 2);
+            canvasObj.closePath();
+            canvasObj.fillStyle = fillColor;
+            canvasObj.lineWidth = lineWidth;
+            canvasObj.strokeStyle = strokeColor;
+            canvasObj.fill();
+            canvasObj.stroke();
+        } else {
+            alert("请定义圆的半径!")
+        }
+    }
+
+    //弧形 (借助矩形 画弧线)
+    function drawCamber() {
+        var canvasObj = initCanvasObj();
+        var b = validParamRequired(sx, sy, ex, ey, r);
+        if (b) {
+            //使用析构语法,将返回值拿出来用
+            [sx, sy, ex, ey, r] = stringToNumber(sx, sy, ex, ey, r);
+            canvasObj.beginPath();
+            //绘制切线
+            //线段起始点
+            canvasObj.moveTo(sx, sy);
+            //线段终结点
+            canvasObj.lineTo(ex, sy);
+            //创建一个弧线
+            canvasObj.arcTo(ex+r, sy, ex+r, ey+r, r);
+            //弧形终结点
+            canvasObj.lineTo(ex+r, ey+r);
+            canvasObj.strokeStyle = strokeColor;
+            canvasObj.lineWidth = lineWidth;
+            canvasObj.stroke();
+        } else {
+            alert("请正确填写起始点参数!")
+        }
+    }
+
+    // 绘制三次贝塞尔曲线
+    function drawBezierLine() {
+        var canvasObj = initCanvasObj();
+        canvasObj.beginPath();
+        [x1, y1, x2, y2, sx, sy, ex, ey] = stringToNumber(x1, y1, x2, y2, sx, sy, ex, ey);
+        canvasObj.moveTo(sx,sy);
+        canvasObj.bezierCurveTo(x1,y1,x2,y2,ex,ey);
+        canvasObj.closePath();
+        canvasObj.strokeStyle = strokeColor;
+        canvasObj.stroke();
+    }
+
+    function drawFillText() {
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
+        ctx.font = "30px Verdana";
+        ctx.fillText("我用双手成就你的梦想", 10, 60, 250);
+        ctx.font = "45x Verdana";
+        const gradient = ctx.createLinearGradient(0, 0, 170, 0);
+        gradient.addColorStop(0, "magenta");
+        gradient.addColorStop(0.5, "blue");
+        gradient.addColorStop(1.0, "red");
+        ctx.fillStyle = gradient;
+        ctx.fillText("真正的大师永远怀着一颗学徒的心", 10, 90, 200);
+    }
+
+    function drawStrokeText() {
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
+        ctx.font="25px Georgia";
+        ctx.strokeText("天不生我李淳罡,剑道万古如长夜!",10,60,200);
+        ctx.font="25x Verdana";
+        const gradient = ctx.createLinearGradient(0, 0, 170, 0);
+        gradient.addColorStop(0,"magenta");
+        gradient.addColorStop(0.5,"blue");
+        gradient.addColorStop(1.0,"red");
+        ctx.strokeStyle=gradient;
+        ctx.strokeText("艾欧尼亚 昂扬不灭!",10,90,250);
+    }
+
+</script>
+</body>
+</html>

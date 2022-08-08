@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录界面</title>
+    <style>
+        form{
+            position: relative;
+            left: auto;
+        }
+    </style>
+</head>
+<body>
+<!--如果以“/”开头，就从当前应用的根目录开始匹配，如果不以“/”开头就从当前文件所在的目录开始匹配。-->
+<!--<form action="http://localhost:80/jspServlet/section3/login" method="post">-->
+<form action="/section3/login" method="post">
+    <div>
+        <label>
+            用户名:
+            <input type="text" name="username">
+        </label>
+    </div>
+    <div>
+        <label>
+            密码:
+            <input type="password" name="password">
+        </label>
+    </div>
+   <div>
+       <input type="submit" value="登录">
+       <a href="/jeff/section3/register.html">注册</a>
+       <a href="/section3/hiddenServlet">忘记密码</a>
+   </div>
+
+</form>
+
+</body>
+</html>

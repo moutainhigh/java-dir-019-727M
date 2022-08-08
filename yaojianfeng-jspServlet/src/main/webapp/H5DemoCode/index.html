@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HTML5前端课程源码展示</title>
+    <link rel="stylesheet" href="/H5DemoCode/staticResource/common/layout.css"/>
+    <style type="text/css">
+        [name="HeaderFrame"] {
+            width: 100%;
+            height: 100%;
+            background-color: aliceblue;
+        }
+
+        [name="NavigationFrame"] {
+            width: 100%;
+            height: 100%;
+            background-color: #b7eac7;
+        }
+
+        [name="ContentFrame"] {
+            width: 100%;
+            height: 100%;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body style="height: 1000px">
+<div class="first">
+    <iframe
+            src="HeaderFrame.html"
+            name="HeaderFrame"
+            scrolling="no"
+            frameborder="0"
+    ></iframe>
+</div>
+<div class="second">
+    <div class="left">
+        <iframe
+                src="NavigationFrame.html"
+                name="NavigationFrame"
+                target="ContentFrame"
+                frameborder="0"
+                scrolling="auto"
+        ></iframe>
+    </div>
+    <div class="right">
+        <iframe
+                src="ContentFrame.html"
+                seamless
+                scrolling="auto"
+                name="ContentFrame"
+                frameborder="0"
+        ></iframe>
+    </div>
+</div>
+</body>
+</html>

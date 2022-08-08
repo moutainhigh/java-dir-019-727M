@@ -1,0 +1,35 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <title>暂停动画演示文档</title>
+      <style type="text/css">
+        div {
+          width: 100px;
+          height: 100px;
+          background: red url("./image/logo.gif");
+          position: relative;
+
+          animation: infinite alternate-reverse linear 5s mymove;
+          animation-play-state: running;
+        }
+
+        @keyframes mymove {
+          from {
+            left: 0;
+          }
+          to {
+            left: 200px;
+          }
+        }
+        div:hover {
+          animation-play-state: paused;
+          background-color: gray;
+        }
+      </style>
+    </head>
+    <body>
+      <div></div>
+    </body>
+
+</html>

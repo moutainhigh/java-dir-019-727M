@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>float影响行/块级元素演示文档</title>
+    <style type="text/css">
+      p {
+        background-color: red;
+
+        height: 30px;
+        width: 500px;
+      }
+      p.float {
+        float: left;
+        height: 30px;
+        width: 500px;
+      }
+
+      div {
+        background-color: green;
+      }
+      div.float {
+        clear: both;
+        float: left;
+      }
+      span {
+        clear: both;
+        background-color: gray;
+        height: 20px;
+        width: 800px;
+      }
+      span.float {
+        float: left;
+        height: 30px;
+      }
+      strong {
+        clear: both;
+        background-color: blue;
+      }
+      strong.float {
+        float: left;
+        height: 30px;
+        width: 500px;
+        clear: both;
+        background-color: blue;
+      }
+      aside {
+        font-weight: bold;
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>未应用float属性时:</h1>
+    <p>p块级元素一</p>
+    <div>div块级元素一</div>
+    <span
+      >行内元素一 <i><b>宽高属性不生效</b></i></span
+    >
+    <strong>行内元素二</strong>
+    <hr />
+    <h1>应用float属性后:</h1>
+
+    <p class="float">p块级元素一</p>
+    <div class="float">div块级元素一</div>
+    <span class="float"
+      >行内元素一<i
+        ><b>设置float属性后 自动变为block块级元素 宽高属性生效</b></i
+      ></span
+    >
+    <strong class="float">行内元素二</strong>
+    <aside>以上应用了浮动效果</aside>
+  </body>
+</html>

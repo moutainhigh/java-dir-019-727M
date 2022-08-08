@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>访问画布元素演示文档</title>
+    <script src="../common/jsUtils/myCanvasUtil.js"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="1538px" height="800" style="border:1px solid #000000;">
+    您的浏览器不支持 HTML5 canvas 标签。
+</canvas>
+
+
+<script>
+    //获得canvas元素对象的引用,并将其存入canvasObj的变量中.
+    var canvasObj = document.getElementById('myCanvas');
+    /**
+     getContext方法用于返回一个绘制上下文对象,它提供在画布上绘制图形所需的方法和属性.
+     getContext()方法接收指定要创建的画布类型的字符串参数.
+     '2d'作为参数传递到getContext()方法,因为大部分浏览器支持在画布中创建2d图形
+     */
+    var canvasContext = canvasObj.getContext('2d');
+    console.log(canvasContext);
+
+    //简单的画一条直线
+    canvasContext.beginPath();
+    canvasContext.moveTo(100,0);
+    canvasContext.lineTo(300,300);
+    canvasContext.strokeStyle = `#${parseInt(0xffffff * Math.random()).toString(16)}`;
+    canvasContext.lineWidth = 10;
+    canvasContext.stroke();
+    canvasContext.closePath();
+
+    //使用封装的方法画一个矩形 颜色随机
+    drawLine(canvasContext,100,100,500,100,'#'+ parseInt(Math.random()*0xffffff).toString(16),30);
+    drawLine(canvasContext,500,100,500,500,'#'+ parseInt(Math.random()*0xffffff).toString(16),30);
+    drawLine(canvasContext,500,500,100,500,'#'+ parseInt(Math.random()*0xffffff).toString(16),30);
+    drawLine(canvasContext,100,500,100,100,'#'+ parseInt(Math.random()*0xffffff).toString(16),30);
+
+</script>
+</body>
+</html>

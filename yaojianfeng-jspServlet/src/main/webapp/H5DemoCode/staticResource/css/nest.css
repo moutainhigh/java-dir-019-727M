@@ -1,0 +1,25 @@
+/* div > p,
+div > h1 {
+  color: blue;
+  font-size: 20px;
+} */
+
+/* ol li {
+  font-style: italic;
+  font-weight: bold;
+  color: red;
+} */
+/*
+body p {
+  color: blue;
+} */
+/* 
+div + p {
+  font-style: italic;
+  background-color: yellow;
+  color: red;
+} */
+
+div ~ p {
+  color: red;
+}

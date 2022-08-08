@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "secure.ignore",
+      "type": "com.yaolong.rbac.jwt.configuration.properties.IgnoreResourcePathProperties",
+      "sourceType": "com.yaolong.rbac.jwt.configuration.properties.IgnoreResourcePathProperties"
+    },
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "com.yaolong.rbac.jwt.JwtApplication",
+      "sourceMethod": "dataSource()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "secure.ignore.paths",
+      "type": "java.util.List<java.lang.String>",
+      "description": "资源集合",
+      "sourceType": "com.yaolong.rbac.jwt.configuration.properties.IgnoreResourcePathProperties"
+    }
+  ],
+  "hints": []
+}

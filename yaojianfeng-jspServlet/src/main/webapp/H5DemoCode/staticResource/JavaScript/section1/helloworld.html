@@ -1,0 +1,42 @@
+<script type="text/javascript">
+  alert("我是< html>之外的js代码----2!");
+</script>
+<!DOCTYPE html>
+<html lang="en">
+  <script type="text/javascript">
+    alert("我是与< head>< body>平级的js代码----1!");
+  </script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello World</title>
+    <link rel="stylesheet" href="./css/button.css" />
+    <script type="text/javascript" src="./myJavaScript/first.js"></script>
+    <script type="text/javascript">
+      alert("我是< head>标签下的JavaScript代码!");
+    </script>
+    <!-- head标签中不支持放置div 浏览器解析时会将这个元素放在body的头部 -->
+    <div>你好</div>
+  </head>
+  <body>
+    <button class="btn-5">
+      <span
+        style="background-color: red"
+        onclick="alert('hello world! 点击了行内JavaScript代码!')"
+        >内部js</span
+      >
+      <span
+        style="background-color: green"
+        onclick="external_alert('调用外部js中的函数');"
+        >外部js</span
+      >
+    </button>
+
+    <script type="text/javascript"></script>
+  </body>
+  <script type="text/javascript">
+    alert("我是与< head>< body>平级的js代码----2!");
+  </script>
+</html>
+<!-- 浏览器解析时会将这个脚本放在body尾部 -->

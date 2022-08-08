@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>window对象演示文档</title>
+    <link rel="stylesheet" href="/demo/ocdeer-master/button.css" />
+    <style>
+      div {
+        border: 1px solid blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <span>时钟:</span>
+      <div id="displayTime">00:00:00</div>
+    </div>
+    <div id="dbody">第二行</div>
+    <div id="footer">
+      第三行
+      <iframe src="" frameborder="1" name="first"></iframe>
+      <iframe src="" frameborder="1" name="second"></iframe>
+    </div>
+    <div>
+      <button
+        class="btn-7"
+        type="button"
+        onclick="window.open('window_top.html','first','width=300,height=100',true)"
+      >
+        <label for="">在框架中打开</label>
+      </button>
+      <button
+        type="button"
+        class="btn-7"
+        onclick="window.open('targetDoc.html','_self','width:300,height=100',true)"
+      >
+        <label for="">在当前页面打开</label>
+      </button>
+      <!-- spec属性: 窗口说明书 -->
+      <button
+        type="button"
+        class="btn-7"
+        onclick="window.open('targetDoc.html','_blank','width=500,height=500',true)"
+      >
+        <label for="">在新窗口打开</label>
+      </button>
+      <button
+        type="button"
+        class="btn-7"
+        onclick="window.open('window_child.html','second','width:300,height=100',true)"
+      >
+        <label for="">在父页面打开</label>
+      </button>
+      <!-- setTimeOut的第一个参数 可以是函数名字符串(相当于是全局匿名函数,可以正确执行), 也可以是函数名引用 但是会立即执行函数,或者是function (){}匿名函数, -->
+      <button
+        type="button"
+        class="btn-7"
+        onclick="setTimeout('clockTime(15)', 1000);"
+      >
+        <label for="">setTimeout</label>
+      </button>
+      <button onclick="openWin()" class="btn-7">
+        <label for="">自动关闭窗口</label>
+      </button>
+      <button
+        type="button"
+        class="btn-7"
+        onclick="setTimeout('resetTime()', 3000)"
+      >
+        <label for="">clearTimeout</label>
+      </button>
+
+      <button type="button" class="btn-7" onclick="restart(1);">
+        <label for="">setInterVal</label>
+      </button>
+      <button
+        type="button"
+        class="btn-7"
+        onclick="myClearInterval(intervalTimeFlag)"
+      >
+        <label for="">clearInterVal</label>
+      </button>
+    </div>
+    <script>
+      function clockTime() {
+        showTimeInDiv();
+        // 使用匿名函数调用原函数
+        showTimeFlag = setTimeout(function () {
+          clockTime();
+        }, 1000);
+      }
+      function check(t) {
+        if (t < 10) {
+          t = "0" + t;
+        }
+        return t;
+      }
+      function resetTime() {
+        if (showTimeFlag) {
+          clearTimeout(showTimeFlag);
+        }
+
+        document.getElementById("displayTime").innerHTML = "00:00:00";
+      }
+      function openWin() {
+        var myWindow = window.open("", "", "width=500, height=300");
+        myWindow.document.write("<p>这是一个新窗口'</p>");
+        setTimeout(function () {
+          myWindow.close();
+        }, 3000);
+      }
+      /* 在div中显示当前时间 */
+      function showTimeInDiv(params) {
+        var todayDate = new Date();
+        var hrs = todayDate.getHours();
+        var mns = todayDate.getMinutes();
+        var scs = todayDate.getSeconds();
+        mns = check(mns);
+        scs = check(scs);
+        document.getElementById("displayTime").innerHTML =
+          hrs + ":" + mns + ": " + scs;
+      }
+      function restart() {
+        setInterval("showTimeInDiv()", 1000);
+      }
+      function restart(step) {
+        intervalTimeFlag = setInterval(function () {
+          showTimeInDiv();
+        }, step * 1000);
+      }
+      function myClearInterval(interValFlag) {
+        clearInterval(interValFlag);
+        document.getElementById("displayTime").innerHTML = "00:00:00";
+      }
+    </script>
+  </body>
+</html>

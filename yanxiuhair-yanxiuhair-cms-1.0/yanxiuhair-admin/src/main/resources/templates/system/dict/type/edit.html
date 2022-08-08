@@ -1,0 +1,81 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<div class="white-bg">
+	<div align="center">
+		<div class="main-content">
+			<form id="form-dict-edit" >
+				<input id="dictId" name="dictId"  type="hidden" />
+				<table class="table table-striped table-bordered table-td">
+			        <tbody>
+			        	<tr>
+		                	<td>
+			                	<label class="is-required">字典名称：</label>
+			                </td>
+			                <td>
+		                		<input id="dictName" name="dictName" class="easyui-textbox" style="width:300px;" data-options="prompt:'请输入字典名称',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+			            </tr> 
+			            <tr>
+			                <td>
+			                	<label class="is-required">字典类型：</label>
+		                	</td>
+			                <td>
+	                	 		<input id="dictType" name="dictType" class="easyui-textbox" style="width:300px;" data-options="prompt:'请输入字典类型',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                	<label class="is-required">状态：</label>
+			                </td>
+			                <td>
+			                	<select name="status" class="easyui-combobox" style="width: 150px;" data-options="required:true,editable:false,panelHeight:100" th:with="type=${@dict.getType('sys_normal_disable')}">
+	                    			<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+	                			</select>
+			                </td>
+		                </tr>
+		                <tr>
+			                <td>
+			                	<label>备注：</label>
+		                	</td>
+			                <td>
+	                	 		<input class="easyui-textbox" name="remark" data-options="prompt:'请输入备注',validType:['maxLength[100]'],multiline:true" style="height:80px;width:300px;">
+			                </td>
+			            </tr>
+				 	</tbody>
+			    </table>
+			    <div id="dlg-buttons">
+			    	<a class="easyui-linkbutton" iconCls="icon-save" onclick="submitHandler()">保存</a>
+                    <a class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.easyUIModal.close()">关闭</a>
+		    	</div>
+		    </form>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+ 	var dict = [[${dict}]];
+ 	$('#form-dict-edit').form('load', dict);
+ 	$("#dictType").textbox({
+		onChange: function (newValue, oldValue) {
+			if($.common.trim(newValue) != $.common.trim(oldValue)){
+				var url = prefix + "/checkDictTypeUnique";
+				var queryParams = {
+					"dictType" : $.common.trim(newValue),
+					"dictId" : $("#dictId").val()
+				};
+				$.easyUIOperate.ajax(url, "post", "json", queryParams, function(result){
+					if(!$.validate.unique(result)){
+						$("#dictType").textbox("setValue","").textbox("textbox").focus(); 
+						$.messager.show({
+							title : '提示',
+							msg : "该字典类型已经存在！",
+							timeout: 1000
+						});
+					}
+				});
+			}
+		}
+	});
+ 	function submitHandler() {
+    	$.easyUIOperate.save(prefix + "/edit", $('#form-dict-edit'));
+	}
+</script>
+

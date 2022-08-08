@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>对象简单演示</title>
+  </head>
+  <body>
+    <div id="demo"></div>
+
+    <script>
+      //使用{} 自定义对象
+      var Person = {
+        name: "Jeff",
+        age: 28,
+        eyeColor: "black",
+        details: function () {
+          return "此对象的名字是:" + this.name + ", " + this.age + "岁";
+        },
+      };
+
+      //对象的函数属性
+      var result = Person.details;
+      console.log(typeof result);
+      console.log(result);
+
+      //对象调用函数 result接收返回值
+      result = Person.details();
+      console.log(typeof result);
+      console.log(result);
+
+      document.getElementById("demo").innerHTML = Person.details();
+      console.log("===========================");
+      //使用new关键字自定义对象
+      var Person = new Object();
+      Person.name = "Jack";
+      Person.age = 60;
+      Person.eyeColor = "black";
+      console.log(Person.eyeColor);
+
+      console.log('nihao "nihao "nihao ');
+      console.log("nihao " + Person + " nihao ");
+    </script>
+  </body>
+</html>

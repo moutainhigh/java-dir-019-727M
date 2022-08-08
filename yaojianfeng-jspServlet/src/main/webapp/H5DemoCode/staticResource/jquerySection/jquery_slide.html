@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".showOrHideBtn").click(function () {
+                $(".words").slideToggle(2000);
+            });
+        });
+    </script>
+    <style>
+        div.words, .showOrHideBtn {
+            margin: 0px;
+            padding: 5px;
+            text-align: center;
+            background: beige;
+            border: solid 1px;
+        }
+
+        div.words {
+            height: 120px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<br><br>
+<button style="background-color:beige" class="showOrHideBtn">展示/隐藏</button>
+<button style="background-color:beige" id="upBtn" onclick="mySlideUp()">上滑</button>
+<button style="background-color:beige" onclick="mySlideDown()">下拉</button>
+<div class="words">
+    <p>至理名言:</p>
+    <p> 有志者，事竟成!</p>
+</div>
+<script>
+    function mySlideUp() {
+        $(".words").slideUp(1000);
+    }
+    function mySlideDown() {
+        $(".words").slideDown(1000);
+    }
+</script>
+</body>
+</html>

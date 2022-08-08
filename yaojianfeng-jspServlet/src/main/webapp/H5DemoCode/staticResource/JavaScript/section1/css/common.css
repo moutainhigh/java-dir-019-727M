@@ -1,0 +1,5 @@
+.container {
+  transform-style: preserve-3d;
+  width: auto;
+  height: 50px;
+}

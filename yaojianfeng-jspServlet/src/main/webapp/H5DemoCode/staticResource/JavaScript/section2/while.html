@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>while 循环演示文档</title>
+    <script>
+      // 使用循环 最少循环3次
+      var total = prompt("请输入循环次数! 默认最低3次");
+      total = parseInt(total);
+      if (isNaN(total) || total < 3) {
+        total = 3;
+      }
+      //作业: 使用continue关键字 跳过第2次循环
+
+      var num = 1;
+      while (num <= total) {
+        console.log("循环第" + num + "次");
+        num++;
+      }
+
+      //使用 do...while循环
+      do {
+        var result = prompt("今天的课程有没有认真听讲?");
+      } while (result != "有");
+
+      //作业: 使用break关键字 退出当前循环
+    </script>
+  </head>
+  <body></body>
+</html>

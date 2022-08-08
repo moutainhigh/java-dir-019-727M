@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>switch 分支语句演示文档</title>
+    <script>
+      var inputvalue = prompt("请输入1~7之间的数字");
+      // ("String");
+      console.log(typeof inputvalue);
+      inputvalue = parseInt(inputvalue);
+      console.log(inputvalue);
+      switch (inputvalue) {
+        case 1:
+          alert("周一!");
+          break;
+        case 2:
+          alert("周二!");
+          break;
+        case 3:
+          alert("周三!");
+          break;
+        case 4:
+          alert("周四!");
+          break;
+        case 5:
+          alert("周五!");
+          break;
+        case 6:
+          alert("周六!");
+          break;
+        case 7:
+          alert("周日!");
+          break;
+        default:
+          alert("oh my god!");
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

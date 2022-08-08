@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>for循环演示文档</title>
+    <script>
+      // 单层for循环
+      for (var index = 1; index <= 100; index++) {
+        console.log("老婆我爱你（づ￣3￣）づ╭❤～" + index);
+      }
+      // 双重for循环
+      for (var i = 1; i <= 10; i++) {
+        for (var j = 1; j <= 20; j++) {
+          console.log("外层循环第" + i + "次", "里层循环第" + j + "次");
+        }
+      }
+      // 打印倒三角星星
+      var tmp = "";
+      for (var i = 1; i <= 10; i++) {
+        for (var j = i; j <= 10; j++) {
+          tmp = tmp + "★";
+        }
+        tmp = tmp + "\n";
+      }
+      console.log(tmp);
+      //打印九九乘法表
+      var result = "";
+      for (var i = 1; i <= 9; i++) {
+        for (var j = 1; j <= i; j++) {
+          //   result = result + "★";
+          // 1 x 2 = 2
+          result = result + j + "x" + i + "=" + i * j + "\t ";
+        }
+        result = result + "\n";
+      }
+      console.log(result);
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HeaderFrame</title>
+    <script src="/H5DemoCode/staticResource/common/jsUtils/jquery-1.11.1.min.js"></script>
+    <style type="text/css">
+        body {
+            background-color: rgb(228, 224, 166);
+        }
+
+        h1 {
+            display: inline-block;
+            position: relative;
+            margin: 5px;
+            padding: 5px;
+            animation-name: myTitle;
+            animation-duration: 5s;
+            animation-delay: 1s;
+            animation-direction: alternate-reverse;
+            animation-fill-mode: forwards;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        h3 {
+            display: flex;
+            justify-content: right;
+            position: relative;
+            margin: 5px;
+            padding: 5px;
+            border-radius: 5%;
+        }
+        .bling{
+            display: inline-block;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            color: #bb8089;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+
+        .titleStyle {
+            border-radius: 5%;
+            box-shadow: 14px -4px 36px 5px rgba(147, 226, 143, 0.75) inset;
+        }
+
+        @keyframes myTitle {
+            0% {
+                left: 0;
+                transform:  rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(360deg) ;
+            }
+
+            100% {
+                transform: rotate(-360deg);
+                left: 1000px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<h1><span class="titleStyle">HTML5</span></h1>
+<h3><span>tel:18039670878</span></h3>
+<script>
+    window.onload=() => {
+        var flag=false;
+        setInterval(() => {
+            if (flag){
+                $('h3>span').addClass('bling');
+                flag = false;
+            }else {
+                $('h3>span').removeClass('bling');
+                flag = true;
+            }
+        },350)
+
+    }
+</script>
+</body>
+</html>

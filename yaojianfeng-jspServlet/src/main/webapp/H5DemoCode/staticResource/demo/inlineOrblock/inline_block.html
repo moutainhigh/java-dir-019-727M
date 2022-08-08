@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>行内/块级元素演示文档</title>
+    <link rel="stylesheet" href="./css/commonlayout.css" />
+    <style type="text/css">
+      body {
+        height: 715px;
+      }
+      header {
+        height: 10%;
+        text-align: center;
+      }
+      section {
+        height: 80%;
+      }
+      section > div {
+        height: 100%;
+        display: inline-block;
+        margin: 2px 2px 0px 2px;
+      }
+      footer {
+        clear: both;
+        height: 10%;
+      }
+
+      .left {
+        background-color: red;
+        background-image: url(/staticResource/demo/image/motherbaby.jpg);
+        background-size: cover;
+        float: left;
+        margin-left: 10px;
+        width: 48%;
+      }
+      .right {
+        background-color: blue;
+        float: right;
+        background-image: url(/staticResource/demo/image/flower.jpeg);
+        background-size: cover;
+        margin-right: 10px;
+        width: 48%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>头部</header>
+    <section>
+      <div class="left">
+        <h1>行内元素与块状元素之间的转换</h1>
+        <aside>h1:块状元素,aside也是块状元素</aside>
+      </div>
+      <div class="right">右边</div>
+    </section>
+    <footer>页尾</footer>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+.input-1{
+	height: 50px;
+	width: 240px; 
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+input{
+	height: 100%;
+	width: 100%; 
+	position: relative;
+	outline: none;
+	border: none;
+	box-sizing: border-box;
+	padding-left: 5px;
+	color: #ff007f;
+	caret-color: #ff007f;
+}
+span{
+	position: absolute;
+	content: "";
+	display: block;
+	background-color: #ff007f;
+	transition: transform .1s ease-in-out; 
+	
+}
+.top,
+.bottom{
+	left: 0px;
+	right: 0px;
+	height: 2px;
+}
+.left,
+.right{
+	top: 0px;
+	bottom: 0px;
+	width: 2px;
+	transform: scaleY(0);
+}
+.top{
+	top: 0px;
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition-delay: .2s;
+}
+.left{
+	left: 0px;
+	transform-origin: bottom center;
+	transition-delay: .3s;
+}
+.bottom{
+	bottom: 0px;
+}
+.right{
+	right: 0px;
+	transform-origin: top center;
+	transition-delay: .1s;
+}
+input:focus ~ .right{
+	transform: scaleY(1);
+	transform-origin: bottom center;
+}
+input:focus ~ .left{
+	transform: scaleY(1);
+	transform-origin: top center;
+}
+input:focus ~ .top{
+	transform: scaleX(1);
+	transform-origin: right center;
+}

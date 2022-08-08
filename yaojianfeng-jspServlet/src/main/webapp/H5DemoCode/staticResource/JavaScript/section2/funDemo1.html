@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>函数演示文档1</title>
+    <script>
+      //求1-100之间的累加和
+      var sum = 0;
+      for (var index = 1; index <= 100; index++) {
+        sum = sum + index;
+      }
+      console.log(sum);
+
+      //求 30~100之间的累加和
+      var sum = 0;
+      for (var index = 30; index <= 100; index++) {
+        sum = sum + index;
+      }
+      console.log(sum);
+      console.log("=========================");
+      // 求整数 n1~n2之间的累加和呢?
+      function getSum(a1, a2) {
+        var sum = 0;
+        for (var index = a1; index <= a2; index++) {
+          sum = sum + index;
+        }
+        console.log(sum);
+      }
+      getSum(1, 100);
+
+      console.log("=========================");
+      //函数声明的第二种方式:函数表达式(匿名函数)
+      var var_name = function () {
+        console.log("这个函数是匿名函数!");
+      };
+      /*
+      var_name: 是变量名,不是函数名
+      函数表达式: 跟声明变量差不多,只不过变量里面存的是值, 而函数表达式中存的是函数
+      */
+      //调用 通过变量名();
+      console.log(typeof var_name);
+      var_name();
+    </script>
+  </head>
+  <body></body>
+</html>

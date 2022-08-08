@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      /* 过渡属性在新旧样式中都可以设置 用于转换时效果的应用
+      属性写在那个声明块儿中 则在转化到该声明块时应用该属性
+      */
+      /* 定义原标签样式 */
+      div {
+        width: 200px;
+        height: 100px;
+        position: relative;
+        left: 0px;
+        background: red;
+        border: 2px solid blue;
+        color: red;
+        /* 值为应用属性 默认值为all*/
+        /* transition-property: width; */
+        /* 对应的属性过渡到原样式 所需时间 */
+        transition-duration: 2s;
+        /* transition: width 2s, height 2s; */
+        /* transition-timing-function: cubic-bezier(1, 1, 1, 1); */
+
+        /* 指定transition效果的转速曲线 */
+        /* transition-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715); */
+      }
+      /* 定义鼠标悬停上的样式 */
+      div:hover {
+        width: 400px;
+        height: 500px;
+        position: relative;
+        left: 100px;
+        border: 5px solid red;
+        /* 对应的属性过渡到鼠标悬停所需耗时 */
+        /* transition-property: height; */
+        transition-duration: 2s;
+        /* transition: height 2s, width 2s; */
+        /* transition-delay: 500ms; */
+        transition-timing-function: linear;
+        background-color: blue;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div>Jeff</div>
+
+    <!-- <div id="demo"></div> -->
+  </body>
+
+  <!-- JavaScript 模拟长宽变化 -->
+  <!-- <script type="text/javascript">
+    setInterval(() => {
+      var element = document.getElementById("demo");
+      var heights = element.offsetHeight;
+      var widths = element.offsetWidth;
+      element.style.height = heights + 1 + "px";
+      element.style.width = widths + 1 + "px";
+    }, 100);
+  </script> -->
+</html>

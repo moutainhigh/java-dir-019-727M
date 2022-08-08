@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>input的type属性演示文档</title>
+    <style>
+      #container {
+        display: flex;
+
+        justify-content: center;
+      }
+      form {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        width: 30%;
+        flex-grow: inherit;
+      }
+      form > div {
+        border-radius: 10%;
+        background-color: rgb(250, 241, 241);
+        width: 80%;
+        height: 30px;
+
+        margin: 5px;
+        display: flex;
+        justify-content: left;
+        align-content: center;
+      }
+      div > label {
+        padding-top: 3px;
+      }
+      input:hover {
+        background-color: aquamarine;
+      }
+      .btn {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+      }
+      [type="email"]:invalid {
+        background-color: red;
+      }
+      [type="button"]:hover {
+        transition: all 100ms;
+        transform: scale(1.5, 1.5);
+      }
+      [type="checkbox"] {
+        margin-top: 8px;
+      }
+      .radioGroup > input {
+        margin-top: 7px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <form action="action.html" target="_blank" name="formDemo" id="formTest">
+        <div>
+          <label for="text">您的姓名:</label>
+          <!-- size: 输入框长度 maxlength 最多输入多少字符 -->
+          <input
+            type="text"
+            name="text"
+            id="text"
+            placeholder="请填写您的名字!"
+            size="20"
+            pattern="[A-Z]{2}"
+            maxlength="3"
+            required
+            value="FF"
+          />
+        </div>
+        <div>
+          <label for="password">输入密码:</label>
+          <input type="password" name="password" id="password" />
+        </div>
+        <div>
+          <span>兴趣爱好:</span>
+          <input
+            type="checkbox"
+            id="cbox1"
+            name="cbox1"
+            value="first_checkbox"
+            style="padding-top: 3px"
+          />
+          <label for="cbox1">爱好1</label>
+          <input
+            type="checkbox"
+            id="cbox2"
+            name="cbox2"
+            value="second_checkbox"
+            checked="checked"
+          />
+          <label for="cbox2">爱好2</label>
+        </div>
+        <div>
+          <label for="date">出生日期:</label>
+          <input type="date" name="date" id="date" />
+        </div>
+        <div>
+          <label for="time">时间控件:</label>
+          <input type="time" name="time" id="time" />
+        </div>
+
+        <div>
+          <label for="number">期望薪资:</label>
+          <input type="number" name="number" id="number" min="0" max="15000" />
+        </div>
+
+        <div class="radioGroup">
+          <span>联系方式:</span>
+          <input
+            type="radio"
+            id="contactChoice1"
+            name="contact"
+            value="email"
+            onclick="radioChangeHandler()"
+          />
+          <label for="contactChoice1">Email</label>
+
+          <input
+            type="radio"
+            id="contactChoice2"
+            name="contact"
+            value="tel"
+            onclick="radioChangeHandler()"
+          />
+          <label for="contactChoice2">Phone</label>
+          <input
+            type="radio"
+            id="contactChoice3"
+            name="contact"
+            value="mail"
+            onclick="radioChangeHandler()"
+          />
+          <label for="contactChoice3">Mail</label>
+        </div>
+        <div id="email" style="display: none">
+          <label for="email">&nbsp;&nbsp;&nbsp;&nbsp;email:</label>
+          <!-- required 提交验证必须得有字段填充 -->
+          <!-- multiple: 可以输入多个值 -->
+
+          <input
+            type="email"
+            name="email"
+            value="18039670878@163.com"
+            multiple
+          />
+        </div>
+        <div id="mail" style="display: none">
+          <label for="mail">&nbsp;&nbsp;&nbsp;&nbsp;mail:</label>
+          <input type="text" name="mail" value="473000" />
+        </div>
+        <div id="tel" style="display: none">
+          <label for="tel"
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tel:</label
+          >
+          <input type="tel" name="tel" value="18039670878" />
+        </div>
+        <div>
+          <label for="range">范围控件:</label>
+          <input
+            type="range"
+            name="beans"
+            id="beans"
+            min="0"
+            max="500"
+            step="10"
+          />
+          <span class="beancount"></span>
+        </div>
+
+        <div>
+          <label for="url">博客链接:</label>
+          <input type="url" />
+        </div>
+        <div>
+          <label for="dataListInput">预选输入框:</label>
+          <input list="datalist" id="dataListInput" />
+          <datalist id="datalist">
+            <option value="Alabama"></option>
+            <option value="California"></option>
+            <option value="Delaware"></option>
+            <option value="Florida"></option>
+            <option value="Hawaii"></option>
+          </datalist>
+        </div>
+
+        <div style="height: 100px">
+          <label for="address">地址:</label>
+          <textarea name="address" id="address" cols="100" rows="10" readonly>
+adxfasf</textarea
+          >
+        </div>
+
+        <div>
+          <label for="select" form="formTest">多选下拉列表</label>
+          <select name="select" id="select" multiple>
+            <option value="1">选项1</option>
+            <option value="2" selected>选项2</option>
+            <option value="3">选项3</option>
+            <option value="4" disabled>选项4</option>
+            <option value="5">选项5</option>
+          </select>
+        </div>
+        <div>
+          <label for="singleSelect" form="formTest">单选下拉列表</label>
+          <select name="singleSelect" id="singleSelect">
+            <option value="opt1" selected>--请选择--</option>
+            <option value="opt2">选项一</option>
+            <option value="opt3">选项二</option>
+            <option value="opt4">选项三</option>
+            <option value="opt5">选项四</option>
+          </select>
+        </div>
+        <div>
+          <label for="groupSelect">分组下拉列表</label>
+          <select name="groupSelect" id="groupSelect">
+            <option value="opt1" selected>--请选择--</option>
+            <optgroup label="第一组">
+              <option value="opt2">选项一</option>
+              <option value="opt3">选项二</option>
+              <option value="opt4">选项三</option>
+              <option value="opt5">选项四</option>
+            </optgroup>
+            <optgroup label="第二组">
+              <option value="opt2">选项一</option>
+              <option value="opt3" selected>选项二</option>
+              <option value="opt4">选项三</option>
+              <option value="opt5">选项四</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="btn">
+          <input
+            type="button"
+            value="刀妹"
+            name="button"
+            id="button"
+            onclick="alert('艾欧尼亚 昂扬不灭!')"
+          />
+          <input
+            type="image"
+            src="/staticResource/image/logo.gif"
+            width="48px"
+            height="48px"
+            alt="logo"
+            onclick="alert('点击了图片按钮,请看地址栏变化')"
+          />
+
+          <input type="reset" value="重置一下" />
+
+          <input type="submit" value="提交" />
+        </div>
+      </form>
+    </div>
+    <script>
+      var beans = document.querySelector("#beans");
+      var count = document.querySelector(".beancount");
+
+      count.textContent = beans.value;
+
+      beans.oninput = function () {
+        count.textContent = beans.value;
+      };
+
+      /*
+      获取单选的选中值 根据选中值 显示不同的联系方式
+      */
+      function radioChangeHandler() {
+        var radioObj = document.getElementsByName("contact");
+        for (let index = 0; index < radioObj.length; index++) {
+          const element = radioObj[index];
+          if (element.checked == false) {
+            var checkVal = element.value;
+
+            var contactEl = document.getElementById(checkVal);
+            contactEl.style.display = "none";
+          } else {
+            var checkVal = element.value;
+
+            var contactEl = document.getElementById(checkVal);
+            contactEl.style.display = "block";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

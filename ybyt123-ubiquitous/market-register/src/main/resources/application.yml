@@ -1,0 +1,39 @@
+server:
+  port: 8090
+eureka:
+  client:
+    registerWithEureka: false #false表示不向注册中心注册自己。
+    fetchRegistry: false  #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/ #开发环境单机版
+  instance:
+     hostname: localhost #测试服
+     instance-id: ${spring.cloud.client.ip-address}:${server.port}
+     prefer-ip-address: true
+      # 发呆时间，即服务失效时间（缺省为90s）,就是超过15秒没有续约就会从注册表中剔除
+     lease-expiration-duration-in-seconds: 60
+     # 心跳时间，即服务续约间隔时间（缺省为30s）
+     lease-renewal-interval-in-seconds: 20
+  server:
+    #在Eureka服务器获取不到集群里对等服务器上的实例时，需要等待的时间，单位为毫秒，默认为1000 * 60 * 5
+    waitTimeInMsWhenSyncEmpty: 4000
+    #关闭自我保护
+    enable-self-preservation: false
+    #每隔5秒进行一次服务清理(默认是30s)
+    eviction-interval-timer-in-ms: 20000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+# 开启密码认证
+spring:
+  application:
+    name: ubiquitous-registry
+  security:
+    user:
+      name: ubiquitous
+      password: ubiquitous123

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表单提交到该页面</title>
+    <script src="/common/jsUtils/getParams.js"></script>
+  </head>
+  <body>
+    <div id="email"></div>
+    <div id="name"></div>
+    <script>
+      if (GetQueryString("email")) {
+        document.getElementById("email").innerHTML = GetQueryString("email");
+      }
+      if (GetQueryString("name")) {
+        document.getElementById("name").innerHTML = GetQueryString("name");
+      }
+    </script>
+  </body>
+</html>

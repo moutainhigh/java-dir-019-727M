@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>球球</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        display: flex;
+        /* flex布局 横轴方向 */
+        justify-content: center;
+        /* flex布局 纵轴方向*/
+        align-items: center;
+        background-color: rgb(89, 141, 185);
+      }
+      @keyframes rotate {
+        100% {
+          transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+        }
+      }
+
+      .container {
+        width: 10em;
+        height: 10em;
+        transform-style: preserve-3d;
+
+        animation: rotate 3s infinite linear;
+        animation-delay: 0.1s;
+        animation-direction: alternate-reverse;
+      }
+      .container:hover {
+        animation-play-state: paused;
+      }
+      .cube {
+        position: absolute;
+        width: 10em;
+        height: 10em;
+        transform-style: preserve-3d;
+      }
+      .cube--1 {
+        transform: rotateX(45deg) rotateY(45deg);
+      }
+
+      .side {
+        position: absolute;
+        align-items: center;
+        width: 10em;
+        height: 10em;
+        border: 2px solid rgba(255, 213, 0, 0.35);
+        border-radius: 50%;
+        background-color: rgb(179, 179, 214);
+        transform-style: preserve-3d;
+        transform: rotateY(180deg);
+      }
+      .side::before,
+      .side::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin: auto;
+        box-sizing: border-box;
+        border-radius: inherit;
+        border: 1px solid;
+        box-shadow: 0 0 2em, 0 0 2em;
+      }
+      .side::before {
+        width: 2.5em;
+        height: 2.5em;
+        color: gold;
+      }
+      .side::after {
+        width: 1.5em;
+        height: 1.5em;
+        transform: translateZ(-2em);
+        box-shadow: inset 0 0 1em, 0 0 1em;
+        color: teal;
+      }
+      .side--back {
+        transform: translateZ(-5em) rotateY(180deg);
+      }
+      .side--left {
+        transform: translateX(-5em) rotateY(-90deg);
+      }
+      .side--right {
+        transform: translateX(5em) rotateY(90deg);
+      }
+      .side--top {
+        transform: translateY(-5em) rotateX(90deg);
+      }
+      .side--bottom {
+        transform: translateY(5em) rotateX(-90deg);
+      }
+      .side--front {
+        transform: translateZ(5em);
+      }
+      span {
+        font-size: 25px;
+        color: red;
+        font-weight: bold;
+        position: absolute;
+        left: 72px;
+        top: 64px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="cube cube--1">
+        <div class="side side--back"><span>1</span></div>
+        <div class="side side--left"><span>2</span></div>
+        <div class="side side--right"><span>5</span></div>
+        <div class="side side--top"><span>3</span></div>
+        <div class="side side--bottom"><span>4</span></div>
+        <div class="side side--front"><span>6</span></div>
+      </div>
+    </div>
+  </body>
+</html>

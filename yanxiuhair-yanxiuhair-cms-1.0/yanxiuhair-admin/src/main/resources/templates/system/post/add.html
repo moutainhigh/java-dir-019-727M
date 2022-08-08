@@ -1,0 +1,101 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<div class="white-bg">
+	<div align="center">
+		<div class="main-content">
+			<form id="form-post-add">
+				<table class="table table-striped table-bordered table-td">
+			        <tbody>
+			        	<tr>
+		                	<td>
+			                	<label class="is-required">岗位名称：</label>
+			                </td>
+			                <td>
+		                		<input id="postName" name="postName" class="easyui-textbox" style="width:300px;" data-options="prompt:'请输入岗位名称',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+			            </tr> 
+			            <tr>
+			                <td>
+			                	<label class="is-required">岗位编码：</label>
+		                	</td>
+			                <td>
+	                	 		<input id="postCode" name="postCode" class="easyui-textbox" style="width:300px;" data-options="prompt:'请输入岗位编码',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                	<label class="is-required">显示顺序：</label>
+		                	</td>
+			                <td>
+	                	 		<input id="postSort" name="postSort" class="easyui-numberbox" style="width:300px;" data-options="prompt:'请输入显示顺序',min:1,required:true" type="text">
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                	<label class="is-required">岗位状态：</label>
+			                </td>
+			                <td>
+			                	<select name="status" class="easyui-combobox" style="width: 150px;" data-options="required:true,editable:false,panelHeight:100" th:with="type=${@dict.getType('sys_normal_disable')}">
+	                    			<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+	                			</select>
+			                </td>
+		                </tr>
+		                <tr>
+			                <td>
+			                	<label>备注：</label>
+		                	</td>
+			                <td>
+	                	 		<input class="easyui-textbox" name="remark" data-options="prompt:'请输入备注',validType:['maxLength[100]'],multiline:true" style="height:80px;width:300px;">
+			                </td>
+			            </tr>
+				 	</tbody>
+			    </table>
+			    <div id="dlg-buttons">
+			    	<a class="easyui-linkbutton" iconCls="icon-save" onclick="submitHandler()">保存</a>
+                    <a class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.easyUIModal.close()">关闭</a>
+		    	</div>
+		    </form>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	$("#postName").textbox({
+		onChange: function (newValue, oldValue) {
+			if($.common.trim(newValue) != $.common.trim(oldValue)){
+				var url = ctx + "system/post/checkPostNameUnique";
+				var queryParams = {"postName" : $.common.trim(newValue)};
+				$.easyUIOperate.ajax(url, "post", "json", queryParams, function(result){
+					if(!$.validate.unique(result)){
+						$("#postName").textbox("setValue","").textbox("textbox").focus();
+						$.messager.show({
+							title : '提示',
+							msg : "该岗位名称已经存在！",
+							timeout: 1000
+						});
+					}
+				});
+			}
+		}
+	});
+	$("#postCode").textbox({
+		onChange: function (newValue, oldValue) {
+			if($.common.trim(newValue) != $.common.trim(oldValue)){
+				var url = ctx + "system/post/checkPostCodeUnique";
+				var queryParams = {"postCode" : $.common.trim(newValue)};
+				$.easyUIOperate.ajax(url, "post", "json", queryParams, function(result){
+					if(!$.validate.unique(result)){
+						$("#postCode").textbox("setValue","").textbox("textbox").focus();
+						$.messager.show({
+							title : '提示',
+							msg : "该岗位编码已经存在！",
+							timeout: 1000
+						});
+					}
+				});
+			}
+		}
+	});
+	
+	function submitHandler() {
+   		$.easyUIOperate.save(prefix + "/add", $('#form-post-add'));
+	}
+</script>

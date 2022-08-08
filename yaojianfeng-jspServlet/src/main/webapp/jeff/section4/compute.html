@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算页面</title>
+</head>
+<body>
+<form action="/section4/compute" method="post">
+
+    <label>参数a: <input type="number" name="a" required></label>
+    <label>参数b: <input type="number" name="b" required></label>
+    <label>计算方式:
+        <select name="computeMethod" required>
+            <option value="+">加法</option>
+            <option value="-">减法</option>
+            <option value="*">乘法</option>
+            <option value="/">除法</option>
+        </select>
+    </label>
+    <input type="submit" value="计算">
+
+</form>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<title>fillText演示文档</title>
+<body>
+<canvas ID="myCanvas" width="300" height="200" style="border:1px solid
+black">
+</canvas>
+<script>
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+    ctx.font = "30px Verdana";
+    ctx.fillText("我用双手成就你的梦想", 10, 60, 120);
+    ctx.font = "45x Verdana";
+    const gradient = ctx.createLinearGradient(0, 0, 170, 0);
+    gradient.addColorStop(0, "magenta");
+    gradient.addColorStop(0.5, "blue");
+    gradient.addColorStop(1.0, "red");
+    ctx.fillStyle = gradient;
+    ctx.fillText("真正的大师永远怀着一颗学徒的心", 10, 90, 200);
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<div class="white-bg">
+	<div align="center">
+		<div class="main-content">
+			<form id="form-job-edit">
+				<input type="hidden" name="createBy" th:value="${@permission.getPrincipalProperty('loginName')}">
+				<input id="jobId" name="jobId" type="hidden"/>
+				<table class="table table-striped table-bordered table-td">
+			        <tbody>
+			        	<tr>
+		                	<td>
+			                	<label class="is-required">任务名称：</label>
+			                </td>
+			                <td>
+		                		<input id="jobName" name="jobName" class="easyui-textbox" style="width:250px;" data-options="prompt:'请输入任务名称',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+			                <td>
+			                	<label class="is-required">任务分组：</label>
+			                </td>
+			                <td>
+		                		<select name="jobGroup" class="easyui-combobox" style="width: 150px;" data-options="required:true,editable:false,panelHeight:100" th:with="type=${@dict.getType('sys_job_group')}">
+	                    			<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+	                			</select>
+			                </td>
+			            </tr> 
+			            <tr>
+			                <td>
+			                	<label class="is-required">调用字符串：</label>
+		                	</td>
+			                <td colspan="3">
+	                	 		<input id="invokeTarget" name="invokeTarget" class="easyui-textbox" style="width:625px;" data-options="prompt:'请输入调用目标字符串',validType:['length[1,150]'],required:true" type="text">
+	                	 		<span class="help-block m-b-none"><i class="fa fa-info-circle"></i> Bean调用示例：ryTask.ryParams('ry')</span>
+							    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> Class类调用示例：com.ruoyi.quartz.task.RyTask.ryParams('ry')</span>
+							    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 参数说明：支持字符串，布尔类型，长整型，浮点型，整型</span>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<td>
+			                	<label class="is-required">cron表达式：</label>
+			                </td>
+			                <td>
+		                		<input id="cronExpression" name="cronExpression" class="easyui-textbox" style="width:250px;" data-options="prompt:'请输入cron表达式',validType:['length[1,40]'],required:true" type="text">
+			                </td>
+			                <td>
+			                	<label class="is-required">执行策略：</label>
+		                	</td>
+			                <td>
+			                	<select name="misfirePolicy" class="easyui-combobox" style="width: 150px;" data-options="required:true,editable:false,panelHeight:100">
+				                    <option value="1" selected = "selected">立即执行 </option>
+				                    <option value="2">执行一次</option>
+				                    <option value="3">放弃执行</option>
+	                			</select>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                	<label class="is-required">并发执行：</label>
+			                </td>
+			                <td>
+			                	<select name="concurrent" class="easyui-combobox" style="width: 150px;" data-options="required:true,editable:false,panelHeight:100">
+				                    <option value="0">允许</option>
+				                    <option value="1" selected = "selected">禁止</option>
+	                			</select>
+			                </td>
+			                <td>
+			                	<label class="is-required">状态：</label>
+			                </td>
+			                <td>
+			                	<select name="status" class="easyui-combobox" style="width: 150px;" data-options="required:true,editable:false,panelHeight:100" th:with="type=${@dict.getType('sys_job_status')}">
+	                    			<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+	                			</select>
+			                </td>
+		                </tr>
+		                <tr>
+			                <td>
+			                	<label>备注：</label>
+		                	</td>
+			                <td colspan="3">
+	                	 		<input class="easyui-textbox" name="remark" data-options="prompt:'请输入备注',validType:['maxLength[100]'],multiline:true" style="height:70px;width:625px;">
+			                </td>
+			            </tr>
+				 	</tbody>
+			    </table>
+			    <div id="dlg-buttons">
+			    	<a class="easyui-linkbutton" iconCls="icon-save" onclick="submitHandler()">保存</a>
+                    <a class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.easyUIModal.close()">关闭</a>
+		    	</div>
+		    </form>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	var job = [[${job}]];
+	$('#form-job-edit').form('load', job);
+	$("#cronExpression").textbox({
+		onChange: function (newValue, oldValue) {
+			if($.common.trim(newValue) != $.common.trim(oldValue)){
+				var url = prefix + "/checkCronExpressionIsValid";
+				var queryParams = {"cronExpression" : $.common.trim(newValue)};
+				$.easyUIOperate.ajax(url, "post", "json", queryParams, function(result){
+					if(result){
+						$("#cronExpression").textbox("setValue","").textbox("textbox").focus();
+						$.messager.show({
+							title : '提示',
+							msg : "该表达式不正确！",
+							timeout: 1000
+						});
+					}
+				});
+			}
+		}
+	});
+	function submitHandler() {
+   		$.easyUIOperate.save(prefix + "/edit", $('#form-job-edit'));
+	}
+</script>

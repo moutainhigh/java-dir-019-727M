@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: pink;
+        }
+    </style>
+    <script>
+        function validate() {
+            if ((document.f1.male.checked===false)&&(document.f1.female.checked===false)) {
+                alert("请选择您的性别!");
+                return false
+            } else
+                return true
+        }
+    </script>
+</head>
+<body>
+<form name="f1" method="get" action="" onsubmit="validate();">
+    gender:
+    <input type="radio" name="gender" id="male"/><label for="male">male</label>
+    <input type="radio" name="gender" id="female"/><label for="female">female</label>
+    <input type="submit" name="submit" value="提交" >
+    <input type="reset" name="reset" value="重置">
+</form>
+</body>
+</html>

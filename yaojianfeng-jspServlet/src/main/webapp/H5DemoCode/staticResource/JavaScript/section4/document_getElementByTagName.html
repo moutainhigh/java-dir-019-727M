@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>getElementByTagName演示文档</title>
+  </head>
+  <body>
+    <p>这是一个段落</p>
+    <p>这是一个段落</p>
+    <p>这是一个段落</p>
+    <p>这是一个段落</p>
+    <p>这是一个段落</p>
+    <select name="color" id="color" onchange="setBgColor()">
+      <option value="red">红色</option>
+      <option value="gray">灰色</option>
+      <option value="blue">蓝色</option>
+      <option value="yellow">黄色</option>
+    </select>
+  </body>
+  <script>
+    var tags = document.getElementsByTagName("p");
+
+    function setBgColor() {
+      var colorSelectObj = document.getElementById("color");
+      var selectIndex = colorSelectObj.selectedIndex;
+      var color = colorSelectObj[selectIndex].value;
+      for (let index = 0; index < tags.length; index++) {
+        const element = tags[index];
+        element.style.backgroundColor = color;
+      }
+    }
+  </script>
+</html>

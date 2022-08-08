@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预加载图像演示文档</title>
+    <style>
+        table {
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        h3 {
+            color: orange;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #para1 {
+            font-size: 14px;
+            color: blue;
+            text-align: center;
+        }
+    </style>
+    <script>
+        var images;
+
+        function preloadimages() {
+            images = ['https://img2.baidu.com/it/u=4284762419,1148501908&fm=26&fmt=auto', 'https://img1.baidu.com/it/u=3598846782,795906098&fm=26&fmt=auto',
+                'https://img1.baidu.com/it/u=3188669291,2370875418&fm=26&fmt=auto', 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190722%2Ffddde8893a944457a4ac570ca4654567.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1638274218&t=6fa480b297fa03184765af3745ab5325'];
+            preload(images);
+        }
+
+        function preload(img) {
+            for (var i = 0; i < img.length; i++) {
+                var im = new Image();
+                im.src = img[i];
+            }
+        }
+
+        function over(a) {
+            document.images[a].src = images[a + 2];
+        }
+
+        function out(a) {
+
+            document.images[a].src = images[a];
+        }
+    </script>
+</head>
+<body onload=preloadimages()>
+<h2> LOL 永远滴神! </h2>
+<hr>
+<hr>
+
+<div style="position:absolute; top:180px; left:400px;">
+    <p id="para1"> 将鼠标光标移到图像上以查看详细信息
+    </p>
+    <table border="0">
+        <tr>
+            <td>
+                <img src="https://img2.baidu.com/it/u=4284762419,1148501908&fm=26&fmt=auto" onmouseover="over(0)" onmouseout="out(0)"/>
+            </td>
+            <td>
+                <img src="https://img1.baidu.com/it/u=3598846782,795906098&fm=26&fmt=auto" onmouseover="over(1)" onmouseout="out(1)"/>
+            </td>
+        </tr>
+</body>
+</html>

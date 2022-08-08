@@ -1,0 +1,23 @@
+{
+  "groups": [
+    {
+      "name": "elasticsearch",
+      "type": "com.itheima.elasticsearchdemo.config.ElasticSearchConfig",
+      "sourceType": "com.itheima.elasticsearchdemo.config.ElasticSearchConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "elasticsearch.host",
+      "type": "java.lang.String",
+      "sourceType": "com.itheima.elasticsearchdemo.config.ElasticSearchConfig"
+    },
+    {
+      "name": "elasticsearch.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.itheima.elasticsearchdemo.config.ElasticSearchConfig",
+      "defaultValue": 0
+    }
+  ],
+  "hints": []
+}

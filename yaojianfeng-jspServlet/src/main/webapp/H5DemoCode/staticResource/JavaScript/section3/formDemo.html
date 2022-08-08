@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form 演示文档</title>
+    <style>
+      .container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+      }
+      form.form-example {
+        display: table;
+        position: relative;
+      }
+      div.form-example {
+        display: table-row;
+      }
+      [type="submit"] {
+        position: absolute;
+        right: 0%;
+      }
+
+      label,
+      input {
+        display: table-cell;
+        margin-bottom: 10px;
+      }
+
+      label {
+        padding-right: 10px;
+      }
+      [type="email"]:invalid {
+        background-color: rgb(236, 99, 99);
+      }
+      [type="text"]:invalid {
+        background-color: aqua;
+      }
+      [type="text"]:valid {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- 
+        name/id 都可以用来标识表单
+        autocomplete 是否开启自动填充
+        novalidate 提交时不验证  无此属性则会应用验证
+        target 打开位置
+       -->
+      <div>
+        <form
+          action="action.html"
+          method="get"
+          class="form-example"
+          autocomplete="on"
+          target="actionContent"
+          novalidate
+        >
+          <div class="form-example">
+            <label for="name"> 请输入名字: </label>
+            <input type="text" name="name" id="name" required />
+          </div>
+          <div class="form-example">
+            <label for="email">请输入邮箱: </label>
+            <input type="email" name="email" id="email" required />
+          </div>
+          <div class="form-example">
+            <input type="submit" value="提交!" style="text-align: right" />
+          </div>
+        </form>
+      </div>
+      <div>
+        <iframe src="action.html" name="actionContent" frameborder="0"></iframe>
+      </div>
+     
+  </body>
+</html>

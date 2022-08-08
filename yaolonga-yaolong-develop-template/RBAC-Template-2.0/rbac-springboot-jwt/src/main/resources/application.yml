@@ -1,0 +1,35 @@
+
+#        ┏┓　　　┏┓+ +
+#　　　┏┛┻━━━┛┻┓ + +
+#　　　┃　　　　　　　┃ 　
+#　　　┃　　　━　　　┃ ++ + + +
+#　　 ████━████ ┃+
+#　　　┃　　　　　　　┃ +
+#　　　┃　　　┻　　　┃
+#　　　┃　　　　　　　┃ + +
+#　　　┗━┓　　　┏━┛
+#　　　　　┃　　　┃　　　　　　　　　　　
+#　　　　　┃　　　┃ + + + +
+#　　　　　┃　　　┃　　　　　　　
+#　　　　　┃　　　┃ + 　　　　神兽护体,代码 no bug　　
+#　　　　　┃　　　┃
+#　　　　　┃　　　┃　　+　　　　　　　　　
+#　　　　　┃　 　　┗━━━┓ + +
+#　　　　　┃ 　　　　　　　┣┓
+#　　　　　┃ 　　　　　　　┏┛
+#　　　　　┗┓┓┏━┳┓┏┛ + + + +
+#　　　　　　┃┫┫　┃┫┫
+#　　　　　　┗┻┛　┗┻┛+ + + +
+
+
+server:
+  port: 8888
+spring:
+  application:
+    name: study-springboot-jwt
+  profiles:
+    active: dev
+
+# swagger的UI开启
+knife4j:
+  enable: true

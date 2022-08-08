@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TableDemo3</title>
+    <style type="text/css">
+      table,
+      tr,
+      th,
+      td {
+        border: 1px solid blue;
+        border-radius: 5%;
+        border-collapse: collapse;
+      }
+      table th {
+        background-color: aliceblue;
+      }
+      /* .firstBody td > span {
+        color: red;
+      } */
+      .firstBody tr > td:first-child {
+        color: red;
+        text-align: center;
+      }
+
+      .firstBody tr > td:hover {
+        color: blue;
+      }
+
+      .secondBody tr > td:first-child {
+        color: blue;
+      }
+      .secondBody tr > td:hover {
+        color: red;
+      }
+
+      .foot {
+        color: yellow;
+      }
+    </style>
+  </head>
+  <body style="background-color: gray">
+    <div style="width: 600px; height: 800px">
+      <table>
+        <caption>
+          考勤表
+        </caption>
+        <thead>
+          <tr>
+            <th>用户名称</th>
+            <th>首次入会时间</th>
+            <th>最后退会时间</th>
+            <th>入会次数</th>
+            <th>累计参会时长</th>
+            <th>身份</th>
+          </tr>
+        </thead>
+        <tbody class="firstBody">
+          <tr>
+            <td>姚剑锋</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>主持人</td>
+          </tr>
+          <tr>
+            <td><span>彭梓豪</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+          <tr>
+            <td><span>窦培源</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+          <tr>
+            <td><span>赵羿淼</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+          <tr>
+            <td><span>张宇阳</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+        </tbody>
+
+        <tbody class="secondBody">
+          <tr>
+            <td><span>杨程一</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+          <tr>
+            <td><span>张毅文</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+          <tr>
+            <td><span>李田茖</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+          <tr>
+            <td><span>杨杭宇</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+          <tr>
+            <td><span>张淏柄</span></td>
+            <td>2021-09-26 14:22:17</td>
+            <td>2021-09-26 14:22:17</td>
+            <td>1</td>
+            <td>3:44:25</td>
+            <td>普通参与者</td>
+          </tr>
+        </tbody>
+        <tfoot class="foot">
+          <tr>
+            <td rowspan="3">
+              每个人的身上都有毛毛
+              <br />
+              每个人的身上都有毛毛2 每个人的身上都有毛毛3
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </body>
+</html>

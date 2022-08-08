@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sessionStorage演示文档</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script>
+        function clickCounter() {
+            if (typeof (Storage) !== "undefined") {
+                if (sessionStorage.clickcount) {
+                    sessionStorage.clickcount = Number(sessionStorage.clickcount) + 1;
+                } else {
+                    sessionStorage.clickcount = 1;
+                }
+                document.getElementById("btn").innerHTML = "在本次会话中,你已经点击了" +
+                    sessionStorage.clickcount + " 次.";
+            } else {
+                document.getElementById("btn").innerHTML = "Your browser does not support Web storage";
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div id="btn"></div>
+<P>点击按钮查看计数器的增加。  </P>
+<P>关闭浏览器再试一次，计数器将重置。  </P>
+<div class="btn-3">
+    <button class="up" onclick="clickCounter()" type="button">点击此处</button>
+</div>
+
+</body>
+</html>

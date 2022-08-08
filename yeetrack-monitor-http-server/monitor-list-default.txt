@@ -1,0 +1,34 @@
+# ignored hosts
+# http://wont-be.tested.com/
+# test
+#meilishuo www
+http://www.meilishuo.com/
+http://www.meilishuo.com/welcome?frm=daeh
+http://www.meilishuo.com/guang/hot?frm=daeh
+http://www.meilishuo.com/guang/catalog/dress?nid=11&cata_id=2001000000000&frm=daeh
+http://www.meilishuo.com/guang/catalog/shoes?nid=13&cata_id=6000000000000&frm=daeh
+http://www.meilishuo.com/guang/catalog/bag?nid=15&cata_id=5000000000000&frm=daeh
+http://www.meilishuo.com/guang/catalog/access?nid=1097&cata_id=7000000000000&frm=daeh
+http://www.meilishuo.com/guang/catalog/jiaju?nid=1093&cata_id=9000000000000&frm=daeh
+http://www.meilishuo.com/beauty?frm=daeh
+http://www.meilishuo.com/biz/shareact/list/?frm=daeh
+http://www.meilishuo.com/tuan/?frm=daeh
+http://www.meilishuo.com/shop/?frm=daeh
+http://www.meilishuo.com/magazine?frm=daeh
+http://www.meilishuo.com/welfare?frm=daeh
+http://order.meilishuo.com/cart
+https://account.meilishuo.com/user/register
+https://account.meilishuo.com/user/login
+http://www.meilishuo.com/daren?frm=daeh
+http://www.meilishuo.com/search?searchKey=%E8%A1%A3%E6%9C%8D&searchType=1&filter=goods&frm=searchsuggestion&suggest_frm=mouse
+http://www.meilishuo.com/client/?frm=daeh
+http://www.meilishuo.com/biz/exo/main/pc?joined=1&frm=exo_nav_bmk
+http://www.meilishuo.com/guang/catalog/dress?nid=5773&cata_id=2001000000000&frm=daeh
+http://www.meilishuo.com/guang/catalog/dress?nid=5781&cata_id=2001000000000&frm=daeh
+http://www.meilishuo.com/guang/catalog/dress?nid=5783&cata_id=2001000000000&frm=daeh
+http://www.meilishuo.com/guang/catalog/dress?nid=5785&cata_id=2001000000000&frm=daeh
+http://www.meilishuo.com/help/feedback?frm=top_to_help
+#auto-test
+http://jenkins.meilishuo.com
+http://agile.meiliworks.com
+http://mpp.meiliworks.com

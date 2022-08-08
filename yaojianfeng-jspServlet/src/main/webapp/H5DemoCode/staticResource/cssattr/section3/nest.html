@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>css 嵌套选择器演示文档</title>
+
+    <style type="text/css">
+      /* div > p,
+   div > h1 {
+     color: blue;
+     font-size: 20px;
+   } */
+
+      /* ol li {
+        font-style: italic;
+        font-weight: bold;
+        color: red;
+      } */
+      /*
+      body p {
+        color: blue;
+      } */
+      /*
+      div + p {
+        font-style: italic;
+        background-color: yellow;
+        color: red;
+      } */
+
+      div ~ p {
+        color: red;
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- 演示 div > p -->
+    <div>
+      <div>
+        <p>当前p标签的父标签是div</p>
+      </div>
+      <h1><p>这个p标签的直接父标签是h1</p></h1>
+    </div>
+
+    <!-- 演示 ol li -->
+    <article>
+      <header>LOL路线分配</header>
+      <ol>
+        <li>上路</li>
+        <li>中路</li>
+        <li><p>nice</p></li>
+        <li>下路</li>
+        <li>打野</li>
+        <li>辅助</li>
+      </ol>
+    </article>
+
+    <!-- 演示 div + p  -->
+    <div>
+      <p>div包含的第一个p标签</p>
+    </div>
+    <p>div后紧跟的第一个p标签</p>
+    <p>div后紧跟的第二个p标签</p>
+
+    <!-- 演示 div~p -->
+    <div>我是一个无情的div</div>
+    <p>我是第一个p标签,紧紧跟在div的后面</p>
+    <p>
+      <span>我是p标签里面的span标签</span>
+    </p>
+    <div>
+      <p>我是div里面的p标签</p>
+    </div>
+    <p>第二个p标签</p>
+    <p>第三个p标签</p>
+</html>

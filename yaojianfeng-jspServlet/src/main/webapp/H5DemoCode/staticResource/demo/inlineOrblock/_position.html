@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>position 对行内元素的影响</title>
+    <style type="text/css">
+      span {
+        background-color: aqua;
+        height: 100px;
+        width: 200px;
+      }
+      .abs {
+        position: absolute;
+        left: 30px;
+        top: 100px;
+      }
+      .fixed {
+        position: fixed;
+        right: 50px;
+        top: 50px;
+      }
+      .relative {
+        position: relative;
+        height: 200px;
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <span>不使用position:absolute</span>
+    <span>不使用position:fixed</span>
+    <span>不使用position:relative</span>
+    <hr />
+    <span class="abs">使用position:absolute</span>
+    <span class="fixed">使用position:fixed</span>
+    <span class="relative">使用position:relative</span>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <br />
+    <aside>
+      <b>总结:</b>
+      <p style="text-indent: 2em; font-size: 30px">
+        使用position属性的absolute与fixed定位类型会把行内元素更改为块级元素
+        应用relative则不能
+      </p>
+    </aside>
+  </body>
+</html>

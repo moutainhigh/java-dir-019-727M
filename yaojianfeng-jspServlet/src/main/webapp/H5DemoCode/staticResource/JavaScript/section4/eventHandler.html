@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>事件处理器</title>
+    <style>
+      h1,
+      h3 {
+        color: black;
+        font-size: 40px;
+        text-align: center;
+      }
+      table {
+        margin-left: 650px;
+        border: 2px solid white;
+        background-color: beige;
+      }
+      td {
+        padding: 10px;
+        border: 2px solid white;
+      }
+      #button {
+        margin-left: 740px;
+      }
+      #button {
+        margin-left: 740px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      用户注册信息表
+      <hr />
+    </h1>
+    <h3>请填写下表 完成注册</h3>
+    <br /><br />
+    <table>
+      <tr>
+        <td>姓氏:</td>
+        <td>
+          <input
+            type="text"
+            name="name1"
+            id="txtbox1"
+            onblur="changeColor(this)"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>名字:</td>
+        <td>
+          <input
+            type="text"
+            name="name2"
+            id="txtbox2"
+            onblur="changeColor(this)"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>年龄:</td>
+        <td>
+          <input
+            type="text"
+            name="age_box"
+            id="age"
+            onblur="changeColor(this)"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>地址:</td>
+        <td>
+          <textarea
+            rows="5"
+            name="address_box"
+            id="address"
+            onblur="changeColor(this)"
+          ></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>性别:</td>
+        <td>
+          <select name="Gender" id="gender">
+            <option value="Male">男</option>
+            <option value="Female">女</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <br />
+    <input id="button" type="button" value="注册" onclick="show()" />
+    <script>
+      function show() {
+        var fname = document.getElementById("txtbox1").value;
+        var lname = document.getElementById("txtbox2").value;
+        var age = document.getElementById("age").value;
+        var address = document.getElementById("address").value;
+        var gender = document.getElementById("gender").value;
+        confirm(
+          "You have entered:" +
+            "\n Name :" +
+            fname +
+            " " +
+            lname +
+            "\n Age :" +
+            age +
+            "\n Address :" +
+            address +
+            "\n Gender :" +
+            gender +
+            "\n\n Do you want to      confirm these details ?"
+        );
+      }
+      function changeColor(val) {
+        if (val.value == "" || val.value == null) {
+          val.style.background = "pink";
+        } else {
+          val.style.background = "#FFFFFF";
+        }
+      }
+    </script>
+  </body>
+</html>

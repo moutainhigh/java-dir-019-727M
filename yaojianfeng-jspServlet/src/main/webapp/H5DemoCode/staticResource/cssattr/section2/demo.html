@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>css 三类样式表层叠使用情况演示文档</title>
+    <link rel="stylesheet" href="./css/demo.css" />
+
+    <!-- 个性化>公共的 -->
+
+    <!-- 内部样式表: 放在head标签下的style里面 -->
+    <!--样式优先级:  内联样式>内部样式>外部样式表 -->
+    <!-- <style>
+      div {
+        color: blue;
+      }
+      p {
+        color: green;
+      }
+    </style> -->
+  </head>
+  <body>
+    <!-- <div>内联样式优先级最大</div> -->
+    <div style="color: blue">内部样式表优先级大于外部样式表?</div>
+    <p style="color: red"><i>今天是个好日子 我收到了很多的骚扰电话!</i></p>
+    <p>今天是个好日子 我收到了很多的骚扰电话!</p>
+    <div>课程还剩下十分钟</div>
+  </body>
+</html>

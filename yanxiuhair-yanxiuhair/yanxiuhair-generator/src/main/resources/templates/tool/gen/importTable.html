@@ -1,0 +1,94 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<div class="white-bg">
+    <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-head">
+				<div class="easyui-panel">
+					<form id="select-table-form">
+						<div class="select-list">
+							<ul>
+								<li>
+									<label>登录名称：</label>
+									<input id="s_tableName" type="text" name="tableName" class="easyui-textbox" data-options="prompt:'请输入表名称'"/>
+								</li>
+								<li>
+									<label>手机号码：</label>
+									<input id="s_tableComment" type="text" name="tableComment" class="easyui-textbox" data-options="prompt:'请输入表描述'"/>
+								</li>
+								<li>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="searchSelectTable()" >查询</a>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onclick="resetSelectTableForm()" >重置</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+			</div>
+		    <div id="search-body" class="col-sm-12 search-body">
+			    <table id="table_dg" class="easyui-datagrid"></table>
+			</div>
+		</div>
+	</div>
+	<script th:inline="none">
+		$(function() {
+			var selectUserDialogOptions = $("#selectTableDialog").dialog("options");
+			$("#search-body").height(selectUserDialogOptions.height-170);
+		    var tableOptions = {
+	    		id:"table_dg",
+		        url: prefix + "/db/list",
+		        modalName: "字典类型",
+		        sortName: "createTime",
+		        sortOrder: "desc",
+		        idField: "tableName",
+		        toolbar:'',
+		        columns: [[
+	                {
+						field:'ck',
+						checkbox:true,
+						width:30
+					},
+			        {
+			            field: 'tableName',
+			            title: '表名称',
+			            align: 'center',
+			            sortable: true,
+			            width: 120
+			        },
+			        {
+			            field: 'tableComment',
+			            title: '表描述',
+			            align: 'center',
+			            sortable: true,
+			            width: 180
+			        },
+			        {
+			            field: 'createTime',
+			            title: '创建时间',
+			            align: 'center',
+			            sortable: true,
+			            width: 150
+			        },
+			        {
+			            field: 'updateTime',
+			            title: '更新时间',
+			            align: 'center',
+			            sortable: true,
+			            width: 150
+			        }
+				]]
+		    };
+		    $.easyUIDataGrid.init(tableOptions);
+		});
+		//查询
+		function searchSelectTable(){
+			var params = $.common.formToJSON("select-table-form");
+           	$('#table_dg').datagrid('load', params).datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
+		}
+		function resetSelectTableForm(){
+			$("#s_tableName").textbox("setValue","");
+			$("#s_tableComment").textbox("setValue","");
+			var params = $.common.formToJSON("select-table-form");
+           	$('#table_dg').datagrid('load', params).datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
+		}
+	</script>
+</div>

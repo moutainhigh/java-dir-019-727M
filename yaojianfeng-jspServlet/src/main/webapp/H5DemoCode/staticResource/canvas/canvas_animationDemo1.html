@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas动画Demo1</title>
+</head>
+<body>
+<div>
+    <canvas ID="canvas" width="400" height="300" style="border:2px solid black">
+    </canvas>
+</div>
+<script type="text/javascript">
+    //定义变量(初始状态值) 存储状态值
+    var canvas;
+    var ctx;
+    var x = Math.random()*400;
+    var y = Math.random()*300;
+    var dx = 2;
+    var dy = 4;
+    var WIDTH = 400;
+    var HEIGHT = 300;
+    // 绘制实心小球
+    function circle() {
+        ctx.beginPath();
+        //给小球设置随机颜色
+        ctx.fillStyle=`#${parseInt(0xffffff * Math.random()).toString(16)}`;
+        ctx.arc(x, y, 10, 0, Math.PI*2, true);
+        /*for (let i = 0; i < 10; i++) {
+            ctx.arc(Math.random()*400, Math.random()*300, 10, 0, Math.PI*2, true);
+        }*/
+        ctx.fill();
+        ctx.closePath();
+    }
+    // 清除画布
+    function clear() {
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    }
+    // 初始化画布
+    function init() {
+        canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+        //设置定时器
+        return setInterval(draw, 10);
+    }
+    //绘制流程
+    function draw() {
+        clear();
+        circle();
+        //碰撞检测
+        if (x > WIDTH || x < 0)
+            dx = -dx;
+        if (y > HEIGHT || y < 0)
+            dy = -dy;
+        // 动态更新小球的坐标值
+        x += dx;
+        y += dy;
+    }
+    // 调用方法 使小球在页面加载完成后就动起来
+
+    init();
+
+</script>
+</body>
+</html>

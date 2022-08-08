@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建矩形演示文档</title>
+    <script src="../common/jsUtils/myCanvasUtil.js"></script>
+    <script src="../common/jsUtils/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="1366px" height="500px" style="border:1px solid #000000;background: #999999">
+    您的浏览器不支持 HTML5 canvas 标签。
+</canvas>
+<table>
+    <tr>
+        <td><label>x坐标:<input id="x" type="number"></label></td>
+        <td><label>y坐标:<input id="y" type="number"></label></td>
+        <td><label>宽度:<input id="width" type="number"></label></td>
+        <td><label>高度:<input id="height" type="number"></label></td>
+        <td><span id="warning" style="visibility:visible"></span></td>
+    </tr>
+    <tr>
+        <td><label>填充色:<input id="color" type="color" onchange="myFillStyle();"></label></td>
+        <td><label>边框色:<input id="strokeColor" type="color" onchange="myStrokeStyle();"></label></td>
+        <td><label>背景色:<input id="bgColor" type="color" onchange="changeBgColor(this);"></label></td>
+        <td><label for="">阴影色: <input id="shadowColor" type="color" onchange="setShadowStyle();"></label></td>
+        <td><label for="">模糊级别: <input type="range" id="blurLevel" min="0" max="100" value="0"
+                                       onchange="setShadowStyle()"></label></td>
+    </tr>
+</table>
+<div style="display: none"><img src="../image/logo.gif" alt="logo" id="logo"></div>
+<div>
+    <button onclick="myCreatRect()">创建矩形</button>
+    <button onclick="myFillRect()">填充矩形</button>
+    <button onclick="myStrokeRect()">描边</button>
+    <button onclick="myStrokeStyle()">颜色描边</button>
+    <button onclick="myClearFillRect()">擦除左上角</button>
+    <button onclick="myFillStyle()">填充颜色</button>
+    <button onclick="setShadowStyle()">设置阴影</button>
+    <button onclick="setLinearGradient()">线性渐变</button>
+    <button onclick="setRadialGradient()">径向渐变</button>
+    <select onchange="setPattern(this)">
+        <option value="">--请选择填充模式--</option>
+        <option value="no-repeat">重复一次</option>
+        <option value="repeat-x">水平重复</option>
+        <option value="repeat-y">垂直重复</option>
+        <option value="repeat">填充重复</option>
+    </select>
+    <button onclick="clearCanvas('myCanvas')">清除画布</button>
+</div>
+<script>
+    //声明参数 准备复用
+    let x, y, width, height, color, strokeColor, shadowColor, blurLevel;
+
+    /**
+     * 正式绘制前的准备工作
+     * 校验参数合法性
+     * @returns {null|*}
+     */
+    function getParamVal() {
+        //校验数据
+        x = $('#x').val();
+        y = $('#y').val();
+        width = $('#width').val();
+        height = $('#height').val();
+        color = $('#color').val();
+        strokeColor = $('#strokeColor').val();
+        shadowColor = $('#shadowColor').val();
+        blurLevel = $('#blurLevel').val();
+        return validRulerOfRequire(x, y, width, height);
+
+    }
+
+    //初始化画布对象
+    function initCanvasObj() {
+        //校验参数合法性
+        const validResult = getParamVal();
+        //获取画笔 开启路径
+        if (validResult.flag) {
+            const canvasObj = document.getElementById('myCanvas');
+            document.getElementById("warning").style.visibility = 'hidden';
+            const contextObj = getContextObj(canvasObj, '2d');
+            contextObj.beginPath();
+            return contextObj;
+
+        } else {
+            $('#warning').css({'visibility': 'visible', 'color': 'red'}).html('<b>未输入参数或参数不正确!</b>');
+            document.getElementsByTagName('input')[validResult.elementIndex].focus();
+            return null;
+        }
+    }
+
+    function changeBgColor(obj) {
+        $('#myCanvas').css('background-color', obj.value);
+    }
+
+    /**
+     * 创建一个矩形
+     */
+    function myCreatRect() {
+        const canvasObj = initCanvasObj();
+        canvasObj.rect(x, y, width, height);
+        canvasObj.stroke();
+    }
+
+    function myFillRect() {
+        const canvasObj = initCanvasObj();
+        canvasObj.fillRect(x, y, width, height);
+        canvasObj.stroke();
+    }
+
+    function myStrokeRect() {
+        const canvasObj = initCanvasObj();
+        canvasObj.strokeRect(x, y, width, height);
+    }
+
+    function myClearFillRect() {
+        const canvasObj = initCanvasObj();
+        canvasObj.clearRect(x, y, width / 5, height / 5);
+    }
+
+    function myFillStyle() {
+        const canvasObj = initCanvasObj();
+        canvasObj.fillStyle = color;
+        canvasObj.fillRect(x, y, width, height);
+    }
+
+    function myStrokeStyle() {
+        const canvasObj = initCanvasObj();
+        canvasObj.strokeStyle = strokeColor;
+        canvasObj.strokeRect(x, y, width, height);
+    }
+
+    //设置阴影 填充矩形 并描边
+    function setShadowStyle() {
+        const canvasObj = initCanvasObj();
+        canvasObj.shadowColor = shadowColor;
+        canvasObj.shadowBlur = blurLevel;
+        canvasObj.fillStyle = color;
+        canvasObj.strokeStyle = strokeColor;
+        canvasObj.fillRect(x, y, width, height);
+        canvasObj.strokeRect(x, y, width, height);
+    }
+
+    //设置渐变(线性渐变: 两个点连成的一条线,沿着这条线进行渐变)
+    function setLinearGradient() {
+        var canvasObj = initCanvasObj();
+        //设置线性渐变区域 根据起始点的坐标位置,设置上下渐变
+        var canvasGradient = canvasObj.createLinearGradient(0, 100, 0, 300);
+        //添加渐变色 超出渐变区域的 以所处位置最终色为基色
+        canvasGradient.addColorStop(0, "red");
+        canvasGradient.addColorStop(0.5, "yellow");
+        canvasGradient.addColorStop(1, "green");
+        canvasObj.fillStyle = canvasGradient;
+        canvasObj.fillRect(x, y, width, height);
+    }
+
+    //设置渐变(径向渐变)
+    function setRadialGradient() {
+        var canvasObj = initCanvasObj();
+        //设置渐变区域 根据两个圆的切线形成的锥形区域来渲染渐变
+        var canvasGradient = canvasObj.createRadialGradient(200, 200, 50, 200, 200, 100);
+        //添加渐变色 超出渐变区域的 以所处位置最终色为基色
+        canvasGradient.addColorStop(0, "red");
+        canvasGradient.addColorStop(0.5, "yellow");
+        canvasGradient.addColorStop(1, "blue");
+        canvasObj.fillStyle = canvasGradient;
+        canvasObj.fillRect(x, y, width, height);
+
+        //绘制第一个圆
+        canvasObj.beginPath();
+        canvasObj.arc(200, 200, 50, 0, Math.PI * 2);
+        canvasObj.stroke();
+
+        //绘制第二个圆
+        canvasObj.beginPath();
+        canvasObj.arc(200, 200, 100, 0, Math.PI * 2);
+        canvasObj.stroke();
+    }
+
+    function setPattern(_obj) {
+        if (_obj.value) {
+            clearCanvas('myCanvas');
+            var canvasObj = initCanvasObj();
+            var logo = document.getElementById("logo");
+            var canvasPattern = canvasObj.createPattern(logo, _obj.value);
+            canvasObj.fillStyle = canvasPattern;
+            canvasObj.fillRect(x, y, width, height);
+            canvasObj.strokeRect(x, y, width, height);
+        } else {
+            clearCanvas('myCanvas');
+        }
+    }
+
+
+</script>
+</body>
+</html>

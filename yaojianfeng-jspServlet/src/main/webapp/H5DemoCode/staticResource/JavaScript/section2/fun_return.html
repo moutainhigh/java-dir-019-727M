@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>函数的返回值演示文档</title>
+    <script>
+      // 函数的返回值格式
+      /*   function getResult(params) {
+            return 需要返回的结果;
+        } */
+
+      function getResult(params) {
+        //函数只是实现某种功能,最终的结果需要返回给函数的调用者 通过return实现
+        // 只要函数遇到return 就把后面的结果 返回给函数的调用者 相当于 函数名(实参) = return 结果值;
+        return params;
+      }
+      //使用变量接收函数的返回值
+      var result = getResult("hello world!");
+      result = result + "hello LOL";
+      console.log(result);
+      //也可以直接使用函数的返回值
+      console.log(getResult("直接使用!"));
+
+      console.log("=============================================");
+      //return 具有终止作用 在函数体中,return后面的代码不会被执行
+      function eat(params) {
+        return params;
+        alert("return 之后的语句...");
+      }
+      console.log(eat("noodle"));
+      // return 只能返回一个值
+      function getOne(param1, param2) {
+        return param1, param2;
+      }
+      console.log(getOne(2, 3));
+      // 如果想返回多个值 可以将结果封装到数组中
+      function getArr(param1, param2) {
+        return [param1, param2];
+      }
+      console.log(getArr(5, 6));
+      // 如果没有return 则返回undefined
+      function noReturn(param1, param2) {}
+      console.log(noReturn(2, 3)); //undefined
+    </script>
+  </head>
+  <body></body>
+</html>

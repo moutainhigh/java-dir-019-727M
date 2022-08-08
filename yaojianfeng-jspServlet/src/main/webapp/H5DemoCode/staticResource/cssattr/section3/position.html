@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>position 定位演示文档</title>
+    <style>
+        img {
+            height: 100px;
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+<div
+        style="
+        position: relative;
+        border: 5px red solid;
+        width: 1500px;
+        height: 300px;
+        background-color: gray;
+      "
+>
+    <div
+            style="
+          border: 2px black solid;
+          background-color: aqua;
+          position: absolute;
+          left: 800px;
+          top: 50px;
+        "
+    >
+        <p style="font-size: 30px">绝对定位的元素</p>
+    </div>
+    <aside
+            style="
+          position: relative;
+          left: 600px;
+          top: 100px;
+          border: 3px solid yellowgreen;
+          background-color: beige;
+          display: inline-block;
+          z-index: 3;
+        "
+    >
+        这是一段注释 相对于第一个父元素进行定位。 元素的位置可以通过 "left",
+        "top", "right" 以及 "bottom" 属性进行规定
+    </aside>
+</div>
+<figure style="position: fixed; right: 10px; top: 20px">
+    <figcaption>
+        fixed固定的位置<br/>
+        不随页面滚动而改变
+    </figcaption>
+    <div>
+        <img src="/image/yi.jpg" alt="易大师"/>
+    </div>
+</figure>
+
+<h2>这个标题是根据其正常位置向上移动</h2>
+
+<aside style="font-size: 20px">
+    <b>注意:</b> 即使相对定位元素的内容是移动,预留空间的元素仍保存在正常流动。
+</aside>
+
+<br/>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+
+<h3>演示z-index属性 两个元素位置重叠会怎么样显示</h3>
+<img
+        src="./image/Campusimage5.jpg"
+        width="100"
+        height="140"
+        style="z-index: -1"
+/>
+<p style="position: absolute">
+    因为图像元素设置了 z-index 属性值为 -1, 所以它会显示在文字之后(下面)。
+</p>
+
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+<div>
+    <img src="./image/yi.jpg" alt="易大师"/>
+</div>
+</body>
+</html>

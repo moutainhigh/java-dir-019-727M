@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      legend {
+        background-color: #000;
+        color: #fff;
+        padding: 3px 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Choose your favorite</legend>
+        Drinks:
+        <select>
+          <option value="opt1">Select Your Drink</option>
+          <option value="opt2">Cappuccino</option>
+          <option value="opt3">Caffelatte</option>
+        </select>
+        Soups:
+
+        <select>
+          <option value="opt4">Select the Soup of Your Choice</option>
+          <option value="opt5">Minestrone</option>
+          <option value="opt6">Fonduta</option>
+          <option value="opt7">Pasta e fagioli</option>
+        </select>
+        Dishes:
+        <select>
+          <option value="opt8">Select the Dishes of Your Choice.</option>
+          <optgroup label="Italian">
+            <option value="opt9">Pasta</option>
+            <option value="opt10">Fish</option>
+            <option value="opt11">Rice</option>
+          </optgroup>
+          <optgroup label="Chinese">
+            <option value="opt12">Chowmein</option>
+            <option value="opt13">Manchurian</option>
+            <option value="opt14">Water Chessnut Cake</option>
+          </optgroup>
+        </select>
+      </fieldset>
+      <fieldset disabled>
+        <legend>Choose your favorite monster</legend>
+
+        <input type="radio" id="kraken" name="monster" />
+        <label for="kraken">Kraken</label><br />
+
+        <input type="radio" id="sasquatch" name="monster" />
+        <label for="sasquatch">Sasquatch</label><br />
+
+        <input type="radio" id="mothman" name="monster" />
+        <label for="mothman">Mothman</label>
+      </fieldset>
+    </form>
+  </body>
+</html>

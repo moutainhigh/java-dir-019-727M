@@ -1,0 +1,231 @@
+server:
+  port: 8070
+  #undertow的配置
+  undertow:
+    max-http-post-size: -1
+    # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程,数量和CPU 内核数目一样即可 
+    io-threads: 8
+    # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载 io-threads*8
+    worker-threads: 64
+    #以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    #每块buffer的空间大小,越小的空间被利用越充分
+    buffer-size: 1024
+    #每个区分配的buffer数量 , 所以pool的大小是buffer-size * buffers-per-region
+    #buffers-per-region: 1024 # 这个参数不需要写了
+    #是否分配的直接内存
+    direct-buffers: true
+spring:
+  application:
+    name: ubiquitous-rider
+  main:
+    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  ########################################################
+  ###Freemarkder \u6A21\u7248\u5F15\u64CE \u7528\u6237\u751F\u6210Api\u6587\u6863
+  ########################################################
+  freemarker:
+    suffix: .html
+    content-type: text/html; charset=utf-8
+    enabled: true
+    cache: false
+    check-template-location: true
+    template-loader-path: classpath:/templates/
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+    charset: utf-8
+    settings:
+      number_format: 0.##
+  ########################################################
+  ###Redis
+  ########################################################
+  redis:
+    database: 4
+    host: 127.0.0.1
+    port: 6379
+    password:
+  user-redis:
+    database: 5
+    host: 127.0.0.1
+    port: 6379
+    password:
+  lock-redis:
+    database: 6
+    host: 127.0.0.1
+    port: 6379
+    password:
+  ########################################################
+  ###MYSQL
+  ########################################################
+  druid:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://xxxxxx/ubiquitous_rider?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: xxxxxx
+    maxActive: 30
+    minIdle: 5
+    maxWait: 10000
+    validationQuery: "SELECT X"
+  rabbitmq:
+    host: xxxxxx
+    port: 5672
+    username:
+    password:
+    #虚拟主机地址
+    virtual-host: /
+    #连接超时时间
+    connection-timeout: 15000
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+    #消费端配置
+    listener:
+      simple:
+        #消费端
+        concurrency: 5
+        #最大消费端数
+        max-concurrency: 10
+        #自动签收auto  手动 manual
+        acknowledge-mode: manual
+  cloud:
+    # 消息队列
+    stream:
+      #服务的整合处理
+      bindings:
+        #通道名称
+        #input:
+        #自定义通过名
+        order_rider_input:
+          #名称定义
+          destination: my.queue.order.to.rider.messages
+          content-type: application/json
+          #设置绑定的消息服务的具体设置
+          binder: local_rabbit
+          #消息分组
+          group: orderToRiderMessageConsumers
+          consumer:
+            autoBindDlq: true
+            republishToDlq: true
+            dlqTtl: 20000
+        rider_order_output:
+          #名称定义
+          destination: my.queue.rider.to.order.messages
+          content-type: application/json
+          #设置绑定的消息服务的具体设置
+          binder: local_rabbit
+      #配置绑定的服务信息
+      binders:
+        #定义的名称，用于binding的整合
+        local_rabbit:
+          #消息组件的类型
+          type: rabbit
+          #设置rabbitmq的环境
+          environment:
+            spring:
+              rabbitmq:
+                host: xxxxxx
+                port: 5672
+                username:
+                password:
+                virtual-host: /
+                template:
+                  retry:
+                    enabled: true
+                listener:
+                  retry:
+                    enabled: true
+########################################################
+###OSS 文件上传配置
+########################################################
+oss:
+  aliyun:
+    oss:
+      accessId: xxxx
+      accessKey: xxx
+      endpoint: oss-cn-shanghai.aliyuncs.com
+      bucket: xxx
+      callbackUrl:
+      dir: imgs/
+      basekUrl: https://xxxxx
+########################################################
+### 短信SDK配置 enable 支持 aliyun、qcloud、mock(请在控制台查看验证码)
+########################################################
+sms:
+  enable: mock
+  ### 腾讯云短信配置 ###
+  qcloud:
+    sign: xxx
+    app-id: xxxx
+    app-key: xxx
+    register-template-id: xx
+    bind-phone-template-id: xx
+    reset-password-template-id: xxxx
+    admin-login-template-id: xxxx
+  ### 阿里云短信配置 ###
+  aliyun:
+    accessId: xxx
+    accessKey: xxxx
+    signature: xxx
+    register-template-id: xxx
+    bind-phone-template-id: xxx
+    reset-password-template-id: xxxx
+    admin-login-template-id: xxxx
+########################################################
+###EUREKA CONFIG
+########################################################
+eureka:
+  client:
+    serviceUrl:
+      #defaultZone: http://ubiquitous:123456@172.16.100.176:8090/eureka/,http://ubiquitous:123456@172.16.100.176:8090/eureka/
+      defaultZone: http://ubiquitous:ubiquitous123@localhost:8090/eureka/
+  instance:
+    # 心跳
+    lease-renewal-interval-in-seconds: 10
+    #踢掉心跳
+    lease-expiration-duration-in-seconds: 30
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    metadata-map:
+      service-name: 骑手服务 #当前服务中文名称记录日志可能用到
+#Feign熔断机制
+feign:
+  hystrix:
+    enabled: true
+##timeout config
+ribbon: #负载均衡超时时间
+  ReadTimeout: 180000 #5分钟
+  ConnectTimeout: 180000
+  eureka:
+    enabled: true
+  #同一个Server重试的次数(除去首次)
+  MaxAutoRetries: 1
+  #切换相同Server的次数
+  MaxAutoRetriesNextServer: 1
+#hystrix 熔断机制
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+      maximumSize: 6000
+      allowMaximumSizeToDivergeFromCoreSize: true
+      keepAliveTimeMinutes: 1 #this property controls how long a thread will go unused before being released.
+      maxQueueSize: -1 #线程池的队列大小，-1代表使用SynchronousQueue队列
+  shareSecurityContext: true
+  command:
+    default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 100000
+        forceClosed: true
+      execution:
+        timeout:
+          #是否开启超时，默认是true，开启。
+          enabled: true
+        isolation:
+          #修改熔断策略，feign传递Header,默认隔离策略是Thread(线程隔离策略)
+          strategy: Thread
+          thread:
+            timeoutInMilliseconds: 180000 #3分钟
+logging: #日志级别
+  level:
+    org.springframework.security: DEBUG
+    com.netflix.discovery: 'OFF'

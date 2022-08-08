@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>button对象演示文档</title>
+</head>
+<body>
+<div>
+    <span>一些按钮:</span>
+    <button id="btnOne" onclick="funBtn1()">常用方式</button>
+    <button id="btnTwo" onclick="funBtn2()">模拟点击</button>
+    <button id="btnThree" onclick="setFocus()">设置焦点</button>
+    <button id="btnFour" onclick = clearFocus();>清除焦点</button>
+    <button onclick="alert('鼠标单击一次左键触发该事件...')">单击事件</button>
+    <button onmousedown="showLove();" onmouseup="stopShowLove()">鼠标事件</button>
+    <textarea name="love" id="love" cols="30" rows="10"></textarea>
+    <script>
+        function funBtn1() {
+            alert('好像有人点了我一下?')
+        }
+        function funBtn2(){
+            //模拟按钮的单击事件 用于在逻辑处理中调用其他按钮的功能
+            document.getElementById('btnOne').click();
+        }
+        //给按钮设置焦点之后 按下enter键 相当于点击了一次该按钮 往往用在填写完表单之后 将焦点设置到提交按钮上
+        function setFocus() {
+            document.getElementById('btnTwo').focus();
+        }
+        function clearFocus() {
+            document.getElementById('btnTwo').blur();
+        }
+        var flag ;
+        function showLove() {
+           var textObj= document.getElementById('love')
+            var text = '';
+            flag = setInterval(function () {
+                text+='I love YOU ❥(^_-) ';
+                textObj.innerText =text;
+            },1000)
+        }
+        function stopShowLove() {
+            clearInterval(flag);
+        }
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <script type="text/javascript">
+      //统计循环次数
+      var iNum = 0;
+      for (var i = 1; i < 10; i++) {
+        //如果i能被3整除 则跳过当前循环
+        if (i % 3 == 0) {
+          continue;
+          // break;
+        }
+        iNum++;
+      }
+      alert(iNum);
+    </script>
+  </body>
+</html>

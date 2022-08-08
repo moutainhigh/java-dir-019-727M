@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: easyui-header('操作日志列表')" />
+</head>
+<body class="white-bg">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-head">
+				<div class="easyui-panel">
+					<form id="operlog-form">
+						<div class="select-list">
+							<ul>
+								<li>
+									<label>系统模块： </label>
+									<input type="text" name="title" class="easyui-textbox" data-options="prompt:'请输入系统模块'"/>
+								</li>
+								<li>
+									<label>操作人员： </label>
+									<input type="text" name="operName" class="easyui-textbox" data-options="prompt:'请输入操作人员'"/>
+								</li>
+								<li>
+									<label>操作类型： </label>
+									<select id="businessTypes" class="easyui-combobox" data-options="multiple:true" th:with="type=${@dict.getType('sys_oper_type')}">
+										<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+									</select>
+								</li>
+								<li>
+									<label>操作状态：</label>
+									<select id="status" name="status" class="easyui-combobox" th:with="type=${@dict.getType('sys_common_status')}">
+										<option value=" ">所有</option>
+										<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+									</select>
+								</li>
+								<li>
+									<label>操作时间： </label>
+									<input type="text" id="startTime" class="easyui-datebox" style="width: 110px;" data-options="prompt:'开始时间'" name="params[beginTime]"/>
+									<span>-</span>
+									<input type="text" id="endTime" class="easyui-datebox" style="width: 110px;" data-options="prompt:'结束时间'" name="params[endTime]"/>
+								</li>
+								<li>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="searchOperLog()" >查询</a>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onclick="resetOperLogForm()" >重置</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-12 search-body">
+				<div id="toolbar" role="group">
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-delete'" onclick="$.easyUIOperate.removeAll()" shiro:hasPermission="monitor:operlog:remove">删除</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-extjs-cancel'" onclick="cleanOperLog()" shiro:hasPermission="monitor:operlog:remove">清空</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-export'" onclick="$.easyUIOperate.exportExcel()" shiro:hasPermission="monitor:operlog:export">导出</a>
+		        </div>
+			    <table id="dg" class="easyui-datagrid"></table>
+			</div>
+		</div>
+	</div>
+	<th:block th:include="include :: easyui-footer" />
+ 	<script th:inline="javascript">
+ 		var detailFlag = [[${@permission.hasPermi('monitor:operlog:detail')}]];
+		var datas = [[${@dict.getType('sys_oper_type')}]];
+    </script>
+	<script th:inline="none">
+		var prefix = ctx + "monitor/operlog";
+		$(function() {
+			$("#businessTypes").combobox('setValues',[]).combobox('setText','所有');
+          	var options = {
+     			url: prefix + "/list",
+     		    cleanUrl: prefix + "/clean",
+     		    detailUrl: prefix + "/detail/{id}",
+     		    removeUrl: prefix + "/remove",
+     		    exportUrl: prefix + "/export",
+     		    modalName: "操作日志",
+     		   	idField:'operId',
+                sortName: "operTime",
+                sortOrder: "desc",
+				columns:[[
+					{
+						field:'ck',
+						checkbox:true,
+						width:30
+					},
+			        {
+			            field: 'operId',
+			            title: '日志编号',
+		            	align: 'center',
+		          		width: 70
+			        },
+			        {
+			            field: 'title',
+			            title: '系统模块',
+			            align: 'center',
+		          		width: 70
+			        },
+			        {
+			            field: 'businessType',
+			            title: '操作类型',
+			            align: 'center',
+		          		width: 70,
+			            formatter: function(value, row, index) {
+			            	return $.table.selectDictLabel(datas, value);
+			            }
+			        },
+			        {
+			            field: 'operName',
+			            title: '操作人员',
+			            sortable: true,
+			            align: 'center',
+		          		width: 60
+			        },
+			        {
+			            field: 'deptName',
+			            title: '部门名称',
+			            align: 'center',
+		          		width: 80
+			        },
+			        {
+			            field: 'operIp',
+			            title: '主机',
+			            align: 'center',
+		          		width: 60
+			        },
+			        {
+			            field: 'operLocation',
+			            title: '操作地点',
+			            align: 'center',
+		          		width: 80
+			        },
+			        {
+			            field: 'status',
+			            title: '操作状态',
+			            align: 'center',
+		          		width: 70,
+			            formatter: function(value, row, index) {
+			                if (value == 0) {
+			                    return '<span class="badge badge-primary">成功</span>';
+			                } else if (value == 1) {
+			                    return '<span class="badge badge-danger">失败</span>';
+			                }
+			            }
+			        },
+			        {
+			            field: 'operTime',
+			            title: '操作时间',
+			            sortable: true,
+			            align: 'center',
+		          		width: 120
+			        },
+			        {
+			        	field:'action',
+			            title: '操作',
+			            align: 'center',
+		          		width: 80,
+			            formatter: function(value, row, index) {
+			                var actions = [];
+			                actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="operLogDetail(\'' + row.operId + '\')"><i class="fa fa-search"></i>详情</a>');
+			                return actions.join('');
+			            }
+			        }
+		        ]]
+   		    };
+   		    $.easyUIDataGrid.init(options);
+		});
+		//查询
+		function searchOperLog(){
+			var params = $.common.formToJSON("operlog-form");
+			var businessTypes = $('#businessTypes').combobox('getValues');
+			params.businessTypes = $.common.join(businessTypes);
+			$('#dg').datagrid('load',params).datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
+		}
+		//重置
+		function resetOperLogForm(){
+			$("#operlog-form").form('clear');
+			$("#status").combobox('setValue',' ');
+			$("#businessTypes").combobox('setValues',[]).combobox('setText','所有');
+			var params = $.common.formToJSON("operlog-form");
+           	$('#dg').datagrid('load', params).datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
+		}
+		//清空
+		function cleanOperLog(){
+			$.messager.confirm("确认", "确定清空所有操作日志吗？", function (isDelete) {
+	        	if (isDelete) {
+	        		var url = prefix + "/clean";
+			        $.easyUIOperate.post(url, "");
+	        	}
+	        });
+		}
+		//详情
+		function operLogDetail(operId){
+			// 皮肤缓存
+        	var skin = storage.get("skin");
+        	var panelWindowTheme = "";
+        	var panelWindowHeaderTheme = "";
+        	var panelWindowBodyTheme = "";
+        	// 本地主题优先，未设置取系统配置
+        	if($.common.isNotEmpty(skin)){
+        		panelWindowTheme = "easyui-window-" + skin.split('|')[0];
+        		panelWindowHeaderTheme = "easyui-window-header-" + skin.split('|')[0];
+        		panelWindowBodyTheme = "easyui-window-body-" + skin.split('|')[0];
+        	}
+        	var dialogId = "operLogDetailDialog";
+			var operLogDetailDialog = $('<div id="'+dialogId+'" style="overflow-x:hidden;"/>');
+			operLogDetailDialog.dialog({
+				href : ctx + 'monitor/operlog/detail/'+operId,
+				iconCls:'icon-detail',
+				width : 800,
+				height : 600,
+				modal : true,
+				maximizable: true,
+				title : '日志详情',
+				buttons : [ {
+					text : '关闭',
+					iconCls : 'icon-cancel',
+					handler : function() {
+						operLogDetailDialog.dialog('destroy');
+					}
+				} ],
+				onOpen : function(){
+					$("#" + dialogId).parents(".window").addClass(panelWindowTheme);
+					$("#" + dialogId).addClass(panelWindowBodyTheme);
+					$("#" + dialogId).siblings(".window-header").find(".panel-title").addClass(panelWindowHeaderTheme);
+				},
+				onClose : function() {
+					operLogDetailDialog.dialog('destroy');
+				}
+			});
+		}
+	</script>
+</body>
+</html>

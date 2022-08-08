@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>透视效果演示文档</title>
+    <style type="text/css">
+      .container {
+        width: 500px;
+        height: 500px;
+        background-color: gray;
+        position: relative;
+        top: 10%;
+        left: 30%;
+        transform-style: preserve-3d;
+        perspective: 500px;
+        perspective-origin: 50% 50%;
+        border: 1px solid red;
+      }
+      #perspective {
+        width: 500px;
+        height: 500px;
+        background-color: red;
+        position: relative;
+
+        border: 1px solid blue;
+        transition: all 5s;
+      }
+      #perspective:hover {
+        /* 使元素绕着x轴旋转 动态改变其z轴大小 */
+        transform: rotateX(270deg);
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="perspective"><p>正面</p></div>
+    </div>
+  </body>
+</html>

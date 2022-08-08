@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>selector demo</title>
+    <meta
+      name="description"
+      content="本文档用来演示css基础语法与选择器的使用"
+    />
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- 2 秒后页面刷新 并指向新的页面地址 content的值是一个字符串-->
+    <!-- <meta http-equiv="refresh"content="2; URL=https://www.baidu.com.cn"></meta> -->
+    <meta name="author" content="Jeff" />
+
+    <!-- css 语法格式演示: 选择器 + 声明块  -->
+    <link rel="stylesheet" href="../../css/idDemo.css" />
+    <style type="text/css">
+      html {
+        background-color: gray;
+      }
+
+      /* p {
+        color: green;
+      } */
+      /* #Jeff {
+        color: red;
+      } */
+    </style>
+  </head>
+  <body>
+    <span style="color: red; font-weight: bold"
+      >内联样式 直接使用style进行样式指定</span
+    >
+    <p>欢迎来到英雄联盟!</p>
+    <p>我是一个无情的打野,</p>
+    <p id="Jeff">欢迎来到德莱联盟!</p>
+    <p>欢迎来到Jeff的课堂!</p>
+  </body>
+</html>

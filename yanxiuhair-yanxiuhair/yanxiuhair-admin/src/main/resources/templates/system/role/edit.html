@@ -1,0 +1,189 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<div class="white-bg">
+	<div align="center">
+		<div class="main-content">
+			<form id="form-role-edit">
+				<input id="roleId" name="roleId" type="hidden"/>
+				<table class="table table-striped table-bordered table-td">
+			        <tbody>
+			        	<tr>
+		                	<td>
+			                	<label class="is-required">角色名称：</label>
+			                </td>
+			                <td>
+		                		<input id="roleName" name="roleName" class="easyui-textbox" style="width:500px;" data-options="prompt:'请输入角色名称',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+		                </tr>
+			            <tr>
+			                <td>
+			                	<label class="is-required">权限字符：</label>
+		                	</td>
+			                <td>
+	                	 		<input id="roleKey" name="roleKey" class="easyui-textbox" style="width:500px;" data-options="prompt:'请输入权限字符',validType:['length[1,60]'],required:true" type="text">
+	                	 		<span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 控制器中定义的权限字符，如：@RequiresRoles("")</span>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                	<label class="is-required">显示顺序：</label>
+		                	</td>
+			                <td>
+	                	 		<input id="roleSort" name="roleSort" class="easyui-numberbox" style="width:230px;" data-options="prompt:'请输入显示顺序',min:1,required:true" type="text">
+			                </td>
+		                </tr>
+			            <tr>
+			                <td>
+			                	<label class="is-required">状态：</label>
+			                </td>
+			                <td>
+			                	<label class="toggle-switch switch-solid">
+			                        <input type="checkbox" id="status" th:checked="${role.status == '0' ? true : false}">
+			                        <span></span>
+			                    </label>
+			                </td>
+		                </tr>
+		                <tr>
+			                <td>
+			                	<label>备注：</label>
+		                	</td>
+			                <td>
+	                	 		<input id="remark" class="easyui-textbox" name="remark" data-options="prompt:'请输入备注',validType:['maxLength[100]'],multiline:true" style="height:60px;width:500px;">
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                	<label>菜单权限：</label>
+		                	</td>
+			                <td>
+	                	 		<label class="check-box"><input type="checkbox" value="1">展开/折叠</label>
+							    <label class="check-box"><input type="checkbox" value="2">全选/全不选</label>
+							    <label class="check-box"><input type="checkbox" value="3" checked>父子联动</label>
+							    <div id="menuTrees" class="ztree ztree-border"></div>
+			                </td>
+			            </tr>
+				 	</tbody>
+			    </table>
+			    <div id="dlg-buttons">
+			    	<a class="easyui-linkbutton" iconCls="icon-save" onclick="submitHandler()">保存</a>
+                    <a class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.easyUIModal.close()">关闭</a>
+		    	</div>
+		    </form>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	var role = [[${role}]];
+	$('#form-role-edit').form('load', role);
+	$(function() {
+		var url = ctx + "system/menu/roleMenuTreeData?roleId=" + $("#roleId").val();
+		var options = {
+			id: "menuTrees",
+	        url: url,
+	        check: { enable: true },
+	        expandLevel: 0
+	    };
+		$.tree.init(options);
+	});
+	
+	$('.check-box [type="checkbox"]').each(function(index, element) {
+		$(this).click(function(){
+			if(this.value == 1){
+				if(this.checked == true){
+					$._tree.expandAll(true);
+	            } else {
+	            	$._tree.expandAll(false);
+	            }
+			} else if(this.value == 2){
+				if(this.checked == true){
+					$._tree.checkAllNodes(true);
+	            } else {
+	            	$._tree.checkAllNodes(false);
+	            }
+			} else if(this.value == 3){
+				if(this.checked == true){
+					$._tree.setting.check.chkboxType = { "Y": "ps", "N": "ps" };
+	            } else {
+	            	$._tree.setting.check.chkboxType = { "Y": "", "N": "" };
+	            }
+			}
+    	});
+	});
+	
+	$("#roleName").textbox({
+		onChange: function (newValue, oldValue) {
+			if($.common.trim(newValue) != $.common.trim(oldValue)){
+				var url = ctx + "system/role/checkRoleNameUnique";
+				var queryParams = {
+					"roleName" : $.common.trim(newValue),
+					"roleId" : $("#roleId").val()
+				};
+				$.easyUIOperate.ajax(url, "post", "json", queryParams, function(result){
+					if(!$.validate.unique(result)){
+						$("#roleName").textbox("setValue","").textbox("textbox").focus(); 
+						$.messager.show({
+							title : '提示',
+							msg : "该角色名称已经存在！",
+							timeout: 1000
+						});
+					}
+				});
+			}
+		}
+	});
+	
+	$("#roleKey").textbox({
+		onChange: function (newValue, oldValue) {
+			if($.common.trim(newValue) != $.common.trim(oldValue)){
+				var url = ctx + "system/role/checkRoleKeyUnique";
+				var queryParams = {
+					"roleKey" : $.common.trim(newValue),
+					"roleId" : $("#roleId").val()
+				};
+				$.easyUIOperate.ajax(url, "post", "json", queryParams, function(result){
+					if(!$.validate.unique(result)){
+						$("#roleKey").textbox("setValue","").textbox("textbox").focus(); 
+						$.messager.show({
+							title : '提示',
+							msg : "该角色权限已经存在！",
+							timeout: 1000
+						});
+					}
+				});
+			}
+		}
+	});
+	
+	function submitHandler() {
+		if($("#form-role-edit").form('validate')){
+			$($("#form-role-edit").find(".easyui-linkbutton")[0]).linkbutton("disable");//禁用保存按钮
+			var roleId = $("#roleId").val();
+			var roleName = $("#roleName").textbox("getValue");
+			var roleKey = $("#roleKey").textbox("getValue");
+			var roleSort = $("#roleSort").numberbox("getValue");
+			var status = $("input[id='status']").is(':checked') == true ? 0 : 1;
+			var remark = $("#remark").textbox("getValue");
+			var menuIds = $.tree.getCheckedNodes();
+			$.ajax({
+				cache : true,
+				type : "POST",
+				url : ctx + "system/role/edit",
+				data : {
+					"roleId": roleId,
+					"roleName": roleName,
+					"roleKey": roleKey,
+					"roleSort": roleSort,
+					"status": status,
+					"remark": remark,
+					"menuIds": menuIds
+				},
+				async : false,
+				error : function(request) {
+					$.messager.alert("提示", "系统错误", 'error');
+				},
+				success : function(data) {
+					$.easyUIOperate.successCallback(data);
+				}
+			});
+		}
+	}
+</script>

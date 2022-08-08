@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>history对象演示文档</title>
+  </head>
+  <body>
+    <h1>这是起始页</h1>
+
+    <a
+      href="testHtml/test1.html"
+      target="_blank"
+      onclick="showHistoryLength();"
+      >test1</a
+    >
+    <a
+      href="testHtml/test2.html"
+      target="_blank"
+      onclick="showHistoryLength();"
+      >test2</a
+    >
+
+    <script>
+      function showHistoryLength() {
+        alert(history.length);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,3 @@
+[submodule "RBAC-Template-2.0/rbac-web-admin-vue3-Ts"]
+	path = RBAC-Template-2.0/rbac-web-admin-vue3-Ts
+	url = https://gitee.com/yaolonga/rbac-web-admin-vue3-ts.git

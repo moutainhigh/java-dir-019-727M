@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+		<title>Colorbox演示文档</title>
+		<style>
+			body{font:12px/1.2 Verdana, sans-serif; padding:0 10px;}
+			a:link, a:visited{text-decoration:none; color:#416CE5; border-bottom:1px solid #416CE5;}
+			h2{font-size:13px; margin:15px 0 0 0;}
+		</style>
+		<link rel="stylesheet" href="./css/colorbox.css" />
+		<script src="./jquery/jquery-1.11.1.min.js"></script>
+		<script src="./jquery/jquery.colorbox.js"></script>
+		<script>
+			$(document).ready(function(){
+				//如何将Colorbox事件分配给元素的示例
+				$(".group1").colorbox({rel:'group1'});
+				$(".group2").colorbox({rel:'group2', transition:"fade"});
+				$(".group3").colorbox({rel:'group3', transition:"none", width:"75%", height:"75%"});
+				$(".group4").colorbox({rel:'group4', slideshow:true});
+			});
+		</script>
+	</head>
+	<body>
+		<h1>Colorbox示范</h1>
+		<h2>弹性效果</h2>
+		<p><a class="group1" href="image/Campusimage5.jpg" title="">第一组第一张</a></p>
+		<p><a class="group1" href="image/logo.gif" title="">第一组第二张</a></p>
+		<p><a class="group1" href="image/Underconstruction.PNG" title="underConstruction.PNG">第一组第三张</a></p>
+
+		<h2>淡出效果</h2>
+		<p><a class="group2" href="image/faker_1.png" title="faker">照片1</a></p>
+		<p><a class="group2" href="image/faker2.png" title="faker">照片2</a></p>
+		<p><a class="group2" href="image/faker3.png" title="faker">照片3</a></p>
+
+		<h2>无过渡+固定宽度和高度(屏幕大小的75%)</h2>
+		<p><a class="group3" href="image/faker_1.png" title="faker">照片1</a></p>
+		<p><a class="group3" href="image/faker2.png" title="faker">照片2</a></p>
+		<p><a class="group3" href="image/faker3.png" title="faker">照片3</a></p>
+		<h2>幻灯片</h2>
+		<p><a class="group4" href="image/faker_1.png" title="faker">照片1</a></p>
+		<p><a class="group4" href="image/faker2.png" title="faker">照片2</a></p>
+		<p><a class="group4" href="image/faker3.png" title="faker">照片3</a></p>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS 书写位置演示文档</title>
+    <style type="text/css">
+      div {
+        color: red;
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 15px;
+        width: 100px;
+        height: 50px;
+        position: relative;
+        transform: translate(300px, 300px);
+        background-color: antiquewhite;
+        border-radius: 20%;
+      }
+      div a {
+        text-decoration: none;
+        color: black;
+      }
+    </style>
+    <script src="./myJavaScript/second.js"></script>
+    <!-- 不要用link标签引入js文件 -->
+    <link rel="stylesheet" href="./myJavaScript/second.js" />
+    <script>
+      alert("内嵌式的js!");
+    </script>
+
+    <script src="./myJavaScript/second.js"></script>
+  </head>
+  <body>
+    <div onclick="alert('我是行内的js代码!')"><a href="#">工具人</a></div>
+    <script src="./myJavaScript/second.js"></script>
+  </body>
+  <script src="./myJavaScript/second.js"></script>
+</html>

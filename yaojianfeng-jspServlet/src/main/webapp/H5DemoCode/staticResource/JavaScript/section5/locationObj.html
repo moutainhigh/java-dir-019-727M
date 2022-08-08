@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>location对象演示文档</title>
+    <script>
+      function newDoc() {
+        window.location.assign("https://www.baidu.com");
+      }
+      function replaceDoc() {
+        window.location.replace("https://www.taobao.com");
+      }
+    </script>
+  </head>
+  <body>
+    <!-- 点击时 重新设置当前文档的地址 -->
+    <input
+      type="button"
+      value="Jeff的小破站"
+      onClick="location.href = 'http://yaojianfeng.shop'"
+    />
+
+    <input type="button" value="载入新文档" onclick="newDoc()" />
+    <button type="button" onclick="location.reload();">刷新</button>
+    <button type="button" onclick="replaceDoc();">替换当前文档</button>
+  </body>
+</html>

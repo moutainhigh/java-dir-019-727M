@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+# ps -p $$ which shell the script
+
+###########################################################################
+#                          UTILITAIRES CHAINES                            #
+###########################################################################
+# change case from lower case to upper case
+l2u() {
+	echo "$@" |tr '[:lower:]' '[:upper:]';
+}
+# change case from lower case to upper case
+u2l() {
+	echo "$@" |tr '[:upper:]' '[:lower:]' ;
+}
+
+
+###########################################################################
+#                                  DATE                                   #
+###########################################################################
+
+today() {
+	echo "$(u2l "$(date '+%Y-%b-%d')")"
+}
+now() {
+	echo "$(u2l "$(date '+%Y-%b-%d-%H:%M')")"
+}
+
+checkDirectory()
+{
+  p=1;
+  for arg in "$@";
+  do
+    if [[ -z "$arg" || ! -d "$arg" ]] # missing argument or folder
+    then
+        printf "[!] Argument #%s or directory missing: %s\n" "$p" "$arg"
+        printf "[!] Aborting...\n"
+      return 0
+    fi
+    ((p++))
+  done
+}
+
+
+checkFile()
+{
+  p=1;
+  for arg in "$@";
+  do
+    if [[ -z "$arg" || ! -e "$arg" ]] # missing argument or folder
+    then
+        printf "[!] Argument #%s or directory missing: %s\n" "$p" "$arg"
+        printf "[!] Aborting...\n"
+      return 0
+    fi
+    ((p++))
+  done
+	return 1
+}
+
+
+checkArgument()
+{
+    for arg in "$@";
+    do
+        if [[ -z "$arg" ]] # empty argument
+        then
+            printf "[!] Argument #%s missing: %s\n" "$p" "$arg"
+            printf "[!] Aborting...\n"
+	        return 0
+        else
+        	return 1
+        fi
+    done
+}
+
+# @description: check if given directories exists, display missing one and quit if at least one directory is missing
+# @param: array of string representing path to directories
+quitIfMissing() {
+    let status=0 # 0 = no problem, >0 = missing directory
+
+    for directory in "$@";
+    do
+        if [[ ! -z "$directory" ]] && [[ ! -d "$directory" ]] # vrai si: chemin non-vide et dossier inexistant
+        then
+              printf "[!] Dossier inexistant: %s\n" "$directory"
+              ((status+=1)) # increment status
+        fi
+    done
+
+    if (($status > 0 ));
+    then
+        printf "%s\n[i] Directories are missing, you need them to run this script.\n\n" "--"
+        return $status;
+    fi
+}
+
+# eof

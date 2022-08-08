@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>hello world</title>
+    <meta charset="UTF-8">
+    <!-- 为搜索引擎定义关键词: -->
+    <meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript" />
+    <!-- 为网页定义描述内容: -->
+    <meta name="description" content="NIIT HTML5 教程" />
+    <!-- 定义网页作者: -->
+    <meta name="author" content="Jeff" />
+    <!-- 每3秒钟刷新当前页面 -->
+    <!-- <meta http-equiv="refresh" content="3" /> -->
+    <!-- <base href="https://www.huel.edu.cn/" /> -->
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      hreflang="en"
+      href="../../../staticResource/css/myStyle.css"
+    />
+    <style>
+      html {
+        background-color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <div>Display a meter:</div>
+    <meter value="59" min="0" max="100" low="60" high="80"></meter>
+    <br />
+    <meter value="61" min="0" max="100" low="60" high="80"></meter>
+    <br />
+    <meter value="81" min="0" max="100" low="60" high="80"></meter>
+    <br />
+    <meter value="0.81" min="0.0" max="1.0" low="0.5" high="0.8"></meter>
+    <br />
+    <div>Progress of a task:</div>
+    <progress id="jd" value="50" max="100"></progress>
+
+    <script type="text/javascript">
+      var el = document.getElementById("jd").value;
+      console.log(el);
+      setInterval(() => {
+        el = el + 10;
+        document.getElementById("jd").value = el;
+      }, 1000);
+    </script>
+  </body>
+</html>

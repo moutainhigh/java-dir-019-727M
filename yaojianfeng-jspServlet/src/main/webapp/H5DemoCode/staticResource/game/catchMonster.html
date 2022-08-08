@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Canvas小游戏</title>
+</head>
+<body>
+<div id="infoDiv"></div>
+<div id="dispScore"></div>
+<button style="position: fixed;left: 600px;top: 200px;" type="button" id="resetBtn" onclick="reStartGame()"><b>重置游戏</b></button>
+<p>游戏玩法: 通过控制键盘"↑""↓""←""→"移动人物捕捉怪物</p>
+<canvas id="myCanvas">你的浏览器不支持canvas...</canvas>
+<script src="../common/jsUtils/game.js"></script>
+<script>
+    function reStartGame() {
+        location.reload();
+    }
+</script>
+</body>
+</html>

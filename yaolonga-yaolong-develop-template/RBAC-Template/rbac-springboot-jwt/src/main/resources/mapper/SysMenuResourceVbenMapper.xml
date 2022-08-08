@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaolong.rbac.jwt.mapper.SysMenuResourceVbenMapper">
+
+
+    <resultMap id="menuResourceVbenMap" type="com.yaolong.rbac.jwt.po.vbenAdmin.MenuResource">
+        <id property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+        <result property="component" column="component"/>
+        <result property="description" column="description"/>
+        <result property="level" column="level"/>
+        <result property="redirect" column="redirect"/>
+        <result property="caseSensitive" column="case_sensitive"/>
+        <result property="metaId" column="mm_id"/>
+        <result property="status" column="status"/>
+
+        <result property="permission" column="permission"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="menuType" column="menu_type"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="isExt" column="is_ext"/>
+
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <association property="meta" javaType="com.yaolong.rbac.jwt.po.vbenAdmin.MenuMeta">
+            <result property="id" column="mm_id"/>
+            <result property="title" column="title"/>
+            <result property="ignoreRoute" column="ignore_route"/>
+            <result property="orderNo" column="order_no"/>
+            <result property="hideMenu" column="hide_menu"/>
+            <result property="hideTab" column="hide_tab"/>
+            <result property="currentActiveMenu" column="current_active_menu"/>
+            <result property="hideChildrenInMenu" column="hide_children_in_menu"/>
+            <result property="carryParam" column="carry_param"/>
+            <result property="hideBreadcrumb" column="hide_breadcrumb"/>
+            <result property="transitionName" column="transition_name"/>
+            <result property="frameSrc" column="frame_src"/>
+            <result property="icon" column="icon"/>
+            <result property="affix" column="affix"/>
+            <result property="ignoreKeepAlive" column="ignore_keep_alive"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="menuItemVbenMap" type="com.yaolong.rbac.jwt.po.vbenAdmin.MenuItem">
+        <id property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+        <result property="component" column="component"/>
+        <result property="description" column="description"/>
+        <result property="level" column="level"/>
+        <result property="redirect" column="redirect"/>
+        <result property="caseSensitive" column="case_sensitive"/>
+        <result property="metaId" column="mm_id"/>
+        <result property="status" column="status"/>
+        <result property="permission" column="permission"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="menuType" column="menu_type"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="isExt" column="is_ext"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="title" column="title"/>
+        <result property="ignoreRoute" column="ignore_route"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="hideMenu" column="hide_menu"/>
+        <result property="hideTab" column="hide_tab"/>
+        <result property="currentActiveMenu" column="current_active_menu"/>
+        <result property="hideChildrenInMenu" column="hide_children_in_menu"/>
+        <result property="carryParam" column="carry_param"/>
+        <result property="hideBreadcrumb" column="hide_breadcrumb"/>
+        <result property="transitionName" column="transition_name"/>
+        <result property="frameSrc" column="frame_src"/>
+        <result property="icon" column="icon"/>
+        <result property="affix" column="affix"/>
+        <result property="ignoreKeepAlive" column="ignore_keep_alive"/>
+    </resultMap>
+
+    <select id="getMenuResourceListByUsername" parameterType="string" resultMap="menuResourceVbenMap">
+        select
+            mr.*,title,ignore_route,
+            mm.order_no,hide_menu,hide_tab,
+            current_active_menu,hide_children_in_menu,
+            carry_param,affix,ignore_keep_alive,
+            hide_breadcrumb,transition_name,
+            frame_src,icon,
+            mm.id as mm_id
+        from sys_user u
+        left join sys_user_role ur on u.id = ur.user_id
+        left join sys_role r on ur.role_id = r.id
+        left join sys_role_menu_resource_vben rmr on r.id = rmr.role_id
+        left join sys_menu_resource_vben mr on mr.id = rmr.menu_id
+        left join sys_menu_meta mm on mm.id = mr.meta_id
+        where u.username = #{username}
+    </select>
+
+    <select id="getList"  resultMap="menuResourceVbenMap">
+        select
+            mr.*,title,ignore_route,
+            mm.order_no ,hide_menu,hide_tab,
+            current_active_menu,hide_children_in_menu,
+            carry_param,affix,ignore_keep_alive,
+            hide_breadcrumb,transition_name,
+            frame_src,icon,mm.id as mm_id
+        from sys_menu_resource_vben mr
+        left join sys_menu_meta mm on mm.id = mr.meta_id
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="getMenuItems"  resultMap="menuItemVbenMap">
+        select
+            mr.*,title,ignore_route,
+            mm.order_no,hide_menu,hide_tab,
+            current_active_menu,hide_children_in_menu,
+            carry_param,affix,ignore_keep_alive,
+            hide_breadcrumb,transition_name,
+            frame_src,icon,mm.id as mm_id
+        from sys_menu_resource_vben mr
+        left join sys_menu_meta mm on mm.id = mr.meta_id
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="page"  resultMap="menuResourceVbenMap">
+        select
+            mr.*,title,ignore_route,
+            order_no,hide_menu,hide_tab,
+            current_active_menu,hide_children_in_menu,
+            carry_param,affix,ignore_keep_alive,
+            hide_breadcrumb,transition_name,
+            frame_src,icon,mm.id as mm_id
+        from sys_menu_resource_vben mr
+        left join sys_menu_meta mm on mm.id = mr.meta_id
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="getMenuResourceListByRoleId" parameterType="Long" resultMap="menuResourceVbenMap">
+        select
+            mr.*,title,ignore_route,
+            mm.order_no,hide_menu,hide_tab,
+            current_active_menu,hide_children_in_menu,
+            carry_param,affix,ignore_keep_alive,
+            hide_breadcrumb,transition_name,
+            frame_src,icon,mm.id as mm_id
+        from sys_role r
+        left join sys_role_menu_resource_vben rmr on r.id = rmr.role_id
+        left join sys_menu_resource_vben mr on mr.id = rmr.menu_id
+        left join sys_menu_meta mm on mm.id = mr.meta_id
+        where r.id = #{roleId}
+    </select>
+
+
+</mapper>

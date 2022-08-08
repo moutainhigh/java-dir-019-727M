@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        function validate()
+        {
+            if(document.f1.mySelect.value==0)
+            {
+                alert("请选择你的国家!");
+                return false
+            }
+            else
+                return true
+        }
+    </script>
+</head>
+<body>
+<form name="f1" method="get" action="" onsubmit="validate();" >
+    <label for="opt"> 国家:</label>
+    <select id="opt" name="mySelect" style="width:220px">
+        <option value=0>--请选择您的国家--</option>
+        <option value="1">中国</option>
+        <option value="2">印度</option>
+        <option value="3">英国</option>
+    </select>
+    <input type="submit" name="submit" value="提交">
+    <input type="reset" name="reset" value="重置">
+</form>
+</body>
+</html>

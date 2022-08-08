@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D 变换演示文档</title>
+    <style type="text/css">
+      #containner {
+        position: relative;
+        width: 1500px;
+        height: 2000px;
+        border: 3px solid red;
+        background-color: gray;
+      }
+      div {
+        position: relative;
+        float: left;
+        color: blue;
+        border: 1px solid yellow;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+
+      #two:hover {
+        transition: all;
+        transform: rotate(90deg);
+        transition-duration: 2s;
+      }
+
+      #three_x:hover {
+        transition: all;
+        transform: rotateX(90deg);
+        transition-duration: 2s;
+      }
+      #three_y:hover {
+        transition: all;
+        transform: rotateY(180deg);
+        transition-duration: 2s;
+      }
+      #three_z:hover {
+        transition: all;
+        transform: rotateZ(180deg);
+        transition-duration: 2s;
+      }
+      #three_xyz:hover {
+        transition: all;
+        transform: rotate3d(0.5, 0.5, 0.5, 90deg);
+        transition-duration: 5s;
+      }
+    </style>
+    <style type="text/css">
+      #example-element {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 300px;
+        top: 300px;
+        transform-style: preserve-3d;
+        perspective: 1050px;
+      }
+      .transition-all {
+        transition: all 0.3s ease-in;
+      }
+      .face {
+        /* 灵活布局 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        backface-visibility: inherit;
+        font-size: 60px;
+        color: #fff;
+      }
+      .front {
+        background: rgba(90, 90, 90, 0.7);
+        transform: translateZ(50px);
+      }
+      .back {
+        background: rgba(0, 210, 0, 0.7);
+        transform: rotateY(180deg) translateZ(50px);
+      }
+      .right {
+        background: rgba(210, 0, 0, 0.7);
+        transform: rotateY(90deg) translateZ(50px);
+      }
+      .left {
+        background: rgba(0, 0, 210, 0.7);
+        transform: rotateY(-90deg) translateZ(50px);
+      }
+      .top {
+        background: rgba(210, 210, 0, 0.7);
+        transform: rotateX(90deg) translateZ(50px);
+      }
+      .bottom {
+        background: rgba(210, 0, 210, 0.7);
+        transform: rotateX(-90deg) translateZ(50px);
+      }
+      #example-element:hover {
+        transition: all;
+        transition-duration: 5s;
+        transform: rotate3d(1, 0, 0, 90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="containner">
+      <div id="two"><p>2D变换</p></div>
+      <div id="three_x"><p>沿着X轴旋转</p></div>
+      <div id="three_y"><p>沿着Y轴旋转</p></div>
+      <div id="three_z"><p>沿着Z轴旋转</p></div>
+
+      <div id="example-element" class="transition-all">
+        <div class="face front">1</div>
+        <div class="face back">2</div>
+        <div class="face right">3</div>
+        <div class="face left">4</div>
+        <div class="face top">5</div>
+        <div class="face bottom">6</div>
+      </div>
+    </div>
+  </body>
+</html>

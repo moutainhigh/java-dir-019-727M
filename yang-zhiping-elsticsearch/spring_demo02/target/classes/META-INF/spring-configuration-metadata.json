@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "elasticsearch",
+      "type": "com.itheima.spring.config.ElasticContext",
+      "sourceType": "com.itheima.spring.config.ElasticContext"
+    }
+  ],
+  "properties": [
+    {
+      "name": "elasticsearch.host",
+      "type": "java.lang.String",
+      "sourceType": "com.itheima.spring.config.ElasticContext"
+    },
+    {
+      "name": "elasticsearch.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.itheima.spring.config.ElasticContext"
+    }
+  ],
+  "hints": []
+}

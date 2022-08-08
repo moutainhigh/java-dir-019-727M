@@ -1,0 +1,10 @@
+CACHE MANIFEST
+# 2021-11-03 v1.0.0
+./jquery/style.css
+./jquery/jquery-1.11.1.min.js
+
+NETWORK:
+./jquery/myStyle.css
+
+FALLBACK:
+/20211103/ ./offline.html

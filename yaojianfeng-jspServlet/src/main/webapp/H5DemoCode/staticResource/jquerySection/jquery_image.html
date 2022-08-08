@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery图像翻转演示文档</title>
+    <script src="./jquery/jquery-1.11.1.min.js"></script>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        h2 {
+            font-family: verdana;
+            font-size: 30px;
+            color: darkcyan;
+            text-align: center;
+        }
+
+        h3 {
+            text-align: center;
+            color: darkcyan;
+            font-size: 20px;
+        }
+
+        #para1 {
+            font-size: 18px;
+            text-align: center;
+            color: darkcyan;
+        }
+    </style>
+
+</head>
+<body>
+<div style="position:absolute; top:180px; left:400px;">
+    <p id="para1"> 将鼠标移动到图像上 </p>
+    <img id="myImage" src="./image/logo.gif" onmouseover="imageTurn(this,'./image/yi.jpg')"
+         onmouseout="imageTurn(this,'./image/logo.gif')" height="100px" width="100px" alt="图片"/>
+    <button type="button" onclick="turn('#myImage','./image/yi.jpg')">
+        更改图片
+    </button>
+<!--    创建兼容的图片翻转效果 使用a标签包裹img标签 -->
+    <a href="" onmouseover="turn('#innerImg','./image/yi.jpg')"
+       onmouseout="turn('#innerImg','./image/logo.gif')">
+        <img id="innerImg" src="./image/logo.gif"  height="100px" width="100px" alt="图片"/>
+    </a>
+
+</div>
+<script>
+    function imageTurn(img, imgSrc) {
+        // 图片对象, 直接指定属性即可
+        img.src = imgSrc;
+    }
+
+    function turn(_id, imgSrc) {
+        //改变为JQuery对象 所以要使用JQuer的方法
+        $(_id).attr('src',imgSrc) ;
+        //使用下面的无效
+        // $(_id).src=imgSrc ;
+    }
+
+</script>
+</body>
+</html>

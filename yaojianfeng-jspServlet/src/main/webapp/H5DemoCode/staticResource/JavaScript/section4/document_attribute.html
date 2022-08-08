@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>document属性演示文档</title>
+    <style>
+      .container {
+        width: 100%;
+        height: 1000px;
+      }
+      .container > div {
+        border: 1px solid red;
+        margin: 5px;
+      }
+      nav a {
+        text-decoration: none;
+      }
+      a {
+        text-decoration: none;
+      }
+    </style>
+    <script>
+      function initDocStyle() {
+        document.bgColor = "gray";
+        document.alinkColor = "yellow";
+      }
+    </script>
+  </head>
+  <body id="main" onload="initDocStyle();">
+    <div class="container">
+      <h1 id="head">头部标题</h1>
+      <div>
+        <label for="">一些超链接: </label>
+        <nav>
+          <a href="https://www.baidu.com/" target="_blank">百度</a>|
+          <a href="https://www.163.com/" target="_blank">网易</a>|
+          <a href="https://www.w3school.com.cn/" target="_blank">w3shool</a>|
+          <a href="https://www.runoob.com/html/html5-intro.html" target="_blank"
+            >菜鸟教程</a
+          >|
+          <a
+            href="https://developer.mozilla.org/zh-CN/docs/Web/Tutorials"
+            target="_blank"
+            >MDN文档</a
+          >|
+          <a href="https://www.whx.me/color/index.html" target="getColorCode"
+            >网络取色器</a
+          >
+        </nav>
+      </div>
+      <div>
+        <label for="">一些按钮:</label>
+        <button type="button" onclick="setBgColor();">设置背景色</button>
+        <button type="button" onclick="getAlinkColorVal()">alinkColor</button>
+        <button type="button" onclick="getLinksVal()">links</button>
+        <button type="button" onclick="showdocument()">查看document</button>
+      </div>
+      <div>
+        <iframe
+          src=""
+          frameborder="0"
+          name="getColorCode"
+          width="100%"
+          scrolling="no"
+        ></iframe>
+      </div>
+      <div id="center">页面中间位置</div>
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <div id="footer">
+        页面底部位置
+        <a href="#head" style="position: fixed; right: 20px; bottom: 100px"
+          >返回顶部</a
+        >
+      </div>
+    </div>
+    <script>
+      function setBgColor() {
+        var color = prompt("请填充颜色!");
+        document.getElementById("main").style.backgroundColor = color;
+        // document.bgColor = color; //已经不推荐了
+      }
+      function getAlinkColorVal() {
+        alert(document.alinkColor);
+      }
+
+      function getLinksVal() {
+        var links = document.links;
+        for (var index = 0; index < links.length; index++) {
+          console.log(links[index]);
+        }
+      }
+      function showdocument() {
+        console.log(window);
+      }
+    </script>
+  </body>
+</html>

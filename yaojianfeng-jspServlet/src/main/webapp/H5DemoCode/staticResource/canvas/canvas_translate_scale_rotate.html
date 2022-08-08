@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>translate 演示文档</title>
+    <script src="../common/jsUtils/myCanvasUtil.js"></script>
+    <script src="../common/jsUtils/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="1366px" height="500px" style="border:1px solid #000000;background: #999999">
+    您的浏览器不支持 HTML5 canvas 标签。
+</canvas>
+<table>
+    <tr>
+        <td><label>x坐标:<input id="x" type="number"></label></td>
+        <td><label>y坐标:<input id="y" type="number"></label></td>
+        <td><label>宽度:<input id="width" type="number"></label></td>
+        <td><label>高度:<input id="height" type="number"></label></td>
+        <td><span id="warning" style="visibility:visible"></span></td>
+    </tr>
+
+</table>
+
+<div>
+    <button onclick="myCreatRect()">创建矩形</button>
+
+    <button onclick="myStrokeRect()">描边</button>
+    
+    <button onclick="myTranslate(x/2,y/2)">translate</button>
+
+    <button onclick="myScale(2,2)">scale</button>
+
+    <button onclick="myRotate(Math.PI/4)">rotate</button>
+
+
+    <button onclick="clearCanvas('myCanvas')">清除画布</button>
+</div>
+<script>
+    //声明参数 准备复用
+    let x, y, width, height, color, strokeColor, shadowColor, blurLevel;
+
+    /**
+     * 正式绘制前的准备工作
+     * 校验参数合法性
+     * @returns {null|*}
+     */
+    function getParamVal() {
+        //校验数据
+        x = $('#x').val();
+        y = $('#y').val();
+        width = $('#width').val();
+        height = $('#height').val();
+        return translateRulerOf(x, y, width, height);
+
+    }
+
+    //初始化画布对象
+    function initCanvasObj() {
+        //校验参数合法性
+        const validResult = getParamVal();
+        //获取画笔 开启路径
+        if (validResult.flag) {
+            const canvasObj = document.getElementById('myCanvas');
+            document.getElementById("warning").style.visibility = 'hidden';
+            const contextObj = getContextObj(canvasObj, '2d');
+            contextObj.beginPath();
+            return contextObj;
+
+        } else {
+            $('#warning').css({'visibility': 'visible', 'color': 'red'}).html('<b>未输入参数或参数不正确!</b>');
+            document.getElementsByTagName('input')[validResult.elementIndex].focus();
+            return null;
+        }
+    }
+
+
+
+    /**
+     * 创建一个矩形
+     */
+    function myCreatRect() {
+        const canvasObj = initCanvasObj();
+        canvasObj.fillRect(x, y, width, height);
+    }
+
+    
+    function myStrokeRect() {
+        const canvasObj = initCanvasObj();
+        canvasObj.strokeRect(x, y, width, height);
+    }
+    
+    function myTranslate(_x,_y) {
+        //未移动坐标原点之前
+        const  canvasObj = initCanvasObj();
+        canvasObj.fillStyle = 'red';
+        canvasObj.fillRect(x, y, width, height);
+        // 移动画布的坐标原点
+        canvasObj.translate(_x, _y);
+        canvasObj.fillStyle = "blue";
+        canvasObj.fillRect(x, y,width,height);
+    }
+
+    function myScale(scaleWidth,scaleHeight){
+        const  canvasObj = initCanvasObj();
+        canvasObj.fillStyle = 'red';
+        canvasObj.fillRect(x, y, width, height);
+        // 移动画布的坐标原点
+        canvasObj.translate(x/2, y/2);
+        canvasObj.scale(scaleWidth, scaleHeight)
+        canvasObj.fillStyle = "yellow";
+        canvasObj.fillRect(x, y,width,height);
+    }
+
+    /**
+     * 沿着坐标原点进行顺时针旋转
+     * @param angle
+     */
+    function myRotate(angle){
+        const  canvasObj = initCanvasObj();
+        //沿着坐标原点进行旋转
+        canvasObj.rotate(angle);
+        canvasObj.fillStyle = "green";
+        canvasObj.fillRect(x, y,width,height);
+    }
+
+</script>
+</body>
+</html>

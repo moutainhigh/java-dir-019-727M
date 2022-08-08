@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>运算符演示</title>
+    <script>
+      var x = 5,
+        y = 5;
+      num = "hello";
+      console.log(x + y);
+      console.log(x + num);
+      console.log(x * num);
+      console.log((x %= y));
+
+      console.log("==================");
+      var a = 5,
+        b = 2;
+      var result = a % b;
+      console.log(result);
+
+      var num1 = 10;
+      num1++;
+      console.log(num1);
+      ++num1;
+      console.log(num1);
+
+      x = y++;
+      console.log(x);
+      console.log(y);
+      console.log(x == 5 && y == 5);
+
+      //三元运算符的语法结构  表达式?备选值a : 备选值b
+      var result = x == y ? x + 1 : x - 1;
+      console.log(result);
+    </script>
+  </head>
+  <body></body>
+</html>

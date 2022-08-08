@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery预定义函数演示文档</title>
+    <script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .fontColor{
+            color: blue;
+        }
+        .fontSize{
+            font-size: large;
+        }
+
+    </style>
+</head>
+<body>
+
+<h3>拼接句子:</h3>
+<p id="para">是一个javascript库，启用的内部内容之后要附加的内容使用</p><br>
+<h2 id="newhead">这个标题将被删除。</h2>
+<div id="myDiv1" style="border: 1px solid blue;padding: 5px"></div>
+<button id="btn">点击按钮</button>
+<button onclick="funHtml();">使用html()</button>
+<button onclick="funEmpty();">使用empty()</button>
+<button onclick="funBefore();">使用before()</button>
+<button onclick="funAfter();">使用after()</button>
+<button onclick="funText();" id="useText">使用text()</button>
+<!--这个地方可能点不了 被遮住了 将style外部样式中的.btn3的宽高去掉-->
+<button id="removeBtn">(removeClass))</button>
+<div id="btnDiv">
+    <button onclick="funAddClass();">添加样式(addClass)</button>
+</div>
+
+<div>
+    <label>
+        文本输入框:
+        <input type="text" id="MyTextInput" value="LOL是我回不去的青春啊!">
+    </label>
+</div>
+<button id="valBtn" onclick="funVal();">使用val()</button>
+<button id="attrBtn" onclick="funAttr();">使用attr()</button>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //使用jquery事件 绑定要执行的内容
+        $("#btn").click(function () {
+            $("#para").prepend(" <b>jquery </b>");
+            $("#para").append(" <b>append() function</b>.");
+            $("#para").after('<h3>这是新插入的标题。 </h3>');
+            $("#newhead").remove();
+        });
+
+        //与上面写法有异曲同工的作用
+        $('#removeBtn').on('click',function () {
+            $('#removeBtn').removeClass();
+            $('#btnDiv').removeClass();
+            $('#btnDiv button').removeClass();
+        })
+    });
+
+    function funHtml() {
+        $('#myDiv1').html('<div id="myInstall" style="border: 1px solid black ">在原有的div里内嵌另一个div</div>')
+    };
+
+    function funEmpty() {
+        $('#para').empty();
+    };
+
+    function funBefore() {
+
+        $('#myInstall').before('<div style="border: 1px solid red;margin: 5px " >在已插入的div前面再插入一个div</div>');
+    };
+
+    function funAfter() {
+        $('#myInstall').after('<div style="border: 1px solid #ff0000;margin: 5px " >在已插入的div后面再插入一个div</div>');
+    };
+
+    function funText() {
+        alert($('#myDiv1').text())
+    };
+    function funAddClass() {
+        $('#btnDiv').addClass('btn-3');
+        $('#btnDiv button').addClass('up ');
+        $('#removeBtn').addClass('fontColor fontSize');
+    };
+    function funVal() {
+        var val = $('#MyTextInput').val();
+        var b = prompt('是否要重新设置默认值:'+val);
+        if (b){
+            $('#MyTextInput').val(b);
+        }
+    }
+    function funAttr() {
+        var val = $('#MyTextInput').attr('type');
+        var b = prompt('是否要重新设置输入框类型:'+val);
+        if (b){
+            $('#MyTextInput').attr('type',b);
+        }
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>window属性演示文档</title>
+    <style>
+      div {
+        border: 1px solid blue;
+        margin-bottom: 10px;
+      }
+
+      div > div {
+        border: 1px solid red;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">第一行</div>
+    <div id="dbody">第二行</div>
+    <div id="footer">
+      <div>第三行</div>
+      <div>
+        <iframe src="targetDoc.html" frameborder="1" name="first"></iframe>
+      </div>
+      <div>
+        <iframe
+          srcdoc="<h1 style='color:blue'>Hello World!</h1>"
+          frameborder="1"
+        ></iframe>
+      </div>
+    </div>
+
+    <script>
+      // window.defaultStatus = "窗口状态栏文本";
+      console.log(window);
+      console.log(window.document);
+
+      //  以下三种写法都代表框架数量
+      console.log(window.frames.length);
+      console.log(frames.length);
+      console.log(window.length);
+      name = "window对象属性学习窗口";
+      console.log(window.name);
+      console.log(window.parent);
+      console.log(window.self);
+      console.log(window.top);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- <style>
+      p {
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
+      }
+      h1 {
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
+      }
+      h2 {
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
+      }
+    </style> -->
+    <style>
+      .common {
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      .color {
+        color: blue;
+      }
+      /* 为特定的标签设置样式 以类型选择器p作为前缀
+      它用于指定仅特定标记应该受此类选择器样式影响
+      */
+      p.color {
+        color: red;
+      }
+      span.color {
+        color: springgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to BookYourHotel website.</h1>
+    <h2>This site is very user friendly.</h2>
+    <p>This site gives information of all the hotels in USA.</p>
+    <p>You can book your hotel while sitting in your room.</p>
+    <hr />
+    <h1 class="common">Welcome to BookYourHotel website.</h1>
+    <h2 class="common">This site is very user friendly.</h2>
+    <p class="common">This site gives information of all the hotels in USA.</p>
+    <p class="common">You can book your hotel while sitting in your room.</p>
+    <hr />
+    <div class="common">
+      <h1>Welcome to BookYourHotel website.</h1>
+      <h2>This site is very user friendly.</h2>
+      <p>This site gives information of all the hotels in USA.</p>
+      <p>You can book your hotel while sitting in your room.</p>
+    </div>
+    <hr />
+    <h4 class="color">Welcome to BookYourHotel website.</h4>
+    <div class="color">
+      <p>Provides online booking of domestic and international hotels.</p>
+      <p class="color">Avail great discounts and offers.</p>
+      <span class="color">这个不是p标签 是span标签</span>
+    </div>
+  </body>
+</html>

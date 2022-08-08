@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3.3"
+    tools:context="com.rfid.uhfsdktest.MainActivity">
+
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="38dp"
+        android:gravity="center"
+        android:text="RFID通道系统"/>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/manage_bt"
+            android:layout_marginRight="400dp"
+            android:layout_marginLeft="400dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:layout_width="0dp"
+            android:textSize="28dp"
+            android:textColor="#ffffff"
+            android:layout_height="match_parent"
+            android:background="@drawable/back_but1"
+            android:text="出/入库管理"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:layout_weight="1"
+            android:layout_marginRight="400dp"
+            android:layout_marginLeft="400dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:id="@+id/set_bt"
+            android:layout_width="0dp"
+            android:textColor="#ffffff"
+            android:textSize="28dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/back_but1"
+            android:text="设 置"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="0.3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:background="#333333"
+        android:weightSum="2"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="艾欧特科技"
+            android:textColor="#ffffff"
+            android:gravity="left|center_vertical"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="版本号：V 1.0"
+            android:textColor="#ffffff"
+            android:gravity="right|center_vertical"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<div class="white-bg">
+	<div align="center">
+		<div class="main-content">
+			<form id="form-user-resetPwd">
+				<input name="userId"  type="hidden"  th:value="${user.userId}" />
+				<table class="table table-striped table-bordered table-td">
+			        <tbody>
+			        	<tr>
+		                	<td>
+			                	<label class="is-required">登录名称：</label>
+			                </td>
+			                <td>
+		                		<input id="loginName" name="loginName" class="easyui-textbox" th:value="${user.loginName}" style="width:250px;" data-options="prompt:'请输入字典名称',readonly:true" type="text">
+			                </td>
+		                </tr> 
+			            <tr>
+			                <td>
+			                	<label class="is-required">输入密码：</label>
+			                </td>
+			                <td>
+		                		<input id="password" name="password" class="easyui-textbox" th:value="${@config.getKey('sys.user.initPassword')}" style="width:250px;" data-options="prompt:'请输入字典名称',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+			            </tr> 
+				 	</tbody>
+			    </table>
+			    <div id="dlg-buttons">
+			    	<a class="easyui-linkbutton" iconCls="icon-save" onclick="submitHandler()">保存</a>
+                    <a class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.easyUIModal.close()">关闭</a>
+		    	</div>
+		    </form>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	function submitHandler() {
+   		$.easyUIOperate.save(ctx + "system/user/resetPwd", $('#form-user-resetPwd'));
+	}
+</script>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>关于margin_padding的影响</title>
+    <style type="text/css">
+      div {
+        background-color: green;
+        height: 50px;
+        width: 40%;
+        padding: 20px;
+        margin: 20px;
+      }
+      span {
+        background-color: gray;
+        padding-bottom: 50px;
+        padding-top: 50px;
+        padding-left: 100px;
+        padding-right: 100px;
+      }
+      strong {
+        background-color: blue;
+        float: left;
+      }
+
+      body,
+      div {
+        margin: 0;
+        padding: 0;
+      }
+      .item1 {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin-top: 20px;
+        background-color: red;
+      }
+      .item2 {
+        margin-top: 100px;
+        display: inline-block;
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div>块级元素一</div>
+    <span>行内元素一</span>
+    <!-- 下面这个没有内容 所以上下填充距离没有意义 但是左右填充还是有用的 -->
+    <span>2</span>
+    <strong>行内元素二</strong>
+    <br />
+    <br />
+    <br />
+    <hr />
+    <!-- 当inline-block碰到同类（inline，inline-block)时，谁的上下margin、paddin或line-height大，就听谁的。
+        除非它是inline，因为inline的margin是不起作用的。且inline的padding是不占空间的。 -->
+    <div class="item1">item1</div>
+    <div class="item2">item2</div>
+  </body>
+</html>

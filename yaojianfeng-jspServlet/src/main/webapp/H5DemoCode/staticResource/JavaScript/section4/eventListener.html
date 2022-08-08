@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件侦听器演示文档</title>
+    <script type="text/javascript">
+      function myClick() {
+        alert("提交按钮上发生了单击事件。。。");
+      }
+      function AddEventHandler() {
+        var Button = document.getElementById("Button");
+        if (Button) {
+          Button.addEventListener("click", myClick, false);
+        }
+      }
+      function RemoveEventHandler() {
+        var Button = document.getElementById("Button");
+        if (Button) {
+          Button.removeEventListener("click", myClick, false);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    初始化时,单击Submit按钮没有'Click'事件。
+    <br />
+    <button onclick="AddEventHandler();">
+      向Submit按钮添加一个'click'事件监听器
+    </button>
+    <button onclick="RemoveEventHandler();">删除事件监听器</button>
+    <br /><br />
+    <button id="Button">Submit</button>
+  </body>
+</html>

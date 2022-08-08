@@ -1,0 +1,164 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<div class="white-bg">
+	<div align="center">
+		<div class="main-content">
+			<form id="form-dept-edit">
+				<input id="deptId" name="deptId" type="hidden" />
+				<input id="treeId2" name="parentId" type="hidden" th:value="${dept.deptId}" />
+				<table class="table table-striped table-bordered table-td">
+			        <tbody>
+			        	<tr>
+		                	<td>
+			                	<label>上级部门：</label>
+			                </td>
+			                <td>
+				        		<div class="input-group">
+									<input class="form-control" type="text" onclick="selectDeptTree()" id="treeName2" readonly="true" th:value="${dept.deptName}">
+								    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+							    </div>
+			                </td>
+			            	<td>
+			                	<label class="is-required">部门状态：</label>
+			                </td>
+			                <td>
+			                	<select id="status" name="status" class="easyui-combobox" style="width: 150px;" data-options="editable:false,panelHeight:100,required:true" th:with="type=${@dict.getType('sys_normal_disable')}">
+	                    			<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+	                			</select>
+			                </td>
+			            </tr>
+			            <tr>
+		                	<td>
+			                	<label class="is-required">部门名称：</label>
+			                </td>
+			                <td>
+			                	<input id="deptName" name="deptName" class="easyui-textbox" style="width:250px;" data-options="prompt:'请输入部门名称',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+			                 <td>
+			                	<label class="is-required">显示顺序：</label>
+		                	</td>
+			                <td>
+	                	 		<input id="orderNum" name="orderNum" class="easyui-numberbox" style="width:250px;" data-options="prompt:'请输入显示顺序',min:1,required:true" type="text">
+			                </td>
+			            </tr> 
+			            <tr>
+		                	<td>
+			                	<label>负责人：</label>
+			                </td>
+			                <td>
+			                	<input id="leader" name="leader" class="easyui-textbox" style="width:250px;" data-options="prompt:'请输入负责人',validType:['length[1,10]']" type="text">
+			                </td>
+		                	<td>
+			                	<label>联系电话：</label>
+			                </td>
+			                <td>
+			                	<input id="phone" name="phone" class="easyui-textbox" style="width:250px;" data-options="prompt:'请输入联系电话',validType:['length[1,11]']" type="text">
+			                </td>
+		                </tr>
+			            <tr>
+		                	<td>
+			                	<label>邮箱：</label>
+			                </td>
+			                <td colspan="3">
+			                	<input id="email" name="email" class="easyui-textbox" style="width:650px;" data-options="prompt:'请输入邮箱',validType:['length[1,50]']" type="text">
+			                </td>
+		                </tr>
+		                <tr>
+			                <td>
+			                	<label>备注：</label>
+		                	</td>
+			                <td colspan="3">
+	                	 		<input class="easyui-textbox" name="remark" data-options="prompt:'请输入备注',validType:['maxLength[100]'],multiline:true" style="height:80px;width:650px;">
+			                </td>
+			            </tr>
+				 	</tbody>
+			    </table>
+		    </form>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	var dept = [[${dept}]];
+	$('#form-dept-edit').form('load', dept);
+	$("#deptName").textbox({
+		onChange: function (newValue, oldValue) {
+			if($.common.trim(newValue) != $.common.trim(oldValue)){
+				var url = prefix + "/checkDeptNameUnique";
+				var queryParams = {
+					"deptId" : $("#deptId").val(),
+					"parentId" : $("#treeId2").val(),
+					"deptName" : $.common.trim(newValue)
+				};
+				$.easyUIOperate.ajax(url, "post", "json", queryParams, function(result){
+					if(!$.validate.unique(result)){
+						$("#deptName").textbox("setValue","").textbox("textbox").focus();
+						$.messager.show({
+							title : '提示',
+							msg : "该部门已经存在！",
+							timeout: 1000
+						});
+					}
+				});
+			}
+		}
+	});
+	 /*部门管理-新增-选择部门树*/
+    function selectDeptTree() {
+    	var deptId = $("#treeId2").val();
+		var excludeId = $("#deptId").val();
+		if(deptId > 0) {
+			var url = prefix + "/selectDeptTree/" + deptId + "/" + excludeId;
+	    	// 皮肤缓存
+	    	var skin = storage.get("skin");
+	    	var panelWindowTheme = "";
+        	var panelWindowHeaderTheme = "";
+        	var panelWindowBodyTheme = "";
+	    	// 本地主题优先，未设置取系统配置
+	    	if($.common.isNotEmpty(skin)){
+	    		panelWindowTheme = "easyui-window-" + skin.split('|')[0];
+	    		panelWindowHeaderTheme = "easyui-window-header-" + skin.split('|')[0];
+	    		panelWindowBodyTheme = "easyui-window-body-" + skin.split('|')[0];
+	    	}
+	    	var dialogObj = $('<div id="selectDeptTreeDialog" style="overflow-x:hidden;"/>');
+	    	dialogObj.dialog({
+	    		href: url,
+				width : 350,
+				height : ($(window).height() - 150),
+				modal : true,
+				maximizable: true,
+				title : "部门选择",
+				buttons : [ {
+					text : '提交',
+					iconCls : 'icon-save',
+					handler : function() {
+						var treeId = $("#treeId").val();
+						var treeName = $("#treeName").val();
+			    		if($.common.isEmpty(treeName)){
+			    			$.messager.alert("提示", "请选择部门！", 'warning');
+			    			return false;
+			    		}
+			    		$("#treeId2").val(treeId);
+					    $("#treeName2").val(treeName);
+			    		dialogObj.dialog('destroy');
+					}
+				},{
+					text : '关闭',
+					iconCls : 'icon-cancel',
+					handler : function() {
+						dialogObj.dialog('destroy');
+					}
+				} ],
+				onOpen : function(){
+					$("#selectDeptTreeDialog").parents(".window").addClass(panelWindowTheme);
+					$("#selectDeptTreeDialog").addClass(panelWindowBodyTheme);
+					$("#selectDeptTreeDialog").siblings(".window-header").find(".panel-title").addClass(panelWindowHeaderTheme);
+				},
+				onClose : function() {
+					dialogObj.dialog('destroy');
+				}
+			});
+		} else {
+			$.messager.alert("提示", "父部门不能选择！", 'warning');
+			return false;
+		}
+	}
+</script>

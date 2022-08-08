@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: easyui-header('岗位列表')" />
+</head>
+<body class="white-bg">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-head">
+				<div class="easyui-panel">
+					<form id="post-form">
+						<div class="select-list">
+							<ul>
+								<li>
+									<label>岗位编码：</label>
+									<input type="text" name="postCode" class="easyui-textbox" data-options="prompt:'请输入岗位编码'"/>
+								</li>
+								<li>
+									<label>岗位名称：</label>
+									<input type="text" name="postName" class="easyui-textbox" data-options="prompt:'请输入岗位名称'"/>
+								</li>
+								<li>
+									<label>岗位状态：</label>
+									<select name="status" class="easyui-combobox" th:with="type=${@dict.getType('sys_normal_disable')}">
+										<option value=" ">所有</option>
+										<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+									</select>
+								</li>
+								<li>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="$.easyUIDataGrid.search()" >查询</a>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onclick="$.easyUIDataGrid.reset()" >重置</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-12 search-body">
+			     <div id="toolbar" role="group">
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="$.easyUIOperate.add('500','400')" shiro:hasPermission="system:post:add">新增</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="$.easyUIOperate.edit('500','400')" shiro:hasPermission="system:post:edit">修改</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-delete'" onclick="$.easyUIOperate.removeAll()" shiro:hasPermission="system:post:remove">删除</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-export'" onclick="$.easyUIOperate.exportExcel()" shiro:hasPermission="system:post:export">导出</a>
+		        </div>
+			    <table id="dg" class="easyui-datagrid"></table>
+			</div>
+		</div>
+	</div>
+	<th:block th:include="include :: easyui-footer" />
+ 	<script th:inline="javascript">
+	 	var editFlag = [[${@permission.hasPermi('system:post:edit')}]];
+		var removeFlag = [[${@permission.hasPermi('system:post:remove')}]];
+		var datas = [[${@dict.getType('sys_normal_disable')}]];
+    </script>
+	<script th:inline="none">
+		var prefix = ctx + "system/post";
+		$(function() {
+		    var options = {
+		        url: prefix + "/list",
+		        createUrl: prefix + "/add",
+		        updateUrl: prefix + "/edit/{id}",
+		        removeUrl: prefix + "/remove",
+		        exportUrl: prefix + "/export",
+		        modalName: "岗位",
+		        idField: 'postId',
+                sortName: "postSort",
+                sortOrder: "asc",
+                columns: [[
+		        	{
+		        		field:'ck',
+						checkbox:true,
+						width:30
+					},
+			        {
+			            field: 'postId',
+			            title: '岗位编号',
+			            hidden:true,
+						width: 20
+			        },
+			        {
+			            field: 'postCode',
+			            title: '岗位编码',
+			            sortable: true,
+		          		align: 'center',
+		          		width: 60
+			        },
+			        {
+			            field: 'postName',
+			            title: '岗位名称',
+			            sortable: true,
+		          		align: 'center',
+		          		width: 80
+			        },
+			        {
+			            field: 'postSort',
+			            title: '显示顺序',
+			            sortable: true,
+		          		align: 'center',
+		          		width: 50
+			        },
+			        {
+			            field: 'status',
+			            title: '状态',
+			            align: 'center',
+			            width: 60,
+			            formatter: function(value, row, index) {
+			            	return $.table.selectDictLabel(datas, value);
+			            }
+			        },
+			        {
+			            field: 'createTime',
+			            title: '创建时间',
+			            sortable: true,
+		          		align: 'center',
+		          		width: 120
+			        },
+			        {
+			        	field:'action',
+			            title: '操作',
+			            align: 'center',
+			            width: 100,
+			            formatter: function(value, row, index) {
+			                var actions = [];
+			                actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.easyUIOperate.edit(\'500\',\'400\',\'' + row.postId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+			                actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.easyUIOperate.remove(\'' + row.postId + '\')"><i class="fa fa-remove"></i>删除</a>');
+			                return actions.join('');
+			            }
+			        }
+		    	]]
+	    	};
+		    $.easyUIDataGrid.init(options);
+		});
+	</script>
+</body>
+</html>

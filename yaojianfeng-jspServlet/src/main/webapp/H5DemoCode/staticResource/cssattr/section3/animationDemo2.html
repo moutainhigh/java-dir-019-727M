@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      div {
+        width: 76px;
+        height: 47px;
+        background: green;
+        color: white;
+        position: relative;
+        font-weight: bold;
+        font-size: 20px;
+        padding: 10px;
+        animation: Jeff 5s infinite;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+      }
+      div:hover {
+        -webkit-animation-play-state: paused;
+        animation-play-state: paused;
+      }
+
+      @keyframes Jeff {
+        0% {
+
+          left: 0;
+          transform: rotate(0deg) scale(2, 2);
+        }
+        25% {
+
+          transform: rotate(-180deg) translate(10, 10);
+          left: 0;
+        }
+        50% {
+          transform: rotate(0deg);
+          left: 500px;
+        }
+        55% {
+          transform: rotate(10deg);
+          left: 500px;
+        }
+        70% {
+          transform: rotate(0deg);
+          left: 500px;
+          background: #1ec7e6;
+        }
+        95% {
+          transform: rotate(-270deg);
+          left: 50px;
+          font-size: 50px;
+          width: 150px;
+          height: 80px;
+        }
+        100% {
+          transform: rotate(-360deg);
+          left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="myDIV"><span style="font-size: 30px">Jeff</span></div>
+
+    <aside style="position: absolute; left: 20px; top: 200px">
+      <p>点击按钮播放/暂停动画：</p>
+      <button onclick="myPlayFunction()">播放</button>
+      <button onclick="myPauseFunction()">暂停</button>
+      <script>
+        function myPlayFunction() {
+          document.getElementById("myDIV").style.animationPlayState = "running";
+        }
+        function myPauseFunction() {
+          document.getElementById("myDIV").style.animationPlayState = "paused";
+        }
+      </script>
+    </aside>
+  </body>
+</html>

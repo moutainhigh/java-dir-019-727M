@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage演示文档</title>
+</head>
+<body>
+<div id="str"></div>
+<script>
+    if (typeof (Storage) !== "undefined") {
+        //首次存储之后,即使将下面这句话注释掉 依然能拿到值
+        localStorage.englishName = "Jeff";
+        document.getElementById("str").innerHTML = "name:" + localStorage.englishName;
+    } else {
+        document.getElementById("str").innerHTML = "your browser does not support local storage";
+    }
+</script>
+</body>
+</html>

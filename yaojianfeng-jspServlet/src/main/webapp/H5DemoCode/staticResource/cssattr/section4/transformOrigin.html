@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变形原点演示文档</title>
+    <style type="text/css">
+      .container {
+        margin: 100px;
+        position: relative;
+        border: 2px solid beige;
+        border-radius: 5%;
+        background-color: cyan;
+        height: 200px;
+        width: 200px;
+        transition: all 5s;
+      }
+      div:hover {
+        transform: rotate(1080deg);
+      }
+      .circle {
+        height: 10px;
+        width: 10px;
+        box-sizing: border-box;
+        border: 1px solid red;
+        background-color: red;
+        border-radius: 50%;
+      }
+      .center {
+        position: absolute;
+        margin: 95px;
+      }
+
+      .left_top {
+        transform-origin: left top;
+      }
+      .right_top {
+        transform-origin: right top;
+      }
+      .right_bottom {
+        transform-origin: right bottom;
+        position: relative;
+        left: 500px;
+        top: -500px;
+      }
+      .left_bottom {
+        transform-origin: left bottom;
+        position: relative;
+        left: 500px;
+        top: -500px;
+      }
+      .right_position {
+        position: absolute;
+        right: 0%;
+      }
+      .right_bottom_position {
+        position: absolute;
+        right: 0%;
+        bottom: 0%;
+      }
+      .left_bottom_position {
+        position: absolute;
+        left: 0%;
+        bottom: 0%;
+      }
+      .rotate_origin {
+        transform-origin: 100px 100px;
+        position: relative;
+        left: 500px;
+        top: -1270px;
+      }
+    </style>
+  </head>
+  <body style="background-color: gray">
+    <div class="container">
+      <div class="circle center">
+        <span style="position: absolute; left: -2px; top: -8px">+</span>
+      </div>
+      <span>默认以中心店为旋转原点</span>
+    </div>
+
+    <div class="container left_top">
+      <div class="circle">
+        <span style="position: absolute; left: -1px; top: -7px">+</span>
+      </div>
+      <span>以左上角为旋转原点</span>
+    </div>
+
+    <div class="container right_top">
+      <div class="circle right_position">
+        <span style="position: absolute; right: -1px; top: -7px">+</span>
+      </div>
+      <span>以右上角为旋转原点</span>
+    </div>
+
+    <div class="container right_bottom">
+      <div class="circle right_bottom_position">
+        <span style="position: absolute; right: -1px; bottom: -7px">+</span>
+      </div>
+      <span>以右下角为旋转原点</span>
+    </div>
+
+    <div class="container left_bottom">
+      <div class="circle left_bottom_position">
+        <span style="position: absolute; right: -1px; bottom: -7px">+</span>
+      </div>
+      <span>以左下角为旋转原点</span>
+    </div>
+
+    <div class="container rotate_origin">
+      <div class="circle left_bottom_position">
+        <span style="position: absolute; right: -1px; bottom: -7px">+</span>
+      </div>
+      <span>以任意点为旋转原点</span>
+    </div>
+  </body>
+</html>

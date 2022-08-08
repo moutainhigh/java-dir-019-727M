@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>元素选择器</title>
+    <script src="./jquery/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<p id="myp">这是个段落id</p>
+<p class="pstyle">这是个段落class</p>
+<p>这是个段落</p>
+
+<p> 产品列表</p>
+
+<ul id="menu">
+    <li><a>laptops</a>
+        <ul>
+            <li><a href="">l-150</a></li>
+            <li><a href="">l-160</a></li>
+            <li><a href="">l-180</a></li>
+            <li><a href="">l-260</a></li>
+            <li><a href="">l-678</a></li>
+        </ul>
+    </li>
+    <li><a>phones</a>
+        <ul>
+            <li><a href="">p-1150</a></li>
+            <li><a href="">p-1260</a></li>
+            <li><a href="">p-1180</a></li>
+            <li><a href="">p-2260</a></li>
+            <li><a href="">p-6708</a></li>
+        </ul>
+    </li>
+    <li><a>cameras</a>
+        <ul>
+            <li><a href="">c-50</a></li>
+            <li><a href="">c-60</a></li>
+            <li><a href="">c-80</a></li>
+            <li><a href="">c-60</a></li>
+            <li><a href="">c-08</a></li>
+        </ul>
+    </li>
+    <li><a>music players</a>
+        <ul>
+            <li><a href="">mp-1150</a></li>
+            <li><a href="">mp-1260</a></li>
+            <li><a href="">mp-1180</a></li>
+            <li><a href="">mp-2260</a></li>
+            <li><a href="">mp-6708</a></li>
+        </ul>
+    </li>
+</ul>
+
+<button onclick="f($('p')[2].innerText)">选中p</button>
+<button onclick="f($('#myp')[0].innerText)">选中id</button>
+<button onclick="f($('.pstyle')[0].innerText)">选中class</button>
+<button onclick="determiner('class')">限定词选择class</button>
+<button onclick="determiner('id')">限定词选择id</button>
+<button id="hideBtn1">隐藏列表1</button>
+<button id="hideBtn2">隐藏列表2</button>
+<script>
+
+    function determiner(flag) {
+        switch (flag) {
+            case 'class':
+                alert($('p.pstyle')[0].innerText);
+                break;
+            case 'id':
+                alert($('p#myp')[0].innerText);
+                break;
+            default:
+                alert('空空如也...');
+                break;
+        }
+    }
+
+    function f(text) {
+        alert(text)
+    }
+
+    $(document).ready(function () {
+        $("button#hideBtn1").click(function () {
+            $('#menu ul').hide();
+        });
+        $("button#hideBtn2").click(function () {
+            $('[href]').hide();
+        });
+    });
+
+</script>
+</body>
+</html>

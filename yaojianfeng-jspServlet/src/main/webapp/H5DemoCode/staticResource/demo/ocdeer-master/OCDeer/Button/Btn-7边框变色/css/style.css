@@ -1,0 +1,86 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+	/* background-color: #000000; */
+	display: grid;
+	height: 100%;
+	place-items: center;
+	overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  padding: 200px 0;
+}
+
+.btn-7 {
+  background: none;
+  border: 0;
+  outline: 0;
+  color: #2196f3;
+  font-family: 'JetBrains Mono';
+  font-size: 20px;
+  cursor: pointer;
+  border: 2px solid #2196f3;
+  width: 250px;
+  height: 50px;
+  position: relative;
+}
+
+.btn-7 label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 50px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: #FFFFFF;
+}
+
+.btn-7::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  width: 0px;
+  height: 0;
+  z-index: 0;
+  background-color: #e94118;
+  transition: width .5s,height .5s;
+}
+
+.btn-7::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 0;
+  height: 0;
+  z-index: 0;
+  background-color: #e94118;
+  transition: width .5s,height .5s;
+
+  /* width: calc(100% + 4px);
+  height: calc(100% + 4px); */
+}
+
+.btn-7:hover {
+  color: #e94118;
+}
+
+.btn-7:hover::before {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+}
+
+.btn-7:hover::after {
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+} 

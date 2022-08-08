@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>transformStyle</title>
+    <style>
+      .out {
+        width: 500px;
+        height: 500px;
+        border: 1px solid #000;
+        /* background-color: pink; */
+        margin: 100px auto;
+        transform: rotateY(0deg);
+        /*可以让里面的盒子保持3d效果,加给父盒子*/
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+      .in {
+        width: 500px;
+        height: 500px;
+        margin: 1px auto;
+        background-color: green;
+        transform: rotateX(40deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="out">
+      <div class="in"></div>
+    </div>
+  </body>
+</html>

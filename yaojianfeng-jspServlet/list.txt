@@ -1,0 +1,45 @@
+jspServlet项目 主要目录结构        
+├─src
+  ├─main
+  ├─java
+  │  └─shop
+  │      └─yaojianfeng
+  │          ├─studentdemo   -----学生代码空间
+  │          │  └─jspServlet
+  │          │      ├─student20  ---20班
+  │          │      │  └─jeff  --- 示例: 以自己英文名字新建项目包
+  │          │      │      ├─day20211108  ---示例: 以dayxxx创建  新建自己的代码空间 可用于完成作业,自由研究之用
+  │          │      │      │      ServletDemo.java
+  │          │      │      │      
+  │          │      │      └─day20211109
+  │          │      ├─student21   ---21班
+  │          │      └─student22   ---22班
+  │          └─study   --------------  演示文档空间 同学们不要动代码 可以复制但是不要改动
+  │              └─jspServlet
+  │                  │  HelloApplication.java
+  │                  │  HelloResource.java
+  │                  │  HelloServlet.java
+  │                  │  
+  │                  ├─class20
+  │                  │  └─servlet
+  │                  │          ServletDemo01.java
+  │                  │          
+  │                  ├─class21
+  │                  │  └─servlet
+  │                  │          ServletDemo01.java
+  │                  │          
+  │                  └─class22
+  │                      └─servlet
+  │                              ServletDemo01.java
+  │                              
+  ├─resources           -----------资源路径
+  │  └─META-INF
+  │          beans.xml
+  │          persistence.xml
+  │          
+  └─webapp             ---------存放项目静态页面
+      │  index.jsp
+      │  		
+      └─WEB-INF			-----------配置web信息
+              web.xml
+

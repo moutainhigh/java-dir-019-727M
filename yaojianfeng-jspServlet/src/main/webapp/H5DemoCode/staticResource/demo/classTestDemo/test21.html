@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动画</title>
+    <style>
+      #one {
+        width: 1000px;
+        height: 1000px;
+        background-color: aquamarine;
+        position: relative;
+        left: 0;
+        top: 0;
+      }
+      #two {
+        background-color: brown;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        animation-name: move;
+        animation-duration: 5s;
+        animation-timing-function: linear;
+      }
+      #three {
+        background-color: black;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        transition: all 3s;
+      }
+
+      #three:hover {
+        transform: translate(300px, 200px) rotate(360deg) rotateX(90deg);
+        visibility: hidden;
+      }
+
+      @keyframes move {
+        0% {
+          left: 0px;
+        }
+
+        100% {
+          transform: translate(300px, 200px) rotate(360deg) rotateX(90deg);
+          left: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="one">
+      <div id="two"></div>
+      <div id="three"></div>
+    </div>
+  </body>
+</html>

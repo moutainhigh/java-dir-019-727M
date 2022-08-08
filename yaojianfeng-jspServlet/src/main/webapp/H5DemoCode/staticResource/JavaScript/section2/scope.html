@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>作用域演示文档</title>
+    <script src="./js/common.js"></script>
+    <script>
+      // JS作用域:就是代码名字(变量)在某个范围内起作用和效果,目的是为了提高程序的可靠性 更重要的是减少命名冲突
+      //JS的作用域(es6之前):全局作用域 局部作用域
+      //全局作用域:整个script标签 或者是一个单独的JS文件
+      console.log(myname); //单独JS文件中的变量是全局变量(不能在函数内声明)
+      var num = 10; //全局变量
+      function fun() {
+        //局部作用域 (函数作用域) 只在当前函数体中有效
+        address = "郑州市金水区龙子湖街道";
+        var num = 20; //局部变量
+        var age = 18;
+        console.log(num);
+      }
+      // console.log("aaaaaaaaaaa");
+      // console.log(age);
+      fun();
+      console.log(num);
+      // 不在局部作用域中使用var声明就直接赋值 则会变成全局变量(不推荐)
+      console.log(address);
+      // Uncaught ReferenceError: age is not defined  age属于局部作用域 所以出了作用域之后就不再起效了(已经被销毁了)
+      //   console.log(age);
+
+      console.log("=====================================");
+      //作用域链
+      var n1 = 10;
+      var n2 = 20;
+      function fn0() {
+        // var n1 = 8;
+        //内部函数
+        function fn1() {
+          //根据链式作用域的就近原则 取 10
+          console.log(n1);
+          // 根据链式作用域的就近原则 取20
+          console.log(n2);
+        }
+        //内部函数也需要调用才能执行
+        fn1();
+      }
+      fn0();
+    </script>
+  </head>
+  <body></body>
+</html>

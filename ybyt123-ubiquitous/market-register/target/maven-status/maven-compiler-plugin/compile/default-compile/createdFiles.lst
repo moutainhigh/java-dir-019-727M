@@ -1,0 +1,3 @@
+com\ubiquitous\market\register\config\WebSecurityConfig.class
+com\ubiquitous\market\register\config\EurekaStateListener.class
+com\ubiquitous\market\register\MicroServiceRegistryApplication.class

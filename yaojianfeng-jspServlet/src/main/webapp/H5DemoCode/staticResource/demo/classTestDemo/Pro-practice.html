@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        border: 2px solid black;
+        width: 50%;
+        height: 25%;
+    }
+</style>
+
+<body id="main" class="body">
+<div class="container">
+
+    <select name="img" id="img" onchange="image();">
+        <option
+                value="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F05%2F20190505195813_cdlws.thumb.400_0.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1637849659&t=0762f915791ef342b3dea01a32461b8f"
+        >
+            乌索普
+        </option>
+        <option
+                value="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F73%2Fc2%2F5c%2F73c25cd5975f54f4d2f2e765c1d54a68.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1637848496&t=1b624f8dc922a0511c57a257630d5999"
+        >
+            路飞
+        </option>
+    </select>
+
+</div>
+<!-- 把这个script标签放在body最下面 否则获取不到main标识的body对象 -->
+<script>
+    // var taps = document.getElementsByTagName("body");   body就一个 用这个方法不太合适 可以给body加一个id
+
+    var taps = document.getElementById("main");
+
+    function image() {
+        //  传递参数 要加'''
+        var selectObj = document.getElementById("img");
+        var optionObjIndex = selectObj.selectedIndex;
+        var imgUrl = selectObj[optionObjIndex].value;
+        //就一个body 用不着遍历
+        /*  for (let p = 0; p < taps.length; p++) {
+        const q = taps[p];
+        q.style.backgroundImage = z;
+      } */
+
+        taps.style.backgroundImage = "url(" + imgUrl + ")";
+    }
+</script>
+</body>
+</html>

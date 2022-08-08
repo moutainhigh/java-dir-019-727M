@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淡入淡出演示文档</title>
+    <script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"></script>
+    <style>
+        .divClass{
+            background: yellow;
+            width: 200px;
+        }
+        .btnClass{
+            background: #ada57c;
+            width: 50px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("div.divClass").click(function(){
+                $(this).fadeOut(1000);
+            });
+            $("button.btnClass").click(function(){
+                $("div").fadeIn(1000);
+            });
+            $("input.btnClass").click(function(){
+                $("div.divClass").fadeToggle(1000);
+            });
+        });
+    </script>
+</head>
+<body>
+<h1 style="opacity: 0.5">这是一个用来演示的标题...</h1>
+<div class="divClass">恕瑞玛,你们的皇帝驾崩啦...</div><br>
+<button class="btnClass">重置</button>
+<input type="button" class="btnClass" value="切换"></input>
+<div>
+    <label for="setOpacity">
+        设置标题透明度:
+        <input
+                type="range"
+                name="opacityVal"
+                id="setOpacity"
+                min="0"
+                max="1"
+                step="0.1"
+                onchange="setOpacity();"
+        />
+    </label>
+
+</div>
+<script>
+    function setOpacity() {
+        var opacityVal = $('#setOpacity').val();
+        $('h1').fadeTo(100,opacityVal);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery入门案例</title>
+<!--    <script src="https://www.w3school.com.cn/jquery/jquery-1.11.1.min.js"></script>-->
+    <script src="./jquery/jquery-1.11.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("p").click(function () {
+                $(this).hide();
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Hello JQuery</h1>
+<p>如果您点击我，我会消失。</p>
+<p>点击我，我会消失。</p>
+<p>也要点击我哦。</p>
+</body>
+</html>

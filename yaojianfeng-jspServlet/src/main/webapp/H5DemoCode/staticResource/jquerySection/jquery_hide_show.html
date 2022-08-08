@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hide 演示文档</title>
+    <script src="./jquery/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<p>这是一个段落</p>
+<div>这是一个div</div>
+<p>这是一个段落</p>
+<div>这是一个div</div>
+
+<button onclick="hideTagsOfp()">隐藏p</button>
+<button onclick="showTagsOfp()">显示p</button>
+<button onclick="autoShowOrHide()">自动</button>
+
+<script>
+    function hideTagsOfp() {
+        //之前的js写法
+        //  var elementsByTagName = document.getElementsByTagName('p');
+        //  for (let i = 0; i < elementsByTagName.length; i++) {
+        //      var elementsByTagNameElement = elementsByTagName[i];
+        //      elementsByTagNameElement.style.display = 'none'
+        //  }
+        //现在的JQuery的写法
+        $('p').hide(500);
+    }
+
+    function showTagsOfp() {
+        $('p').show('fast');
+    }
+
+    function autoShowOrHide() {
+
+        //定义一个状态标识 通过更改状态标识来更改显示和隐藏
+        var flag = false;
+        setInterval(function () {
+            if (flag){
+                $('p').show(500);
+                flag = false;
+            }else {
+                $('p').hide(500);
+                flag = true;
+            }
+        }, 1000)
+
+    }
+</script>
+</body>
+</html>

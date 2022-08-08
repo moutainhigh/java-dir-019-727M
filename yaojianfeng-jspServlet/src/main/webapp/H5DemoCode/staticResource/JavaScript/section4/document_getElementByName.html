@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>getElementByName演示文档</title>
+  </head>
+  <body>
+    <form action="">
+      <span for="radio">单选:</span>
+      <div id="radio">
+        <input type="radio" name="favorite" value="1" id="1" />
+        <label for="1">选项1</label>
+        <input type="radio" name="favorite" value="2" id="2" />
+        <label for="2">选项1</label>
+        <input type="radio" name="favorite" value="3" id="3" />
+        <label for="3">选项1</label>
+        <input type="radio" name="favorite" value="4" id="4" />
+        <label for="4">选项1</label>
+      </div>
+    </form>
+    <script>
+      console.log(document.getElementsByName("favorite"));
+      alert(document.getElementsByName("favorite").length);
+    </script>
+  </body>
+</html>

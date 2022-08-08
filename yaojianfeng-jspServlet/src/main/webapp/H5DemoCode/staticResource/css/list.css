@@ -1,0 +1,14 @@
+/* list-style-position: 用于根据内容流指定列表项标记的位置 */
+ul.inside {
+  list-style-position: inside;
+  list-style-type: georgian;
+  list-style-image: url("./image/placeholder.jpg");
+}
+/* ul.inside {
+  list-style: inside circle url("/image/logo.gif");
+}
+ul.outside {
+  list-style-position: outside;
+  list-style-type: lower-latin;
+  list-style-image: url("/image/logo.gif");
+} */

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#clickBtn").click(function () {
+                $("h1").toggle(500);
+            });
+
+           /* $("#autoBtn").click(() => {
+                setInterval(() => {
+                    $("h1").toggle(500);
+                }, 1000)
+            })*/
+            $("#autoBtn").click(function () {
+                setInterval(function () {
+                    $("h1").toggle(500);
+                }, 1000)
+            })
+
+        });
+    </script>
+</head>
+<body>
+<h1> 这是一级标题...</h1>
+<hr>
+<button id="clickBtn" type="button">点击切换</button>
+<button id="autoBtn" type="button">自动切换</button>
+</body>
+</html>

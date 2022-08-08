@@ -1,0 +1,94 @@
+<div class="white-bg">
+	<div align="center">
+		<div class="main-content">
+			<form id="form-notice-add">
+				<table class="table table-striped table-bordered table-td">
+			        <tbody>
+			           <tr>
+			                <td>
+			                	<label class="is-required">公告标题：</label>
+			                </td>
+			                <td colspan="3">
+			                	 <input id="noticeTitle" name="noticeTitle" style="width: 800px;" class="easyui-textbox" data-options="prompt:'请输入公告标题',validType:['length[1,30]'],required:true" type="text">
+			                </td>
+			            </tr> 
+			            <tr>
+			                <td>
+			                	<label class="is-required">公告类型：</label>
+			                </td>
+			                <td>
+			                	<select name="noticeType" style="width: 150px;" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:100" th:with="type=${@dict.getType('sys_notice_type')}">
+	                    			<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+	                			</select>
+			                </td>
+			                <td style="width: 100px;">
+			                	<label class="is-required">公告状态：</label>
+			                </td>
+			                <td>
+			                	<select name="status" style="width: 150px;" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:100" th:with="type=${@dict.getType('sys_notice_status')}">
+	                    			<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+	                			</select>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			               		<label>公告内容：</label>
+			                </td>
+			                <td colspan="3">
+			                	<input id="noticeContent" name="noticeContent" type="hidden">
+				    			<div class="summernote"></div>
+			                </td>
+			            </tr>  
+				 	</tbody>
+			    </table>
+			    <div id="dlg-buttons">
+			    	<a class="easyui-linkbutton" iconCls="icon-save" onclick="submitHandler()">保存</a>
+                    <a class="easyui-linkbutton" iconCls="icon-cancel" onclick="$.easyUIModal.close()">关闭</a>
+		    	</div>
+		    </form>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+    $('.summernote').summernote({
+   		placeholder: '请输入公告内容',
+		height : 300,
+		lang : 'zh-CN',
+		followingToolbar: false,
+		callbacks: {
+       		onImageUpload: function (files) {
+       		sendFile(files[0], this);
+       		}
+       	}
+	});
+   
+   	// 上传文件
+   	function sendFile(file, obj) {
+        var data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            type: "POST",
+            url: ctx + "common/upload",
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(result) {
+                if (result.code == web_status.SUCCESS) {
+                	$(obj).summernote('editor.insertImage', result.url, result.fileName);
+				} else {
+					$.messager.alert("提示", result.msg, 'warning');
+				}
+            },
+            error: function(error) {
+                $.messager.alert("提示", "图片上传失败！", 'error');
+            }
+        });
+    }
+   	function submitHandler() {
+   		var sHTML = $('.summernote').summernote('code');
+		$("#noticeContent").val(sHTML);
+    	$.easyUIOperate.save(prefix + "/add", $('#form-notice-add'));
+	}
+</script>

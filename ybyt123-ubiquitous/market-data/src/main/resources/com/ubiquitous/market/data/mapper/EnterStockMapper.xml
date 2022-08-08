@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ubiquitous.market.data.mapper.EnterStockMapper">
+
+    <select id="getGoodsDetail" resultType="map">
+        SELECT es.id,ca.title as categoryTitle,sku.bar_code as barCode ,spu.title as spuTitle,sku.title as skuTitle,s.stock FROM `ubiquitous_enter_stock` es
+        left join ubiquitous_sku sku
+        on es.sku_id = sku.id
+        left JOIN ubiquitous_spu spu
+        on es.spu_id = spu.id
+        LEFT JOIN ubiquitous_category ca
+        on spu.category_id = ca.id
+        left join ubiquitous_storage sto
+        on sto.id = es.storage_id
+       LEFT JOIN ubiquitous_stock s
+       on s.storage_id = es.storage_id and s.sku_id = es.sku_id
+        WHERE
+        es.id = #{id}
+    </select>
+</mapper>

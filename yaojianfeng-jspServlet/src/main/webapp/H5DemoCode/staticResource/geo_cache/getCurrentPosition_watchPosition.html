@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>getCurrentPosition演示文档</title>
+</head>
+<body>
+<p id="myLocation">点击获取位置坐标:</p>
+<button type="button" onclick="getStaticLocation()">获取当前坐标</button>
+<button type="button" onclick="getDynamicLocation()">获取动态坐标</button>
+<button type="button" onclick="clearDynamicLocation()">停止坐标更新</button>
+
+<script>
+    var geo = document.getElementById("myLocation");
+
+    function getPosition(position) {
+        geo.innerHTML = "latitude:" + position.coords.latitude
+            + "<br>longitude:" + position.coords.longitude
+            + "<br>timestamp:" + position.timestamp;
+    }
+
+    function errHandler(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                geo.innerHTML = "用户拒绝对获取地理位置的请求。"
+                break;
+            case error.POSITION_UNAVAILABLE:
+                geo.innerHTML = "位置信息是不可用的。"
+                break;
+            case error.TIMEOUT:
+                geo.innerHTML = "请求用户地理位置超时。"
+                break;
+            default:
+                geo.innerHTML = "未知错误。"
+                break;
+        }
+    }
+
+    function getStaticLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getPosition, errHandler);
+        } else {
+            geo.innerHTML = "你的浏览器不支持地理定位功能";
+        }
+    }
+
+    function getDynamicLocation() {
+        if (navigator.geolocation) {
+            window.$watchID = navigator.geolocation.watchPosition(getPosition, errHandler);
+        } else {
+            geo.innerHTML = "你的浏览器不支持地理定位功能";
+        }
+    }
+
+    function clearDynamicLocation() {
+        navigator.geolocation.clearWatch($watchID);
+    }
+
+</script>
+
+</body>
+</html>

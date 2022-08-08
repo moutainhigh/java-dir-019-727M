@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaolong.rbac.jwt.mapper.SysUserInfoMapper">
+    <resultMap id="userInfoMap" type="com.yaolong.rbac.jwt.po.vbenAdmin.UserInfo">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="real_name" property="realName"/>
+        <result column="avatar" property="avatar"/>
+        <result column="remark" property="remark"/>
+        <result column="email" property="email"/>
+        <result column="status" property="status"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <collection property="roles" javaType="java.util.ArrayList" column="user_id"  select="getRolesbyId">
+        </collection>
+    </resultMap>
+    <resultMap id="roleMap"  type="com.yaolong.rbac.jwt.po.vbenAdmin.RoleInfo">
+        <id property="id" column="r_id"/>
+        <result property="roleName" column="r_name"/>
+        <result property="value" column="en_name"/>
+    </resultMap>
+
+    <select id="getRolesbyId" resultMap="roleMap">
+      select r.id as r_id,r.name as r_name,r.en_name
+        from sys_user_info as ui
+        left join sys_user_role as ur on ui.user_id = ur.user_id
+        left join sys_role as r on ur.role_id = r.id
+        WHERE ui.user_id = ${user_id}
+    </select>
+
+    <select id="getUserInfo" resultMap="userInfoMap">
+        select ui.id, u.id as user_id,u.username,u.status,ui.real_name,ui.nick_name,ui.dept_id,ui.avatar,ui.email,ui.remark,r.id as r_id,r.name as r_name,r.en_name
+        from sys_user_info as ui
+        left join sys_user as u on u.id = ui.user_id
+        left join sys_user_role as ur on u.id = ur.user_id
+        left join sys_role as r on ur.role_id = r.id
+        ${ew.customSqlSegment}
+    </select>
+
+
+    <select id="list" resultMap="userInfoMap">
+        select  ui.id,u.id as user_id,u.username,u.status,ui.real_name,ui.update_time,ui.create_time,ui.nick_name,ui.dept_id,ui.email,ui.avatar,ui.remark,r.id as r_id,r.name as r_name,r.en_name
+        from sys_user_info as ui
+        left join sys_user as u on u.id = ui.user_id
+        left join sys_user_role as ur on u.id = ur.user_id
+        left join sys_role as r on ur.role_id = r.id
+        ${ew.customSqlSegment}
+    </select>
+
+    <select id="page" resultMap="userInfoMap">
+        select  ui.id,u.id as user_id,u.username,u.status,ui.real_name,ui.update_time,ui.create_time,ui.nick_name,ui.dept_id,ui.email,ui.avatar,ui.remark,r.id as r_id,r.name as r_name,r.en_name
+        from sys_user_info as ui
+        left join sys_user as u on u.id = ui.user_id
+        left join sys_user_role as ur on u.id = ur.user_id
+        left join sys_role as r on ur.role_id = r.id
+        ${ew.customSqlSegment}
+    </select>
+
+
+    <select id="getUserInfoByName" parameterType="string" resultMap="userInfoMap">
+        select ui.id,u.id as user_id,u.username,u.status,ui.real_name,ui.avatar,ui.remark,ui.nick_name,ui.dept_id,ui.email
+        from sys_user_info as ui
+        left join sys_user as u on u.id = ui.user_id
+        where u.username = #{username}
+    </select>
+</mapper>

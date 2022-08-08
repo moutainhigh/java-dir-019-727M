@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../jquerySection/jquery/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <h2>Single Kill</h2>
+        <h2>Double Kill</h2>
+        <hr>
+        <h1>拼接：</h1>
+        <p id="one">❤</p>
+    </div>
+    <hr>
+    <div id="two" style="border:2px solid yellowgreen;">
+        <b>wk's heart</b>
+    </div>
+    <hr>
+    <div>
+        <button id="btn1">拼接</button>
+        <button id="btn2">empty()</button>
+        <button id="btn3">html()</button>
+        <button id="btn4">before()</button>
+        <button id="btn5">after()</button>
+        <button id="btn6">text()</button>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("h2").click(function(){
+                $(this).hide();
+            })
+        })
+        $(document).ready(function(){
+            $("#btn1").click(function(){
+                $("#one").prepend("<b>wk&nbsp");
+                $("#one").append("&nbsp<b>lsh");
+                $("#one").after("<b>99&nbsp");
+            })
+        })
+        $(document).ready(function(){
+            $("#btn2").click(function(){
+                $("#one").empty();
+            })
+        })
+        $(document).ready(function(){
+            $("#btn3").click(function(){
+                $("#two").html('<br><div id="three" style="border:2px solid purple"><b>lsh</b></div>');
+            })
+        })
+        $(document).ready(function(){
+            $("#btn4").click(function(){
+                $("#three").before('<div id="three" style="border:2px solid brown"><b>lsh</b></div>');
+            })
+        })
+        $(document).ready(function(){
+            $("#btn5").click(function(){
+                $("#three").after('<br><div id="three" style="border:2px solid goldenrod"><b>lsh</b></div>');
+            })
+        })
+        $(document).ready(function(){
+            $("#btn6").click(function(){
+                alert($("#two").text());
+            })
+        })
+    </script>
+</body>
+</html>

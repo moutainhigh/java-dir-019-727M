@@ -1,0 +1,21 @@
+body * {
+  margin: 0px;
+  padding: 0px;
+  background-color: lightgray;
+  border: 1px solid burlywood;
+}
+a {
+  text-decoration: none;
+}
+
+header,
+footer,
+section {
+  background-color: antiquewhite;
+  margin: 0px 5px 0px 5px;
+}
+
+footer {
+  position: relative;
+  bottom: 10px;
+}

@@ -1,0 +1,67 @@
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    port: 6379
+    host: localhost
+  application:
+    name: study-springboot-jwt
+  main:
+    allow-bean-definition-overriding: true
+  # mysql数据源配置
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://localhost:3306/rbac_template_2.0?serverTimezone=Asia/Shanghai&useLegacyDatetimeCode=false&nullNamePatternMatchesAll=true&zeroDateTimeBehavior=CONVERT_TO_NULL&tinyInt1isBit=false&autoReconnect=true&useSSL=false&pinGlobalTxToPhysicalConnection=true
+    username: root
+    password: yin7372175240000
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 15
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+secure:
+  ignore:
+    paths: # 白名单
+      - /swagger-ui.html
+      - /doc.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /**/v2/api-docs
+      - /v3/api-docs/**
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /webjars/springfox-swagger-ui/**
+      - /eladmin/sys/user/login
+      - /eladmin/sys/user/info
+      - /eladmin/sys/user/register
+      - /eladmin/sys/user/list
+      - /eladmin/sys/role/list
+      - /vbenadmin/sys/login
+      - /vbenadmin/sys/user/info
+      - /vbenadmin/sys/role/list
+
+
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: study-yaolong-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+
+#    mybatis-plus查询日志开启
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

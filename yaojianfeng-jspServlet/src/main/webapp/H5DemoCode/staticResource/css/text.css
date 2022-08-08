@@ -1,0 +1,15 @@
+p {
+  text-align: left;
+  /* 首行缩进两个字符 */
+  text-indent: 2em;
+  line-height: normal;
+  /* ltr: left to right */
+  direction: ltr;
+  vertical-align: baseline;
+  /* text-decoration: underline;
+  text-transform: uppercase; */
+  /* 字符间距*/
+  /* letter-spacing: 0em;
+  word-spacing: 10px;
+  color: red; */
+}

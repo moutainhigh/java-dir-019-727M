@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: easyui-header('定时任务列表')" />
+</head>
+<body class="white-bg">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-head">
+				<div class="easyui-panel">
+					<form id="job-form">
+						<div class="select-list">
+							<ul>
+								<li>
+									<label>任务名称：</label>
+									<input type="text" name="jobName" class="easyui-textbox" data-options="prompt:'请输入任务名称'"/>
+								</li>
+								<li>
+									<label>任务分组：</label>
+									<select name="jobGroup" class="easyui-combobox" th:with="type=${@dict.getType('sys_job_group')}">
+										<option value=" ">所有</option>
+										<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+									</select>
+								</li>
+								<li>
+									<label>任务状态：</label>
+									<select name="status" class="easyui-combobox" th:with="type=${@dict.getType('sys_job_status')}">
+										<option value=" ">所有</option>
+										<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+									</select>
+								</li>
+								<li>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="$.easyUIDataGrid.search()" >查询</a>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onclick="$.easyUIDataGrid.reset()" >重置</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+			</div>
+			 <div class="col-sm-12 search-body">
+			     <div id="toolbar" role="group">
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="$.easyUIOperate.add('850','450')" shiro:hasPermission="monitor:job:add">新增</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="$.easyUIOperate.edit('850','450')" shiro:hasPermission="monitor:job:edit">修改</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-delete'" onclick="$.easyUIOperate.removeAll()" shiro:hasPermission="monitor:job:remove">删除</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-export'" onclick="$.easyUIOperate.exportExcel()" shiro:hasPermission="monitor:job:export">导出</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-extjs-side-boxes'" onclick="javascript:jobLog()" shiro:hasPermission="monitor:job:detail">日志</a>
+		        </div>
+			    <table id="dg" class="easyui-datagrid"></table>
+			</div>
+		</div>
+	</div>
+	<th:block th:include="include :: easyui-footer" />
+ 	<script th:inline="javascript">
+	 	var detailFlag = [[${@permission.hasPermi('monitor:job:detail')}]];
+		var editFlag = [[${@permission.hasPermi('monitor:job:edit')}]];
+		var removeFlag = [[${@permission.hasPermi('monitor:job:remove')}]];
+		var statusFlag = [[${@permission.hasPermi('monitor:job:changeStatus')}]];
+		var datas = [[${@dict.getType('sys_job_group')}]];
+    </script>
+	<script th:inline="none">
+		var prefix = ctx + "monitor/job";
+		$(function() {
+		    var options = {
+		        url: prefix + "/list",
+		        detailUrl: prefix + "/detail/{id}",
+		        createUrl: prefix + "/add",
+		        updateUrl: prefix + "/edit/{id}",
+		        removeUrl: prefix + "/remove",
+		        exportUrl: prefix + "/export",
+		        modalName: "任务",
+		        idField: 'jobId',
+		        sortName: "createTime",
+		        sortOrder: "desc",
+		        columns: [[
+                	{
+						field:'ck',
+						checkbox:true,
+						width:30
+					},
+			        {
+			            field: 'jobId',
+			            title: '任务编号',
+		            	align: 'center',
+		            	hidden:true
+			        },
+			        {
+			            field: 'jobName',
+			            title: '任务名称',
+			            align: 'center',
+		          		width: 100
+			        },
+			        {
+			            field: 'jobGroup',
+			            title: '任务分组',
+			            align: 'center',
+		          		width: 60,
+			            formatter: function(value, row, index) {
+			            	return $.table.selectDictLabel(datas, value);
+			            }
+			        },
+			        {
+			            field: 'invokeTarget',
+			            title: '调用字符串',
+			            align: 'center',
+		          		width: 130
+			        },
+			        {
+			            field: 'cronExpression',
+			            title: '执行表达式',
+			            align: 'center',
+		          		width: 80
+			        },
+			        {
+			        	field: 'status',
+			        	title: '任务状态',
+			        	align: 'center',
+			        	width: 100,
+			        	formatter: function (value, row, index) {
+			        		return statusTools(row);
+			        	}
+			        },
+			        {
+			            field: 'createTime',
+			            title: '创建时间',
+			            sortable: true,
+			            align: 'center',
+		          		width: 100
+			        },
+			        {
+			        	field:'action',
+			            title: '操作',
+			            align: 'center',
+			            width: 180,
+			            formatter: function(value, row, index) {
+			                var actions = [];
+			                actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.easyUIOperate.edit(\'850\',\'450\',\'' + row.jobId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+			                actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.easyUIOperate.remove(\'' + row.jobId + '\')"><i class="fa fa-remove"></i>删除</a> ');
+			                actions.push('<a class="btn btn-info btn-xs ' + statusFlag + '" href="javascript:void(0)" onclick="run(\'' + row.jobId + '\')"><i class="fa fa-play-circle-o"></i> 执行一次</a> ');
+			                actions.push('<a class="btn btn-warning btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.easyUIOperate.detail(\'' + row.jobId + '\',\'600\',\'450\')"><i class="fa fa-search"></i>任务详细</a> ');
+			                actions.push('<a class="btn btn-primary btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="jobLog(\'' + row.jobId + '\')"><i class="fa fa-list"></i>调度日志</a>');
+			                return actions.join('');
+			            }
+			        }
+		        ]],
+		        onLoadSuccess: function(data){
+		        	$(this).datagrid('doCellTip', { 'max-width': '700px', 'delay': 300 });
+		        	if(statusFlag == "" ? true : false){
+		        		$(this).datagrid('showColumn', 'status');//列的field值
+		        	} else {
+		        		$(this).datagrid('hideColumn', 'status');//列的field值
+		        	}
+		        }
+		    };
+		    $.easyUIDataGrid.init(options);
+		});
+        
+		/* 调度任务状态显示 */
+		function statusTools(row) {
+		    if (row.status == 1) {
+    			return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="start(\'' + row.jobId + '\', \'' + row.jobGroup + '\')"></i> ';
+    		} else {
+    			return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="stop(\'' + row.jobId + '\', \'' + row.jobGroup + '\')"></i> ';
+    		}
+		}
+		
+		/* 立即执行一次 */
+		function run(jobId) {
+			 $.messager.confirm("确认", "确认要立即执行一次任务吗？", function (isDelete) {
+ 	        	if (isDelete) {
+ 	        		$.easyUIOperate.post(prefix + "/run", { "jobId": jobId});
+ 	        	}
+ 	        });
+		}
+
+		/* 调度任务-停用 */
+		function stop(jobId, jobGroup) {
+			$.messager.confirm("确认", "确认要停用任务吗？", function (isDelete) {
+ 	        	if (isDelete) {
+ 	        		$.easyUIOperate.post(prefix + "/changeStatus", { "jobId": jobId, "jobGroup": jobGroup, "status": 1 });
+ 	        	}
+ 	        });
+		}
+
+		/* 调度任务-启用 */
+		function start(jobId, jobGroup) {
+			$.messager.confirm("确认", "确认要启用任务吗？", function (isDelete) {
+ 	        	if (isDelete) {
+ 	        		$.easyUIOperate.post(prefix + "/changeStatus", { "jobId": jobId, "jobGroup": jobGroup, "status": 0 });
+ 	        	}
+ 	        });
+		}
+
+		/* 调度日志查询 */
+		function jobLog(jobId) {
+		    var url = ctx + 'monitor/jobLog';
+		    if ($.common.isNotEmpty(jobId)) {
+		        url += '?jobId=' + jobId;
+		    }
+		    $.modal.openTab("调度日志", url);
+		}
+	</script>
+</body>
+</html>

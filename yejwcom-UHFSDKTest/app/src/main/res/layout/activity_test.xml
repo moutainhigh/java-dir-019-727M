@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_weight="6.5"
+    tools:context=".TestActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/tv_rb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="出库"
+            android:textSize="50sp"
+            android:textColor="@color/green"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp"
+                >
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="单据号："
+                    android:textSize="@dimen/button"
+                    android:gravity="right|center_vertical"/>
+
+                <EditText
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
+                    android:id="@+id/edt_num"
+                    android:layout_weight="1.5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/back_text"
+                    android:hint="请输入单据号"
+                    android:gravity="center"/>
+
+                <Button
+                    android:id="@+id/bt_sure"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="150dp"
+                    android:layout_marginRight="50dp"
+                    android:background="@drawable/back_but"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button"
+                    android:text="确定"/>
+
+                <Button
+                    android:id="@+id/bt_clear"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_marginRight="150dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/back_but"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button"
+                    android:text="清除"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp"
+                >
+
+                <Button
+                    android:layout_weight="1"
+                    android:id="@+id/bt_set"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/back_but"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button"
+                    android:text="设置"/>
+
+
+                <Button
+                    android:layout_weight="1"
+                    android:id="@+id/bt_start"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/back_but"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button"
+                    android:text="开始"/>
+
+                <Button
+                    android:layout_weight="1"
+                    android:id="@+id/bt_reset"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/back_but"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button"
+                    android:text="提交"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="36sp"
+                android:text="合  计"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="25dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/tv_total_real"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="100sp"
+                    android:textColor="@color/green"
+                    android:text="0"/>
+
+                <TextView
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="100sp"
+                    android:text="/"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/tv_total_ready"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="100sp"
+                    android:text="0"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="明细表"
+                android:gravity="center"
+                android:textSize="36sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:text="序号"
+                    />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:text="规格/型号"
+                    />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:text="计划数"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:text="实际数"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <ListView
+                android:id="@+id/lv_list"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:background="#333333"
+        android:weightSum="4"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="读写器状态："
+            android:gravity="right|center_vertical"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="正常"
+            android:textColor="@color/green"
+            android:gravity="left|center_vertical"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="当前工作天线(功率)："
+            android:gravity="right|center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_tian"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="1.2.3.4"
+            android:textColor="@color/green"
+            android:gravity="left|center_vertical"/>
+
+    </LinearLayout>
+
+</LinearLayout>

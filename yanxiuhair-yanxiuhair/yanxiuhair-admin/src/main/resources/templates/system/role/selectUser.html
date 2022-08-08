@@ -1,0 +1,117 @@
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<div class="white-bg">
+	<div class="center">
+		<div class="container-div">
+			<div class="row">
+				<div class="col-sm-12 search-head">
+					<div class="easyui-panel">
+						<form id="select-user-role-form">
+						    <input type="hidden" id="roleId" name="roleId" th:value="${role.roleId}">
+							<div class="select-list">
+								<ul>
+									<li>
+										<label>登录名称：</label>
+										<input id="s_loginName" type="text" name="loginName" class="easyui-textbox" data-options="prompt:'请输入登录名称'"/>
+									</li>
+									<li>
+										<label>手机号码：</label>
+										<input id="s_phonenumber" type="text" name="phonenumber" class="easyui-textbox" data-options="prompt:'请输入手机号码'"/>
+									</li>
+									<li>
+										<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="searchSelectUser()" >查询</a>
+										<a class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onclick="resetSelectUserForm()" >重置</a>
+									</li>
+								</ul>
+							</div>
+						</form>
+					</div>
+				</div>
+		        <div id="search-body" class="col-sm-12 search-body">
+				    <table id="user_dg" class="easyui-datagrid"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+		var userDatas = [[${@dict.getType('sys_normal_disable')}]];
+    </script>
+ 	<script th:inline="none">
+		$(function() {
+			var selectUserDialogOptions = $("#selectUserDialog").dialog("options");
+			$("#search-body").height(selectUserDialogOptions.height-170);
+			var userOptions = {
+				id:"user_dg",
+		        url: ctx + "system/role/authUser/unallocatedList",
+		        queryParams: {
+		        	"roleId" : $("#roleId").val()
+		        },
+		        idField: 'userId',
+		        modalName: "用户",
+		        sortName: "createTime",
+		        sortOrder: "desc",
+		        toolbar:'',
+		        columns: [[
+					{
+						field:'ck',
+						checkbox:true,
+						width:30
+					},
+			        {
+			            field: 'userId',
+			            title: '用户ID',
+		            	align: 'center',
+		            	hidden:true,
+						width: 20
+			        },
+			        {
+			            field: 'loginName',
+			            title: '登录名称',
+			            sortable: true,
+			            align: 'center',
+		          		width: 100
+			        },
+			        {
+			            field: 'userName',
+			            title: '用户名称',
+			            align: 'center',
+		          		width: 60
+			        },
+			        {
+			            field: 'phonenumber',
+			            title: '手机',
+			            align: 'center',
+		          		width: 60
+			        },
+			        {
+			        	field: 'status',
+			        	title: '用户状态',
+			        	align: 'center',
+			        	width: 60,
+			        	formatter: function (value, row, index) {
+			        		return $.table.selectDictLabel(userDatas, value);
+			        	}
+			        },
+			        {
+			            field: 'createTime',
+			            title: '创建时间',
+			            sortable: true,
+			            align: 'center',
+		          		width: 110
+			        }
+		        ]]
+			};
+		    $.easyUIDataGrid.init(userOptions);
+		});
+		//查询
+		function searchSelectUser(){
+			var params = $.common.formToJSON("select-user-role-form");
+           	$('#user_dg').datagrid('load', params).datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
+		}
+		function resetSelectUserForm(){
+			$("#s_loginName").textbox("setValue","");
+			$("#s_phonenumber").textbox("setValue","");
+			var params = $.common.formToJSON("select-user-role-form");
+           	$('#user_dg').datagrid('load', params).datagrid('uncheckAll').datagrid('unselectAll').datagrid('clearSelections');
+		}
+	</script>
+</div>

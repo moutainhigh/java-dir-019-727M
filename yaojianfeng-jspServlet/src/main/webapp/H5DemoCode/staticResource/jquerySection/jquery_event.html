@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>jquery事件演示文档</title>
+    <script type="text/javascript" src="./jquery/jquery-1.11.1.min.js"></script>
+    <style>
+        .fontColor{
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#hide_header").click(function () {
+                $("h1").hide();
+            });
+            //只有load事件才会触发
+            $("img").load(function(){
+                alert("图片已载入");
+            });
+            $("img").dblclick(function(){
+                $("img").hide();
+            });
+            $("img").mouseenter(function(){
+                $("h1").addClass('fontColor');
+            });
+            $("img").mouseleave(function(){
+                $("h1").removeClass('fontColor');
+            });
+            $("[type='text']").keypress(function(){
+                var val = $("[type='text']").val();
+                $("#outDiv").val(val);
+            });
+
+        });
+
+        //这是添加子元素 而不是load
+        function addImage() {
+            $('h1').after('<div><img src="https://img2.baidu.com/it/u=4284762419,1148501908&fm=26&fmt=auto" alt="logo"></div>')
+        }
+    </script>
+</head>
+<body>
+<h1 >这是一级标题...</h1>
+<div><img src="https://img2.baidu.com/it/u=4284762419,1148501908&fm=26&fmt=auto" alt="faker"></div>
+<hr>
+<input type="button" id="hide_header" value='隐藏标题'/>
+<button type="button" onclick="addImage()">添加图片</button>
+<button type="button" onclick="location.reload();">刷新</button>
+<div>
+    <label for="">文本输入框:
+        <input type="text">
+    </label>
+    <label for="">输入的内容是:
+        <output id="outDiv" ></output>
+    </label>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>存储对象方法演示文档</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./jquery/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+
+<div id="result"></div>
+<div class="btn-3">
+    <button class="left">显示</button>
+    <button class="up">清空</button>
+</div>
+
+<script>
+    $(document).ready(() => {
+        $('.left').click(() => {
+            // 判断浏览器是否支持
+            if (typeof (Storage) !== "undefined") {
+                // 存储
+                localStorage.setItem("20211103", "教1-201/200720");
+                // 检索
+                document.getElementById("result").innerHTML ='今天的日期是:'+localStorage.key(0)+ localStorage.getItem("20211103");
+            } else {
+                document.getElementById("result").innerHTML = "抱歉,你的浏览器不支持本地存储...";
+            }
+        });
+        $('.up').click(() => {
+            // 判断浏览器是否支持
+            if (typeof(Storage) !== "undefined") {
+                if (localStorage.getItem('20211103')){
+
+                    // localStorage.removeItem('20211103'); 清楚指定的键值对
+                    localStorage.clear(); //清除所有
+                    document.getElementById("result").innerHTML = "localStorage已清空";
+                }else {
+                    document.getElementById("result").innerHTML = "localStorage已清空,请勿重复清理..";
+                }
+            } else {
+                document.getElementById("result").innerHTML = "抱歉,你的浏览器不支持本地存储...";
+            }
+        });
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: easyui-header('登录日志列表')" />
+</head>
+<body class="white-bg">
+	<div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-head">
+				<div class="easyui-panel">
+					<form id="logininfor-form">
+						<div class="select-list">
+							<ul>
+								<li>
+									<label>登录IP：</label>
+									<input type="text" name="ipaddr" class="easyui-textbox" data-options="prompt:'请输入登录IP'"/>
+								</li>
+								<li>
+									<label>登录名称：</label>
+									<input type="text" name="loginName" class="easyui-textbox" data-options="prompt:'请输入登录名称'"/>
+								</li>
+								<li>
+									<label>登录状态：</label>
+									<select id="status" name="status" class="easyui-combobox" th:with="type=${@dict.getType('sys_common_status')}">
+										<option value=" ">所有</option>
+										<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+									</select>
+								</li>
+								<li>
+									<label>登录时间： </label>
+									<input type="text" id="startTime" class="easyui-datebox" style="width: 110px;" data-options="prompt:'开始时间'" name="params[beginTime]"/>
+									<span>-</span>
+									<input type="text" id="endTime" class="easyui-datebox" style="width: 110px;" data-options="prompt:'结束时间'" name="params[endTime]"/>
+								</li>
+								<li>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="$.easyUIDataGrid.search()" >查询</a>
+									<a class="easyui-linkbutton" data-options="iconCls:'icon-clear'" onclick="$.easyUIDataGrid.reset()" >重置</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+			</div>
+	        <div class="col-sm-12 search-body">
+			    <div id="toolbar" role="group">
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-delete'" onclick="$.easyUIOperate.removeAll()" shiro:hasPermission="monitor:logininfor:remove">删除</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-extjs-cancel'" onclick="cleanLoginInfor()" shiro:hasPermission="monitor:logininfor:remove">清空</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-lock-open'" onclick="unlockLoginInfor()" shiro:hasPermission="monitor:logininfor:unlock">解锁</a>
+		            <a class="easyui-linkbutton" data-options="iconCls:'icon-export'" onclick="$.easyUIOperate.exportExcel()" shiro:hasPermission="monitor:logininfor:export">导出</a>
+		        </div>
+			    <table id="dg" class="easyui-datagrid"></table>
+			</div>
+		</div>
+	</div>
+	<th:block th:include="include :: easyui-footer" />
+ 	<script th:inline="javascript">
+ 		var datas = [[${@dict.getType('sys_common_status')}]];
+    </script>
+	<script th:inline="none">
+		var prefix = ctx + "monitor/logininfor";
+		$(function() {
+			var options = {
+		        url: prefix + "/list",
+		        cleanUrl: prefix + "/clean",
+		        removeUrl: prefix + "/remove",
+		        exportUrl: prefix + "/export",
+                modalName: "登录日志",
+                idField: 'infoId',
+                sortName: "loginTime",
+                sortOrder: "desc",
+				columns:[[
+					{
+						field:'ck',
+						checkbox:true,
+						width:30
+					},
+					{
+			            field: 'infoId',
+			            title: '访问编号',
+			            hidden:true,
+						width: 20
+			        },
+			        {
+			            field: 'loginName',
+			            title: '登录名称',
+			            sortable: true,
+		          		align: 'center',
+		          		width: 70
+			        },
+			        {
+			            field: 'ipaddr',
+			            title: '登录IP',
+		          		align: 'center',
+		          		width: 60
+			        },
+			        {
+			            field: 'loginLocation',
+			            title: '登录地点',
+		          		align: 'center',
+		          		width: 90
+			        },
+			        {
+			            field: 'browser',
+			            title: '浏览器',
+		          		align: 'center',
+		          		width: 50
+			        },
+			        {
+			            field: 'os',
+			            title: '操作系统',
+		          		align: 'center',
+		          		width: 60
+			        },
+			        {
+			            field: 'status',
+			            title: '登录状态',
+		          		align: 'center',
+		          		width: 80,
+			            formatter: function(value, row, index) {
+			            	return $.table.selectDictLabel(datas, value);
+			            }
+			        },
+			        {
+			            field: 'msg',
+			            title: '操作信息',
+		          		align: 'center',
+		          		width: 100
+			        },
+			        {
+			            field: 'loginTime',
+			            title: '登录时间',
+			            sortable: true,
+		          		align: 'center',
+		          		width: 120
+			        }
+		        ]]
+		    };
+		    $.easyUIDataGrid.init(options);
+		});
+		//清空
+		function cleanLoginInfor(){
+			$.messager.confirm("确认", "确定清空所有登录日志吗？", function (isDelete) {
+	        	if (isDelete) {
+	        		var url = prefix + "/clean";
+			        $.easyUIOperate.post(url, "");
+	        	}
+	        });
+		}
+		//解锁
+		function unlockLoginInfor() {
+			//获取选中行的数据
+	        var selectRows = $("#dg").datagrid("getSelections");
+	        if (selectRows.length < 1) {
+	            $.messager.alert("提示", "请选择要解锁的记录！", 'warning');
+	            return;
+	        }
+	        if (selectRows.length > 1) {
+	            $.messager.alert("提示", "只能选择一条记录！", 'warning');
+	            return;
+	        }
+			var rows = $.map($("#dg").datagrid('getSelections'), function (row) {
+    	        return $.common.getItemField(row, "loginName");
+    	    });
+            $.easyUIOperate.post(prefix + "/unlock?loginName=" + $.common.uniqueFn(rows));
+        }
+	</script>
+</body>
+</html>

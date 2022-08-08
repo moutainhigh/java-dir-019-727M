@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+  /* 	background-color: #000000; */
+  display: grid;
+  height: 100%;
+  place-items: center;
+  overflow: hidden;
+}
+
+.text-1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  /* 关键点，让所有的span居中显示 */
+  display: flex;
+  justify-content: center;
+}
+
+.text-1 span {
+  color: rgb(29, 184, 132);
+  /* 首字颜色 */
+  transition: all 0.5s;
+}
+
+.text-1 span.s {
+  /* 缩放字 */
+  color: #aaff7f;
+  /* 另一个关键点 让宽度为0 */
+  max-width: 0;
+  opacity: 0;
+}
+
+.text-1 base.over {
+  overflow: false;
+}
+
+.text-1:hover span {
+  /* 展示时，让红色字体前面有间隔 */
+  margin-left: 20px;
+}
+
+.text-1:hover span.s {
+  max-width: 1em;
+  opacity: 1;
+  margin-left: 5px;
+}

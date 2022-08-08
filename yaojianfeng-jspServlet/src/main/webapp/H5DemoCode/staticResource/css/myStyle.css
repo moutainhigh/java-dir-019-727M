@@ -1,0 +1,16 @@
+h1 {
+  color: yellow;
+  text-align: center;
+  font-style: italic;
+}
+p {
+  color: blue;
+  font-style: italic;
+  text-align: right;
+}
+span {
+  color: aqua;
+}
+html {
+  background-color: red;
+}

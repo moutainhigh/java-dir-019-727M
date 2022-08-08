@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<title>strokeText演示文档</title>
+<body>
+<canvas ID="myCanvas" width="300" height="200" style="border:1px solid
+black">
+</canvas>
+<script>
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+    ctx.font="25px Georgia";
+    ctx.strokeText("天不生我李淳罡,剑道万古如长夜!",10,60,200);
+    ctx.font="25x Verdana";
+    const gradient = ctx.createLinearGradient(0, 0, 170, 0);
+    gradient.addColorStop(0,"magenta");
+    gradient.addColorStop(0.5,"blue");
+    gradient.addColorStop(1.0,"red");
+    ctx.strokeStyle=gradient;
+    ctx.strokeText("艾欧尼亚 昂扬不灭!",10,90,250);
+</script>
+</body>
+</html>

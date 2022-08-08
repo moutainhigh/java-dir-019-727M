@@ -1,0 +1,51 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+	/* background-color: #000000; */
+	display: grid;
+	height: 100%;
+	place-items: center;
+	overflow: hidden;
+}
+
+.btn-8 {
+  position: relative;
+  width: 240px;
+  height: 60px;
+  text-align: center;
+}
+
+.rectangle {
+  stroke-width: 8px;
+  stroke: #ff6348;
+  fill: transparent;
+  /* Core part of the animation */
+  stroke-dasharray: 100 500;
+  stroke-dashoffset: -372;
+}
+
+.btn {
+  color: black;
+  font-size: 18px;
+  letter-spacing: 6px;
+  position: relative;
+  top: -48px;
+}
+
+@keyframes extend {
+  to {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 0;
+    stroke-width: 2;
+  }
+}
+
+.btn-8:hover .rectangle {
+  animation: 0.5s extend linear forwards;
+}

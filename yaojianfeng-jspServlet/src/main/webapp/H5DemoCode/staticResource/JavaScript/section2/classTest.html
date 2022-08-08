@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>课堂作业练习</title>
+    <script>
+      /* 作业: 对一个数组(数字型)进行升序排序 并将这个功能封装为一个函数,使其更具有普适性
+            例如: 原数组 [3,6,81,4,0,7] 将其排序之后变成升序排列:[0,3,4,6,7,81] */
+
+      // 数组 []
+      var arrZhang = [3, 6, 81, 4, 0, 7];
+      // 两个
+      // for(){
+      // for(){
+      // var tem
+      // }
+      // }
+      /*  使用现成的函数
+      var oldArr = [3, 6, 81, 4, 0, 7];
+      var newArr = oldArr.sort(function (a, b) {
+        //降序
+        // return b - a;
+        //升序
+        return a - b;
+      });
+      console.log(newArr); */
+
+      //自定义函数 进行功能封装
+      //1. 声明数组 作为参数进行传递(默认数组元素个数大于1)
+      var arr = [3, 6, 81, 4, 0, 7];
+      //   var arr = [5, 4, 3, 2, 1];
+      //   var arr = [9, 6];
+      //2. 定义函数 (冒泡排序)
+      function sortAsc(params) {
+        //2.1 使用循环遍历数组 外层控制遍历的次数 最后一个元素不用遍历 所以长度-1
+        for (var index_out = 0; index_out < params.length - 1; index_out++) {
+          //内层循环 根据外层循环次数 每次循环完减去外层循环次数再减一
+          for (
+            var index_in = 0;
+            index_in < params.length - index_out - 1;
+            index_in++
+          ) {
+            //将当前值与下一个元素进行比较 并交换其位置
+            if (arr[index_in] < params[index_in + 1]) {
+              //声明一个临时变量 用来作为交换位置的中介
+              var tmp = params[index_in + 1]; //将较小值赋值给临时变量
+              arr[index_in + 1] = params[index_in]; //将较大值放在较小值的位置上
+              arr[index_in] = tmp; //将临时变量中存储的较小值 放置在原来的较大值位置上
+            }
+          }
+        }
+        console.log(params);
+      }
+      sortAsc(arr);
+      console.log("========================");
+      //3. 定义函数 (用最小值填充数组)
+      function minArr(arr) {
+        //定义新数组 用来存放排序位置
+        var newArr = [];
+        for (var index_out = 0; index_out < arr.length; index_out++) {
+          // 外层循环 用当前值去比较
+          var _min = arr[index_out];
+          //保存最小值坐标
+          var index_num = index_out;
+          //内循环 每次从开始进行比较
+          for (var index_in = 0; index_in < arr.length; index_in++) {
+            if (_min > arr[index_in]) {
+              //遍历取最小值
+              _min = arr[index_in];
+              index_num = index_in;
+            }
+          }
+          //取得最小值后,将其重置为最大值
+          arr[index_num] = Number.MAX_VALUE;
+          //将最小值依次填充进新数组中
+          newArr.push(_min);
+        }
+        console.log(newArr);
+      }
+      minArr(arr);
+
+      var arrStr = prompt("请输入多个整形数字,用,隔开.例如:'3,6,9'");
+      var newArrStr = arrStr.split(",");
+      var numArr = [];
+      for (var index = 0; index < newArrStr.length; index++) {
+        const element = newArrStr[index];
+        numArr.push(parseInt(element));
+      }
+      console.log(newArrStr);
+      console.log(numArr);
+      console.log("++++++++++++=========++++++++++++++");
+      minArr(numArr);
+    </script>
+  </head>
+  <body></body>
+</html>

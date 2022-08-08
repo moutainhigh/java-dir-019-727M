@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flex布局 演示文档</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        background-color: gray;
+        position: relative;
+        width: 95%;
+        height: 99%;
+        margin: 1px auto;
+        display: f;
+        /* 主轴的方向 项目的排列方向 */
+        flex-direction: row;
+        /* 规定主轴无法排布的情况下 如何换行 */
+        flex-wrap: wrap;
+        /* 规定 项目沿着主轴如何排布 */
+        justify-content: space-around;
+        /*规定 项目沿着交叉轴如何排布*/
+        align-items: center;
+        /* 定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用 */
+        align-content: stretch;
+      }
+      div div {
+        height: 15%;
+        width: 15%;
+        background-color: aqua;
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 10px;
+        border: 2px solid blue;
+        border-radius: 2px;
+        box-shadow: 0px -1px 10px 5px #cdf745;
+        box-sizing: border-box;
+        color: chocolate;
+        font-size: large;
+        text-overflow: clip;
+      }
+
+      /* div div span {
+        height: 15%;
+        width: 15%;
+        color: chocolate;
+        font-size: large;
+        text-overflow: clip;
+      } */
+      .item1 {
+        transform: scaleY(1.2);
+        /* 项目排列顺序 数值越大 排列越靠后 默认是0 */
+        /* order: 100; */
+        /* 定义项目的放大比例，默认为0 */
+        flex-grow: 2;
+        flex-shrink: 0;
+      }
+      .item2 {
+        transform: scaleY(1.7);
+        align-self: flex-end;
+      }
+      .item3 {
+        transform: scaleY(0.9);
+      }
+      .item4 {
+        transform: scaleY(1.5);
+      }
+      .item5 {
+        transform: scaleY(1.9);
+      }
+      .item6 {
+        transform: scaleY(0.7);
+      }
+    </style>
+  </head>
+  <body style="width: 100%; height: 650px">
+    <div class="container">
+      <div class="item1"><span>第一个div</span></div>
+      <div class="item2"><span>第二个div</span></div>
+      <div class="item3"><span>第三个div</span></div>
+      <div class="item4"><span>第四个div</span></div>
+      <div class="item5"><span>第五个div</span></div>
+      <div class="item5"><span>第五个div</span></div>
+      <div class="item5"><span>第五个div</span></div>
+      <div class="item5"><span>第五个div</span></div>
+      <div class="item5"><span>第五个div</span></div>
+      <div class="item5"><span>第五个div</span></div>
+      <div class="item6"><span>第六个div</span></div>
+    </div>
+  </body>
+</html>

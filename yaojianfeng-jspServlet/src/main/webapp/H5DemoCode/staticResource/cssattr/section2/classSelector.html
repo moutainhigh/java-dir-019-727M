@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html style="background-color: gray">
+<head>
+    <meta charset="UTF-8">
+    <!-- 对每一个样式进行单独的定义 -->
+    <!-- <style>
+      p {
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
+      }
+      h1 {
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
+      }
+      h2 {
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
+      }
+    </style> -->
+    <!-- 对同一类样式进行共同定义 -->
+    <style>
+        .common {
+            font-size: 20px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+    <style>
+        .color {
+            color: blue;
+        }
+
+        /* 为特定的标签设置样式 以类型选择器 作为前缀
+        它用于指定仅特定标记应该受此类选择器样式影响
+        */
+        p.color {
+            color: red;
+        }
+
+        span.color {
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+<h1>欢迎来到英雄联盟!</h1>
+<h2>欢迎来到英雄联盟!</h2>
+<p>欢迎来到英雄联盟!</p>
+<p>欢迎来到英雄联盟!</p>
+<hr/>
+<h1 class="common">欢迎来到英雄联盟!</h1>
+<h2 class="common">欢迎来到英雄联盟!</h2>
+<p class="common">欢迎来到英雄联盟!</p>
+<p class="common">欢迎来到英雄联盟!</p>
+<p class="common">hello world</p>
+
+<hr/>
+<div class="common">
+    <h1>欢迎来到英雄联盟!</h1>
+    <h2>欢迎来到英雄联盟!</h2>
+    <p>欢迎来到英雄联盟!</p>
+    <p>欢迎来到英雄联盟!</p>
+</div>
+
+<hr/>
+<h4 class="color">Welcome to BookYourHotel website.</h4>
+<div class="color">
+    <p class="color">欢迎来到英雄联盟!</p>
+    <p class="color">欢迎来到英雄联盟!</p>
+    <span class="color">这个不是p标签</span>
+</div>
+</body>
+</html>
